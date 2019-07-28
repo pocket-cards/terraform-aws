@@ -13,11 +13,15 @@ phases:
   build:
     commands:
       - cd unmutable
+      - pwd
+      - ls
       - terraform init -no-color
       - terraform workspace select $ENVIRONMENT -no-color
       - terraform plan -out tfplan -no-color
       - terraform apply -no-color
-      - cd ..
+      - cd $CODEBUILD_SRC_DIR
+      - pwd
+      - ls
       - cd pipeline
       - terraform init -no-color
       - terraform workspace select $ENVIRONMENT -no-color
