@@ -20,18 +20,18 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 
     environment_variable {
       name  = "BUCKET_WEB"
-      value = "${local.web_bucket_id}"
+      value = "${local.frontend_bucket_name}"
     }
 
-    environment_variable {
-      name  = "CLOUDFRONT_ID"
-      value = "${local.cloudfront_id}"
-    }
+    # environment_variable {
+    #   name  = "CLOUDFRONT_ID"
+    #   value = "${local.cloudfront_id}"
+    # }
   }
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = "frontend/buildspec.yml"
+    buildspec = "buildspec.yml"
   }
 }
 
@@ -39,7 +39,7 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 # AWS Codebuild IAM Role
 # -----------------------------------------------
 resource "aws_iam_role" "codebuild_frontend_role" {
-  name               = "${local.project_name}_CodeBuild_FrontendBuildRole"
+  name               = "${local.project_name_uc}_CodeBuild_FrontendBuildRole"
   assume_role_policy = "${data.aws_iam_policy_document.codebuild_principals.json}"
   lifecycle {
     create_before_destroy = false

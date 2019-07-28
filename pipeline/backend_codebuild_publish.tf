@@ -26,7 +26,7 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
 
     environment_variable {
       name  = "APPLICATION_NAME"
-      value = "${aws_codedeploy_app.backend_codedeploy.name}"
+      value = "${aws_codedeploy_app.backend.name}"
     }
 
     environment_variable {
@@ -36,7 +36,7 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
 
     environment_variable {
       name  = "ARTIFACTS_BUCKET"
-      value = "${local.artifacts_bucket_id}"
+      value = "${local.artifacts_bucket_name}"
     }
   }
 
@@ -50,7 +50,7 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
 # AWS Codebuild IAM Role
 # -----------------------------------------------
 resource "aws_iam_role" "codebuild_backend_publish_role" {
-  name               = "${local.project_name}_CodeBuild_BackendPublishRole"
+  name               = "${local.project_name_uc}_CodeBuild_BackendPublishRole"
   assume_role_policy = "${data.aws_iam_policy_document.codebuild_principals.json}"
   lifecycle {
     create_before_destroy = false

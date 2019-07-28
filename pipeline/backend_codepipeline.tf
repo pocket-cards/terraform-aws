@@ -7,12 +7,12 @@ data "aws_ssm_parameter" "github_token" {
 # -----------------------------------------------
 # AWS CodePipeline
 # -----------------------------------------------
-resource "aws_codepipeline" "pipeline_backend" {
+resource "aws_codepipeline" "codepipeline_backend" {
   name     = "${local.project_name_uc}-Backend"
   role_arn = "${aws_iam_role.codepipeline_backend_role.arn}"
 
   artifact_store {
-    location = "${local.artifacts_bucket_id}"
+    location = "${local.artifacts_bucket_name}"
     type     = "S3"
   }
 
@@ -73,7 +73,7 @@ resource "aws_codepipeline" "pipeline_backend" {
 # AWS CodePipeline IAM Role
 # -----------------------------------------------
 resource "aws_iam_role" "codepipeline_backend_role" {
-  name               = "${local.project_name}-CodePipeline_BackendRole"
+  name               = "${local.project_name_uc}_CodePipeline_BackendRole"
   assume_role_policy = "${data.aws_iam_policy_document.codepipeline_principals.json}"
   lifecycle {
     create_before_destroy = false
@@ -84,7 +84,7 @@ resource "aws_iam_role" "codepipeline_backend_role" {
 # AWS CodePipeline IAM Role Policy
 # -----------------------------------------------
 resource "aws_iam_role_policy" "codepipeline_backend_policy" {
-  depends_on = ["aws_iam_role.pipeline_backend_role"]
+  depends_on = ["aws_iam_role.codepipeline_backend_role"]
   role       = "${aws_iam_role.codepipeline_backend_role.id}"
   policy     = "${data.aws_iam_policy_document.codepipeline_policy.json}"
 }

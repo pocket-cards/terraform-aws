@@ -17,7 +17,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-workspaces1"
     region = "ap-northeast-1"
-    key    = "pocket-cards/unmutable.tfstate"
+    key    = "pocket-cards/pipeline.tfstate"
   }
 
   required_version = ">= 0.12"
