@@ -13,14 +13,14 @@ phases:
   build:
     commands:
       - cd unmutable
-      - terraform init
-      - terraform workspace select $ENVIRONMENT
+      - terraform init -no-color
+      - terraform workspace select $ENVIRONMENT -no-color
       - terraform plan -out tfplan -no-color
-      - terraform apply
+      - terraform apply -no-color
       - cd ..
-      - cd architecture
-      - terraform init
-      - terraform workspace select $ENVIRONMENT
+      - cd pipeline
+      - terraform init -no-color
+      - terraform workspace select $ENVIRONMENT -no-color
       - terraform plan -out tfplan -no-color
-      - terraform apply
+      - terraform apply -no-color
       - cd ..

@@ -5,7 +5,7 @@ resource "random_id" "dynamodb" {
   byte_length = 3
   prefix      = "_"
 
-  count = "${local.environment_test}"
+  count = "${local.is_test}"
 }
 
 # -----------------------------------------------
