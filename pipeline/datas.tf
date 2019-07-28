@@ -1,5 +1,11 @@
 data "aws_caller_identity" "current" {
 }
+# -----------------------------------------------
+# SSM Parameter Store - Github token
+# -----------------------------------------------
+data "aws_ssm_parameter" "github_token" {
+  name = "${local.github_token}"
+}
 
 # -----------------------------------------------
 # AWS Codebuild Principals

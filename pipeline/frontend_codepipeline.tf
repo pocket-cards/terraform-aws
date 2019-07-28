@@ -23,24 +23,9 @@ resource "aws_codepipeline" "pipeline_frontend" {
         Owner      = "${local.frontend_owner}"
         Repo       = "${local.frontend_repo}"
         Branch     = "${local.frontend_branch}"
-        OAuthToken = "${local.github_token}"
+        OAuthToken = "${data.aws_ssm_parameter.github_token.value}"
       }
     }
-
-    # action {
-    #   name             = "Automation"
-    #   category         = "Source"
-    #   owner            = "ThirdParty"
-    #   provider         = "GitHub"
-    #   version          = "1"
-    #   output_artifacts = ["automate"]
-    #   configuration = {
-    #     Owner      = "${local.devops_owner}"
-    #     Repo       = "${local.devops_repo}"
-    #     Branch     = "${local.devops_branch}"
-    #     OAuthToken = "${local.github_token}"
-    #   }
-    # }
   }
 
   stage {

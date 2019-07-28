@@ -1,10 +1,4 @@
 # -----------------------------------------------
-# SSM Parameter Store - Github token
-# -----------------------------------------------
-data "aws_ssm_parameter" "github_token" {
-  name = "${local.github_token}"
-}
-# -----------------------------------------------
 # AWS CodePipeline
 # -----------------------------------------------
 resource "aws_codepipeline" "codepipeline_backend" {
