@@ -1,0 +1,13 @@
+{
+  "name": "initialize",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "terraform apply -auto-approve=true",
+    "plan": "terraform plan",
+    "show": "terraform workspace list",
+    "dev": "terraform workspace select dev",
+    "prod": "terraform workspace select prod",
+    "all": "yarn dev && yarn start && yarn prod && yarn start && yarn dev"
+  }
+}

@@ -17,6 +17,11 @@ resource "aws_codebuild_project" "initialize" {
     image                       = "aws/codebuild/nodejs:10.14.1"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
+
+    environment_variable {
+      name  = "ENVIRONMENT"
+      value = "${local.environment}"
+    }
   }
 
   source {
