@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+    commands:
+      - wget -q https://releases.hashicorp.com/terraform/0.12.3/terraform_0.12.3_linux_amd64.zip
+      - unzip terraform_0.12.3_linux_amd64.zip
+      - rm -rf terraform_0.12.3_linux_amd64.zip
+      - sudo mv terraform /bin
+      - npm i -g yarn
+  build:
+    commands:
+      - cd unmutable
+      - terraform init
+      - terraform workspace select $ENVIRONMENT
+      - terraform plan -out tfplan -no-color
+      - terraform apply
+      - cd ..
+      - cd pipeline
+      - terraform init
+      - terraform workspace select $ENVIRONMENT
+      - terraform plan -out tfplan -no-color
+      - terraform apply
+      - cd ..
