@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "terraform apply -auto-approve=true",
-    "plan": "terraform plan",
+    "start": "yarn dev && yarn start:dev && yarn prod && yarn start:prod && yarn dev",
+    "start:dev": "terraform apply -auto-approve=true -var-file envs/dev.tfvars",
+    "plan:dev": "terraform plan -var-file envs/dev.tfvars",
+    "start:prod": "terraform apply -auto-approve=true -var-file envs/prod.tfvars",
+    "plan:prod": "terraform plan -var-file envs/prod.tfvars",
     "show": "terraform workspace list",
     "dev": "terraform workspace select dev",
     "prod": "terraform workspace select prod",
