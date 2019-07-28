@@ -2,7 +2,7 @@
 # AWS CodePipeline
 # -----------------------------------------------
 resource "aws_codepipeline" "initialize" {
-  name     = "${local.project_name_stn}-Init"
+  name     = "${local.project_name_uc}-Initial"
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   artifact_store {
