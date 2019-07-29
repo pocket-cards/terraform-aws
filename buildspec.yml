@@ -13,7 +13,7 @@ phases:
   build:
     commands:
       - cd unmutable
-      - aws
+      - printenv
       - terraform init -no-color
       - terraform workspace select $ENVIRONMENT -no-color
       - terraform plan -out tfplan -no-color
