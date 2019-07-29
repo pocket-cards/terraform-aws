@@ -1,4 +1,5 @@
 variable "project_name" {}
+variable "profile" {}
 variable "region" {
   default = "ap-northeast-1"
 }
