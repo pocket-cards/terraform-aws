@@ -1,12 +1,11 @@
-provider "aws" {
-  region = "${var.region}"
+# -----------------------------------------------
+# AWS Provider
+# -----------------------------------------------
+provider "aws" {}
 
-  assume_role {
-    role_arn    = "arn:aws:iam::${var.account_id}:role/TerraformRole"
-    external_id = "pocket-cards"
-  }
-}
-
+# -----------------------------------------------
+# Terraform Settings
+# -----------------------------------------------
 terraform {
   backend "s3" {
     bucket = "terraform-workspaces"

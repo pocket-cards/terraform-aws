@@ -1,14 +1,7 @@
 # -----------------------------------------------
 # AWS Provider
 # -----------------------------------------------
-provider "aws" {
-  region = "${local.region}"
-
-  assume_role {
-    role_arn    = "arn:aws:iam::${local.account_id}:role/TerraformRole"
-    external_id = "pocket-cards"
-  }
-}
+provider "aws" {}
 
 # -----------------------------------------------
 # Terraform Settings

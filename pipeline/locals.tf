@@ -5,7 +5,6 @@ locals {
   remote_init = "${data.terraform_remote_state.initialize.outputs}"
   remote_unmu = "${data.terraform_remote_state.unmutable.outputs}"
 
-  account_id      = "${local.remote_init.account_id}"
   project_name    = "${local.remote_init.project_name}"
   project_name_uc = "${local.remote_init.project_name_uc}"
   region          = "${local.remote_init.region}"

@@ -3,7 +3,6 @@ locals {
   # Project Informations
   # -----------------------------------------------
   remote_init      = "${data.terraform_remote_state.initialize.outputs}"
-  account_id       = "${local.remote_init.account_id}"
   project_name     = "${local.remote_init.project_name}"
   project_name_uc  = "${local.remote_init.project_name_uc}"
   project_name_stn = "${local.remote_init.project_name_stn}"

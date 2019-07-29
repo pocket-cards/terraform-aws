@@ -1,4 +1,3 @@
-variable "account_id" {}
 variable "project_name" {}
 variable "region" {
   default = "ap-northeast-1"
