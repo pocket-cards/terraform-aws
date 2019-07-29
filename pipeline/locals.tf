@@ -7,7 +7,6 @@ locals {
 
   project_name    = "${local.remote_init.project_name}"
   project_name_uc = "${local.remote_init.project_name_uc}"
-  region          = "${local.remote_init.region}"
   environment     = "${terraform.workspace}"
   github_token    = "${local.remote_init.ssm_param_github_token}"
 
