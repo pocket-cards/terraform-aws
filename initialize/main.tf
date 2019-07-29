@@ -9,7 +9,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "terraform-workspaces1"
+    bucket = "terraform-workspaces"
     region = "ap-northeast-1"
     key    = "pocket-cards/initialize.tfstate"
   }

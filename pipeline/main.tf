@@ -15,7 +15,7 @@ provider "aws" {
 # -----------------------------------------------
 terraform {
   backend "s3" {
-    bucket = "terraform-workspaces1"
+    bucket = "terraform-workspaces"
     region = "ap-northeast-1"
     key    = "pocket-cards/pipeline.tfstate"
   }
@@ -31,7 +31,7 @@ data "terraform_remote_state" "initialize" {
   workspace = "${terraform.workspace}"
 
   config = {
-    bucket = "terraform-workspaces1"
+    bucket = "terraform-workspaces"
     region = "ap-northeast-1"
     key    = "pocket-cards/initialize.tfstate"
   }
@@ -45,7 +45,7 @@ data "terraform_remote_state" "unmutable" {
   workspace = "${terraform.workspace}"
 
   config = {
-    bucket = "terraform-workspaces1"
+    bucket = "terraform-workspaces"
     region = "ap-northeast-1"
     key    = "pocket-cards/unmutable.tfstate"
   }
