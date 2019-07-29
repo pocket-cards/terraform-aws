@@ -1,0 +1,19 @@
+{
+  "name": "terraform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "terraform apply -auto-approve=true",
+    "plan": "terraform plan",
+    "show": "terraform workspace list",
+    "dev": "terraform workspace select dev",
+    "prod": "terraform workspace select prod",
+    "destroy:target": "terraform destroy -target=aws_api_gateway_deployment.this -var-file envs/terraform.tfvars src",
+    "import": "terraform import -var-file envs/terraform.tfvars -config src aws_api_gateway_stage.this 12345abcde/example"
+  },
+  "dependencies": {
+    "@types/node": "^12.0.0",
+    "aws-sdk": "^2.449.0"
+  }
+}
