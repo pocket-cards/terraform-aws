@@ -42,3 +42,12 @@ output "artifacts_bucket_arn" {
 output "artifacts_bucket_regional_domain_name" {
   value = "${aws_s3_bucket.artifacts.bucket_regional_domain_name}"
 }
+
+output "layers" {
+  value = {
+    xray   = "${aws_lambda_layer_version.xray.arn}"
+    moment = "${aws_lambda_layer_version.moment.arn}"
+    lodash = "${aws_lambda_layer_version.lodash.arn}"
+    axios  = "${aws_lambda_layer_version.axios.arn}"
+  }
+}

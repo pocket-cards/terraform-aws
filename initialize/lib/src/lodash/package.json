@@ -1,0 +1,25 @@
+{
+  "name": "lambda-layer-build",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn install && yarn build",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/webpack": "latest",
+    "@types/webpack-merge": "latest",
+    "clean-webpack-plugin": "latest",
+    "ts-loader": "latest",
+    "ts-node": "latest",
+    "typescript": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-merge": "latest"
+  }
+}
