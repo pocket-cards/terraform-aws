@@ -16,6 +16,7 @@ locals {
   bucket_name_audio    = "${local.project_name}-audios-${random_id.bucket.hex}"
   bucket_name_frontend = "${local.project_name}-frontend-${random_id.bucket.hex}"
   bucket_name_logging  = "${local.project_name}-logging-${random_id.bucket.hex}"
+  bucket_name_images   = "${local.project_name}-images-${random_id.bucket.hex}"
 
   # -----------------------------------------------
   # Dynamodb Tables

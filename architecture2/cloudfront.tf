@@ -143,7 +143,7 @@
 # resource "aws_s3_bucket_policy" "audios" {
 #   depends_on = ["aws_cloudfront_origin_access_identity.this"]
 
-#   bucket = "${local.audios_bucket_id}"
+#   bucket = "${local.audios_bucket_name}"
 #   policy = "${data.aws_iam_policy_document.audio_acl.json}"
 # }
 

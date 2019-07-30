@@ -21,10 +21,10 @@ module "C001" {
   lambda_memory_size   = 1024
   lambda_envs = {
     TABLE_WORDS         = "${local.dynamodb_words_name}"
-    TABLE_GROUP_WORDS   = "${local.dynamodb_groups_name}"
+    TABLE_GROUP_WORDS   = "${local.dynamodb_group_words_name}"
     IPA_URL             = "${local.ipa_url}"
     IPA_API_KEY         = "${local.ipa_api_key}"
-    MP3_BUCKET          = "${local.audios_bucket_id}"
+    MP3_BUCKET          = "${local.audios_bucket_name}"
     PATH_PATTERN        = "${local.audio_path_pattern}"
     TRANSLATION_URL     = "${local.translation_url}"
     TRANSLATION_API_KEY = "${local.translation_api_key}"
@@ -143,7 +143,7 @@ module "C004" {
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
 
   lambda_envs = {
-    TABLE_GROUP_WORDS = "${local.dynamodb_groups_name}"
+    TABLE_GROUP_WORDS = "${local.dynamodb_group_words_name}"
     TABLE_HISTORY     = "${local.dynamodb_history_name}"
     TABLE_USER_GROUPS = "${local.dynamodb_user_groups_name}"
     TZ                = "${local.timezone}"
@@ -175,7 +175,7 @@ module "C006" {
   lambda_envs = {
     WORDS_LIMIT       = 10
     TABLE_WORDS       = "${local.dynamodb_words_name}"
-    TABLE_GROUP_WORDS = "${local.dynamodb_groups_name}"
+    TABLE_GROUP_WORDS = "${local.dynamodb_group_words_name}"
     TZ                = "${local.timezone}"
   }
 
@@ -218,7 +218,7 @@ module "C007" {
   lambda_envs = {
     WORDS_LIMIT       = 10
     TABLE_WORDS       = "${local.dynamodb_words_name}"
-    TABLE_GROUP_WORDS = "${local.dynamodb_groups_name}"
+    TABLE_GROUP_WORDS = "${local.dynamodb_group_words_name}"
     TZ                = "${local.timezone}"
   }
 }
@@ -257,7 +257,7 @@ module "C008" {
   lambda_envs = {
     WORDS_LIMIT       = 10
     TABLE_WORDS       = "${local.dynamodb_words_name}"
-    TABLE_GROUP_WORDS = "${local.dynamodb_groups_name}"
+    TABLE_GROUP_WORDS = "${local.dynamodb_group_words_name}"
     TZ                = "${local.timezone}"
   }
 }

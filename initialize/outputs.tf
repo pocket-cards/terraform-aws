@@ -13,6 +13,12 @@ output "project_name_stn" {
 output "region" {
   value = "${var.region}"
 }
+output "ipa_url" {
+  value = "${var.ipa_url}"
+}
+output "translation_url" {
+  value = "${var.translation_url}"
+}
 
 # --------------------------------------------------------------------------------
 # Security Configs

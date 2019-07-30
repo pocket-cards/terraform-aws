@@ -146,8 +146,9 @@ module "CORS_ROOT" {
 # Amazon API Gateway Domain Name
 # # -----------------------------------------------------
 resource "aws_api_gateway_domain_name" "api" {
+  depends_on      = ["aws_acm_certificate.domain"]
   domain_name     = "${var.custom_domain_api}"
-  certificate_arn = "${var.certificate_arn}"
+  certificate_arn = "${aws_acm_certificate.domain.arn}"
 
   endpoint_configuration {
     types = ["${local.api_endpoint_configuration}"]

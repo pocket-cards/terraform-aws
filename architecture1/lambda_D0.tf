@@ -20,7 +20,7 @@ module "D001" {
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {
     EXCLUDE_WORD = "",
-    IMAGE_BUCKET = "${local.images_bucket_id}"
+    IMAGE_BUCKET = "${local.images_bucket_name}"
     TZ           = "${local.timezone}"
   }
 

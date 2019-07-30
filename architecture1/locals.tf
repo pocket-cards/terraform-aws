@@ -24,43 +24,40 @@ locals {
   # -----------------------------------------------
   # Cognito
   # -----------------------------------------------
-  identity_pool_arn = "${local.remote_main.identity_pool_arn}"
+  # identity_pool_arn = "${local.remote_main.identity_pool_arn}"
 
   # -----------------------------------------------
   # S3 Bucket
   # -----------------------------------------------
-  # web_bucket_id                   = "${local.remote_init.web_bucket_name}"
-  # web_bucket_arn                  = "${local.remote_init.web_bucket_arn}"
-  # web_bucket_regional_domain_name = "${local.remote_init.web_bucket_regional_domain_name}"
-
-  audios_bucket_id                   = "${local.remote_init.audios_bucket_name}"
-  audios_bucket_arn                  = "${local.remote_init.audios_bucket_arn}"
-  audios_bucket_regional_domain_name = "${local.remote_init.audios_bucket_regional_domain_name}"
-
-  images_bucket_id                   = "${local.remote_init.images_bucket_name}"
-  images_bucket_arn                  = "${local.remote_init.images_bucket_arn}"
-  images_bucket_regional_domain_name = "${local.remote_init.images_bucket_regional_domain_name}"
-
-  logging_bucket_id                   = "${local.remote_init.logging_bucket_name}"
-  logging_bucket_arn                  = "${local.remote_init.logging_bucket_arn}"
-  logging_bucket_regional_domain_name = "${local.remote_init.logging_bucket_regional_domain_name}"
+  frontend_bucket_name                 = "${local.remote_unmu.frontend_bucket_name}"
+  frontend_bucket_arn                  = "${local.remote_unmu.frontend_bucket_arn}"
+  frontend_bucket_regional_domain_name = "${local.remote_unmu.frontend_bucket_regional_domain_name}"
+  audios_bucket_name                   = "${local.remote_unmu.audios_bucket_name}"
+  audios_bucket_arn                    = "${local.remote_unmu.audios_bucket_arn}"
+  audios_bucket_regional_domain_name   = "${local.remote_unmu.audios_bucket_regional_domain_name}"
+  images_bucket_name                   = "${local.remote_unmu.images_bucket_name}"
+  images_bucket_arn                    = "${local.remote_unmu.images_bucket_arn}"
+  images_bucket_regional_domain_name   = "${local.remote_unmu.images_bucket_regional_domain_name}"
+  logging_bucket_name                  = "${local.remote_unmu.logging_bucket_name}"
+  logging_bucket_arn                   = "${local.remote_unmu.logging_bucket_arn}"
+  logging_bucket_regional_domain_name  = "${local.remote_unmu.logging_bucket_regional_domain_name}"
   # -----------------------------------------------
   # DynamoDB
   # -----------------------------------------------
-  dynamodb_users_name             = "${local.remote_init.dynamodb_users_name}"
-  dynamodb_users_arn              = "${local.remote_init.dynamodb_users_arn}"
-  dynamodb_users_stream_arn       = "${local.remote_init.dynamodb_users_stream_arn}"
-  dynamodb_user_groups_name       = "${local.remote_init.dynamodb_user_groups_name}"
-  dynamodb_user_groups_arn        = "${local.remote_init.dynamodb_user_groups_arn}"
-  dynamodb_user_groups_stream_arn = "${local.remote_init.dynamodb_user_groups_stream_arn}"
-  dynamodb_groups_name            = "${local.remote_init.dynamodb_groups_name}"
-  dynamodb_groups_arn             = "${local.remote_init.dynamodb_groups_arn}"
-  dynamodb_groups_stream_arn      = "${local.remote_init.dynamodb_groups_stream_arn}"
-  dynamodb_words_name             = "${local.remote_init.dynamodb_words_name}"
-  dynamodb_words_stream_arn       = "${local.remote_init.dynamodb_words_stream_arn}"
-  dynamodb_history_name           = "${local.remote_init.dynamodb_history_name}"
-  dynamodb_history_arn            = "${local.remote_init.dynamodb_history_arn}"
-  dynamodb_history_stream_arn     = "${local.remote_init.dynamodb_history_stream_arn}"
+  dynamodb_users_name             = "${local.remote_unmu.dynamodb_users_name}"
+  dynamodb_users_arn              = "${local.remote_unmu.dynamodb_users_arn}"
+  dynamodb_users_stream_arn       = "${local.remote_unmu.dynamodb_users_stream_arn}"
+  dynamodb_user_groups_name       = "${local.remote_unmu.dynamodb_user_groups_name}"
+  dynamodb_user_groups_arn        = "${local.remote_unmu.dynamodb_user_groups_arn}"
+  dynamodb_user_groups_stream_arn = "${local.remote_unmu.dynamodb_user_groups_stream_arn}"
+  dynamodb_group_words_name       = "${local.remote_unmu.dynamodb_group_words_name}"
+  dynamodb_group_words_arn        = "${local.remote_unmu.dynamodb_group_words_arn}"
+  dynamodb_group_words_stream_arn = "${local.remote_unmu.dynamodb_group_words_stream_arn}"
+  dynamodb_words_name             = "${local.remote_unmu.dynamodb_words_name}"
+  dynamodb_words_stream_arn       = "${local.remote_unmu.dynamodb_words_stream_arn}"
+  dynamodb_history_name           = "${local.remote_unmu.dynamodb_history_name}"
+  dynamodb_history_arn            = "${local.remote_unmu.dynamodb_history_arn}"
+  dynamodb_history_stream_arn     = "${local.remote_unmu.dynamodb_history_stream_arn}"
 
   # -----------------------------------------------
   # API Gateway
@@ -80,10 +77,10 @@ locals {
   # -----------------------------------------------
   # Lambda Layers
   # -----------------------------------------------
-  xray   = "${local.remote_layers.layers.xray}"
-  moment = "${local.remote_layers.layers.moment}"
-  lodash = "${local.remote_layers.layers.lodash}"
-  axios  = "${local.remote_layers.layers.axios}"
+  xray   = "${local.remote_init.layers.xray}"
+  moment = "${local.remote_init.layers.moment}"
+  lodash = "${local.remote_init.layers.lodash}"
+  axios  = "${local.remote_init.layers.axios}"
 
   # -----------------------------------------------
   # Lambda
