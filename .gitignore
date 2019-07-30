@@ -1,1 +1,4 @@
 .terraform
+node_modules
+yarn.lock
+/initialize/build

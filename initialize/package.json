@@ -11,6 +11,7 @@
     "show": "terraform workspace list",
     "dev": "terraform workspace select dev",
     "prod": "terraform workspace select prod",
-    "all": "yarn dev && yarn start && yarn prod && yarn start && yarn dev"
+    "all": "yarn dev && yarn start && yarn prod && yarn start && yarn dev",
+    "build": "cd lib && yarn build"
   }
 }

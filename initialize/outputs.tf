@@ -43,6 +43,9 @@ output "artifacts_bucket_regional_domain_name" {
   value = "${aws_s3_bucket.artifacts.bucket_regional_domain_name}"
 }
 
+# --------------------------------------------------------------------------------
+# Lambda Layer
+# --------------------------------------------------------------------------------
 output "layers" {
   value = {
     xray   = "${aws_lambda_layer_version.xray.arn}"
