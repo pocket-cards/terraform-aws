@@ -4,16 +4,29 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn build1 && yarn build2 && yarn build3 && yarn build4",
-    "build1": "cd src/moment && yarn start",
-    "build2": "cd src/xray && yarn start",
-    "build3": "cd src/lodash && yarn start",
-    "build4": "cd src/axios && yarn start"
+    "build": "yarn axios && yarn lodash && yarn moment && yarn xray",
+    "axios": "cross-env LIBRARY_NAME=axios webpack --config configs/webpack.config.ts",
+    "lodash": "cross-env LIBRARY_NAME=lodash webpack --config configs/webpack.config.ts",
+    "moment": "cross-env LIBRARY_NAME=moment webpack --config configs/webpack.config.ts",
+    "xray": "cross-env LIBRARY_NAME=xray webpack --config configs/webpack.config.ts"
   },
   "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
-    "webpack": "^4.38.0",
-    "webpack-cli": "^3.3.6",
-    "webpack-merge": "^4.2.1"
+    "@types/node": "latest",
+    "@types/webpack": "latest",
+    "@types/webpack-merge": "latest",
+    "clean-webpack-plugin": "latest",
+    "cross-env": "^5.2.0",
+    "ts-loader": "latest",
+    "ts-node": "latest",
+    "typescript": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-merge": "latest"
+  },
+  "dependencies": {
+    "aws-xray-sdk": "^2.3.4",
+    "axios": "^0.19.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0"
   }
 }

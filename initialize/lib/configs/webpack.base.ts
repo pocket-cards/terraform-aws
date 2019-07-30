@@ -9,10 +9,10 @@ const configs: Configuration = {
     filename: '[name].js',
     path: path.resolve(__dirname, './build'),
     publicPath: '/',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js']
   },
   externals: ['aws-sdk', 'aws-xray-sdk'],
   module: {
@@ -22,20 +22,20 @@ const configs: Configuration = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader',
-          },
-        ],
-      },
-    ],
+            loader: 'ts-loader'
+          }
+        ]
+      }
+    ]
   },
   plugins: [
     new NoEmitOnErrorsPlugin(),
     new LoaderOptionsPlugin({
-      debug: false,
+      debug: false
     }),
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin()
   ],
-  bail: true,
+  bail: true
 };
 
 export default configs;
