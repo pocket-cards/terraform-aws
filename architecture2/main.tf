@@ -52,3 +52,16 @@ data "terraform_remote_state" "unmutable" {
     key    = "pocket-cards/unmutable.tfstate"
   }
 }
+# -----------------------------------------------
+# Remote state - Architecture1
+# -----------------------------------------------
+data "terraform_remote_state" "backend" {
+  backend   = "s3"
+  workspace = "${terraform.workspace}"
+
+  config = {
+    bucket = "terraform-workspaces"
+    region = "ap-northeast-1"
+    key    = "pocket-cards/architecture1.tfstate"
+  }
+}

@@ -19,3 +19,6 @@
 # output "identity_pool_arn" {
 #   value = "${aws_cognito_identity_pool.this.arn}"
 # }
+output "web_domain_name" {
+  value = "${aws_acm_certificate.web.domain_name}"
+}

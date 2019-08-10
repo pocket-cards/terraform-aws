@@ -30,7 +30,7 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 
     environment_variable {
       name  = "API_URL"
-      value = "api.${data.aws_route53_zone.this.name}"
+      value = "https://${local.api_domain_name}"
     }
   }
 

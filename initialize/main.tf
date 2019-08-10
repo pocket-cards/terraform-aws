@@ -5,13 +5,6 @@ provider "aws" {
   profile = "${var.profile}"
 }
 
-# provider "aws" {
-#   assume_role {
-#     role_arn = "arn:aws:iam::562849865336:role/TerraformRole"
-#   }
-#   alias = "prod"
-# }
-
 # -----------------------------------------------
 # Terraform Settings
 # -----------------------------------------------
