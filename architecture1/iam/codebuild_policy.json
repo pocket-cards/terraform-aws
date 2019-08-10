@@ -1,0 +1,66 @@
+{
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "ec2:CreateNetworkInterface",
+        "ec2:DescribeDhcpOptions",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeVpcs"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "lambda:UpdateFunctionCode",
+        "lambda:List*",
+        "lambda:Get*",
+        "lambda:PublishVersion",
+        "lambda:UpdateAlias"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "codedeploy:CreateDeployment"
+      ],
+      "Resource": "arn:aws:codedeploy:*:*:deploymentgroup:*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "codedeploy:GetDeploymentConfig"
+      ],
+      "Resource": "arn:aws:codedeploy:*:*:deploymentconfig:*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "codedeploy:RegisterApplicationRevision"
+      ],
+      "Resource": "arn:aws:codedeploy:*:*:application:*",
+      "Effect": "Allow"
+    }
+  ],
+  "Version": "2012-10-17"
+}

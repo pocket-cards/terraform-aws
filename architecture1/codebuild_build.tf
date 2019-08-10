@@ -30,7 +30,7 @@ resource "aws_codebuild_project" "codebuild_backend_build" {
 # -----------------------------------------------
 resource "aws_iam_role" "codebuild_backend_build_role" {
   name               = "${local.project_name_uc}_CodeBuild_BackendBuildRole"
-  assume_role_policy = "${data.aws_iam_policy_document.codebuild_principals.json}"
+  assume_role_policy = "${file("iam/codebuild_principals.json")}"
   lifecycle {
     create_before_destroy = false
   }
@@ -40,7 +40,6 @@ resource "aws_iam_role" "codebuild_backend_build_role" {
 # AWS Codebuild IAM Policy
 # -----------------------------------------------
 resource "aws_iam_role_policy" "codebuild_backend_build_policy" {
-  depends_on = ["aws_iam_role.codebuild_backend_build_role"]
-  role       = "${aws_iam_role.codebuild_backend_build_role.name}"
-  policy     = "${data.aws_iam_policy_document.codebuild_policy.json}"
+  role   = "${aws_iam_role.codebuild_backend_build_role.name}"
+  policy = "${file("iam/codebuild_policy.json")}"
 }

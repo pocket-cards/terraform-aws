@@ -37,10 +37,20 @@ locals {
   # -----------------------------------------------
   # S3 Bucket
   # -----------------------------------------------
-  bucket_frontend_name = "${local.remote_unmu.bucket_frontend_name}"
-  bucket_audios_name   = "${local.remote_unmu.bucket_audios_name}"
-  bucket_logging_name  = "${local.remote_unmu.bucket_logging_name}"
+  bucket_frontend_name  = "${local.remote_unmu.bucket_frontend_name}"
+  bucket_audios_name    = "${local.remote_unmu.bucket_audios_name}"
+  bucket_logging_name   = "${local.remote_unmu.bucket_logging_name}"
+  bucket_artifacts_name = "${local.remote_init.bucket_artifacts_name}"
 
+  # -----------------------------------------------
+  # CodeBuild
+  # -----------------------------------------------
+  build_type         = "LINUX_CONTAINER"
+  build_compute_type = "BUILD_GENERAL1_SMALL"
+  build_image        = "aws/codebuild/standard:2.0"
+  frontend_repo      = "${local.remote_unmu.frontend_repo}"
+  frontend_owner     = "${local.remote_unmu.frontend_owner}"
+  frontend_branch    = "${local.remote_unmu.frontend_branch}"
   # -----------------------------------------------
   # DynamoDB
   # -----------------------------------------------
@@ -81,13 +91,31 @@ locals {
 
 data "aws_caller_identity" "this" {
 }
+# -----------------------------------------------
+# AWS Region
+# -----------------------------------------------
 data "aws_region" "this" {}
+# -----------------------------------------------
+# AWS Route53
+# -----------------------------------------------
 data "aws_route53_zone" "this" {
   name = "${local.remote_init.domain_name}"
 }
+# -----------------------------------------------
+# Amazon S3 Bucket - Frontend
+# -----------------------------------------------
 data "aws_s3_bucket" "frontend" {
   bucket = "${local.bucket_frontend_name}"
 }
+# -----------------------------------------------
+# Amazon S3 Bucket - Audios
+# -----------------------------------------------
 data "aws_s3_bucket" "audios" {
   bucket = "${local.bucket_audios_name}"
+}
+# -----------------------------------------------
+# SSM Parameter Store - Github token
+# -----------------------------------------------
+data "aws_ssm_parameter" "github_token" {
+  name = "${local.remote_init.ssm_param_github_token}"
 }

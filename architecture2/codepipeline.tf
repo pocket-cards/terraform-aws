@@ -6,7 +6,7 @@ resource "aws_codepipeline" "pipeline_frontend" {
   role_arn = "${aws_iam_role.pipeline_frontend_role.arn}"
 
   artifact_store {
-    location = "${local.artifacts_bucket_name}"
+    location = "${local.bucket_artifacts_name}"
     type     = "S3"
   }
 
@@ -68,13 +68,12 @@ resource "aws_codepipeline" "pipeline_frontend" {
 # -----------------------------------------------
 resource "aws_iam_role" "pipeline_frontend_role" {
   name               = "${local.project_name_uc}_CodePipeline_FrontendRole"
-  assume_role_policy = "${data.aws_iam_policy_document.codepipeline_principals.json}"
+  assume_role_policy = "${file("iam/codepipeline_principals.json")}"
   lifecycle {
     create_before_destroy = false
   }
 }
 resource "aws_iam_role_policy" "pipeline_frontend_policy" {
-  depends_on = ["aws_iam_role.pipeline_frontend_role"]
-  role       = "${aws_iam_role.pipeline_frontend_role.id}"
-  policy     = "${data.aws_iam_policy_document.codepipeline_policy.json}"
+  role   = "${aws_iam_role.pipeline_frontend_role.id}"
+  policy = "${file("iam/codepipeline_policy.json")}"
 }

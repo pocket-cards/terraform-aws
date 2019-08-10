@@ -20,13 +20,18 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 
     environment_variable {
       name  = "BUCKET_WEB"
-      value = "${local.frontend_bucket_name}"
+      value = "${local.bucket_frontend_name}"
     }
 
-    # environment_variable {
-    #   name  = "CLOUDFRONT_ID"
-    #   value = "${local.cloudfront_id}"
-    # }
+    environment_variable {
+      name  = "CLOUDFRONT_ID"
+      value = "${aws_cloudfront_distribution.this.id}"
+    }
+
+    environment_variable {
+      name  = "API_URL"
+      value = "api.${data.aws_route53_zone.this.name}"
+    }
   }
 
   source {
@@ -40,7 +45,7 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 # -----------------------------------------------
 resource "aws_iam_role" "codebuild_frontend_role" {
   name               = "${local.project_name_uc}_CodeBuild_FrontendBuildRole"
-  assume_role_policy = "${data.aws_iam_policy_document.codebuild_principals.json}"
+  assume_role_policy = "${file("iam/codebuild_principals.json")}"
   lifecycle {
     create_before_destroy = false
   }
@@ -49,5 +54,5 @@ resource "aws_iam_role" "codebuild_frontend_role" {
 resource "aws_iam_role_policy" "codebuild_frontend_policy" {
   depends_on = ["aws_iam_role.codebuild_frontend_role"]
   role       = "${aws_iam_role.codebuild_frontend_role.name}"
-  policy     = "${data.aws_iam_policy_document.codebuild_policy_frontend.json}"
+  policy     = "${file("iam/codebuild_policy.json")}"
 }
