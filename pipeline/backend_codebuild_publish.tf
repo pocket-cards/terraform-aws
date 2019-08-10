@@ -14,9 +14,9 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
   }
 
   environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/nodejs:10.14.1"
-    type                        = "LINUX_CONTAINER"
+    type                        = "${local.build_type}"
+    compute_type                = "${local.build_compute_type}"
+    image                       = "${local.build_image}"
     image_pull_credentials_type = "CODEBUILD"
 
     environment_variable {

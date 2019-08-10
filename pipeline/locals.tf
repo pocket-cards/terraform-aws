@@ -19,9 +19,11 @@ locals {
   artifacts_bucket_name = "${local.remote_init.bucket_artifacts_name}"
 
   # -----------------------------------------------
-  # CloudFront
+  # CodeBuild
   # -----------------------------------------------
-  # cloudfront_id = "${local.remote_main.cloudfront_ditribution_id}"
+  build_type         = "LINUX_CONTAINER"
+  build_compute_type = "BUILD_GENERAL1_SMALL"
+  build_image        = "aws/codebuild/standard:2.0"
 
   # -----------------------------------------------
   # Source Configs
