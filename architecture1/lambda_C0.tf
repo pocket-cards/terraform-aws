@@ -24,7 +24,7 @@ module "C001" {
     TABLE_GROUP_WORDS   = "${local.dynamodb_group_words_name}"
     IPA_URL             = "${local.ipa_url}"
     IPA_API_KEY         = "${local.ipa_api_key}"
-    MP3_BUCKET          = "${local.audios_bucket_name}"
+    MP3_BUCKET          = "${local.bucket_audios_name}"
     PATH_PATTERN        = "${local.audio_path_pattern}"
     TRANSLATION_URL     = "${local.translation_url}"
     TRANSLATION_API_KEY = "${local.translation_api_key}"

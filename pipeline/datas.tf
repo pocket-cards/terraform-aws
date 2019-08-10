@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {
-}
 # -----------------------------------------------
 # SSM Parameter Store - Github token
 # -----------------------------------------------

@@ -1,3 +1,4 @@
+
 locals {
   # -----------------------------------------------
   # Project Informations
@@ -9,13 +10,13 @@ locals {
   project_name_uc = "${local.remote_init.project_name_uc}"
   environment     = "${terraform.workspace}"
   github_token    = "${local.remote_init.ssm_param_github_token}"
+  region          = "${data.aws_region.this.name}"
 
   # -----------------------------------------------
   # S3 Bucket
   # -----------------------------------------------
-  frontend_bucket_name  = "${local.remote_unmu.frontend_bucket_name}"
-  artifacts_bucket_name = "${local.remote_init.artifacts_bucket_name}"
-  artifacts_bucket_arn  = "${local.remote_init.artifacts_bucket_arn}"
+  frontend_bucket_name  = "${local.remote_unmu.bucket_frontend_name}"
+  artifacts_bucket_name = "${local.remote_init.bucket_artifacts_name}"
 
   # -----------------------------------------------
   # CloudFront
@@ -44,3 +45,6 @@ locals {
     "S001", "S002"
   ]
 }
+
+data "aws_caller_identity" "this" {}
+data "aws_region" "this" {}

@@ -12,8 +12,8 @@ module "S001" {
   log_retention_in_days = "${var.lambda_log_retention_in_days}"
   timeout               = 5
   alias_name            = "${local.alias_name}"
-  trigger_principal     = "dynamodb.amazonaws.com"
-  trigger_source_arn    = "${local.dynamodb_group_words_arn}"
+  # trigger_principal     = "dynamodb.amazonaws.com"
+  # trigger_source_arn    = "${local.dynamodb_group_words_arn}"
 
   variables = {
     TABLE_HISTORY     = "${local.dynamodb_history_name}"
@@ -27,10 +27,10 @@ module "S001" {
   ]
 }
 
-resource "aws_lambda_event_source_mapping" "s001" {
-  batch_size        = 100
-  event_source_arn  = "${local.dynamodb_group_words_stream_arn}"
-  enabled           = false
-  function_name     = "${module.S001.arn}"
-  starting_position = "LATEST"
-}
+# resource "aws_lambda_event_source_mapping" "s001" {
+#   batch_size        = 100
+#   event_source_arn  = "${local.dynamodb_group_words_stream_arn}"
+#   enabled           = false
+#   function_name     = "${module.S001.arn}"
+#   starting_position = "LATEST"
+# }

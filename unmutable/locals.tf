@@ -1,3 +1,5 @@
+data "aws_region" "this" {}
+
 locals {
   # -----------------------------------------------
   # Project Informations
@@ -6,7 +8,7 @@ locals {
   project_name     = "${local.remote_init.project_name}"
   project_name_uc  = "${local.remote_init.project_name_uc}"
   project_name_stn = "${local.remote_init.project_name_stn}"
-  region           = "${local.remote_init.region}"
+  region           = "${data.aws_region.this.name}"
   environment      = "${terraform.workspace}"
   is_test          = "${local.environment == "test" ? 1 : 0}"
 
@@ -21,7 +23,7 @@ locals {
   # -----------------------------------------------
   # Dynamodb Tables
   # -----------------------------------------------
-  dyanmodb_random_id       = "${length(random_id.dynamodb) == 1 ? random_id.dynamodb[0].hex : ""}"
+  dyanmodb_random_id       = "${length(random_id.dynamodb) == 1 ? random_id.dynamodb.0.hex : ""}"
   dynamodb_name_users      = "${local.project_name_uc}_Users${local.dyanmodb_random_id}"
   dynamodb_name_groupwords = "${local.project_name_uc}_GroupWords${local.dyanmodb_random_id}"
   dynamodb_name_userGroups = "${local.project_name_uc}_UserGroups${local.dyanmodb_random_id}"

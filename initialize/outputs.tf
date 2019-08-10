@@ -10,9 +10,6 @@ output "project_name_uc" {
 output "project_name_stn" {
   value = "${local.project_name_stn}"
 }
-output "region" {
-  value = "${var.region}"
-}
 output "ipa_url" {
   value = "${var.ipa_url}"
 }
@@ -38,17 +35,9 @@ output "ssm_param_github_token" {
 # --------------------------------------------------------------------------------
 # Bucket
 # --------------------------------------------------------------------------------
-
-output "artifacts_bucket_name" {
+output "bucket_artifacts_name" {
   value = "${aws_s3_bucket.artifacts.id}"
 }
-output "artifacts_bucket_arn" {
-  value = "${aws_s3_bucket.artifacts.arn}"
-}
-output "artifacts_bucket_regional_domain_name" {
-  value = "${aws_s3_bucket.artifacts.bucket_regional_domain_name}"
-}
-
 # --------------------------------------------------------------------------------
 # Lambda Layer
 # --------------------------------------------------------------------------------
@@ -59,4 +48,14 @@ output "layers" {
     lodash = "${aws_lambda_layer_version.lodash.arn}"
     axios  = "${aws_lambda_layer_version.axios.arn}"
   }
+}
+# output "host_zone_id" {
+#   value = "${aws_route53_zone.this.zone_id}"
+# }
+output "domain_name" {
+  value = "${aws_route53_zone.this.name}"
+}
+
+output "name_servers" {
+  value = "${aws_route53_zone.this.name_servers}"
 }

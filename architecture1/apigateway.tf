@@ -21,6 +21,9 @@ resource "aws_api_gateway_deployment" "this" {
   rest_api_id = "${aws_api_gateway_rest_api.this.id}"
 }
 
+# -------------------------------------------------------
+# Amazon API Gateway Stage
+# # -----------------------------------------------------
 resource "aws_api_gateway_stage" "this" {
   depends_on = ["aws_api_gateway_rest_api.this", "aws_api_gateway_deployment.this"]
 
@@ -62,16 +65,16 @@ resource "aws_api_gateway_stage" "this" {
 #   key_type      = "API_KEY"
 #   usage_plan_id = "${aws_api_gateway_usage_plan.usage_plan.id}"
 # }
-resource "aws_api_gateway_method_settings" "this" {
-  rest_api_id = "${aws_api_gateway_rest_api.this.id}"
-  stage_name  = "${aws_api_gateway_stage.this.stage_name}"
-  method_path = "*/*"
+# resource "aws_api_gateway_method_settings" "this" {
+#   rest_api_id = "${aws_api_gateway_rest_api.this.id}"
+#   stage_name  = "${aws_api_gateway_stage.this.stage_name}"
+#   method_path = "*/*"
 
-  settings {
-    metrics_enabled = true
-    logging_level   = "INFO"
-  }
-}
+#   settings {
+#     metrics_enabled = false
+#     logging_level   = "INFO"
+#   }
+# }
 
 
 resource "aws_api_gateway_method" "version" {
@@ -145,10 +148,9 @@ module "CORS_ROOT" {
 # -------------------------------------------------------
 # Amazon API Gateway Domain Name
 # # -----------------------------------------------------
-resource "aws_api_gateway_domain_name" "api" {
-  depends_on      = ["aws_acm_certificate.domain"]
-  domain_name     = "${var.custom_domain_api}"
-  certificate_arn = "${aws_acm_certificate.domain.arn}"
+resource "aws_api_gateway_domain_name" "this" {
+  domain_name              = "${aws_acm_certificate.api.domain_name}"
+  regional_certificate_arn = "${aws_acm_certificate_validation.api.certificate_arn}"
 
   endpoint_configuration {
     types = ["${local.api_endpoint_configuration}"]
@@ -156,11 +158,26 @@ resource "aws_api_gateway_domain_name" "api" {
 }
 
 # -------------------------------------------------------
-# Amazon API BASE PATH MAPPING
+# AWS Route53 - API Gateway Record
 # # -----------------------------------------------------
+resource "aws_route53_record" "apigateway" {
+  name    = "${aws_api_gateway_domain_name.this.domain_name}"
+  type    = "A"
+  zone_id = "${data.aws_route53_zone.this.id}"
+
+  alias {
+    evaluate_target_health = true
+    name                   = "${aws_api_gateway_domain_name.this.regional_domain_name}"
+    zone_id                = "${aws_api_gateway_domain_name.this.regional_zone_id}"
+  }
+}
+
+# -------------------------------------------------------
+# Amazon API BASE PATH MAPPING
+# -----------------------------------------------------
 resource "aws_api_gateway_base_path_mapping" "cards" {
   api_id      = "${aws_api_gateway_rest_api.this.id}"
   base_path   = "${local.rest_api_base_path}"
   stage_name  = "${aws_api_gateway_stage.this.stage_name}"
-  domain_name = "${aws_api_gateway_domain_name.api.domain_name}"
+  domain_name = "${aws_api_gateway_domain_name.this.domain_name}"
 }
