@@ -1,3 +1,6 @@
+# ------------------------------------------------
+# AWS CloudFront Distribution
+# ------------------------------------------------
 resource "aws_cloudfront_distribution" "this" {
   enabled             = true
   default_root_object = "${local.default_root_object}"
@@ -104,6 +107,9 @@ resource "aws_cloudfront_distribution" "this" {
   }
 }
 
+# ------------------------------------------------
+# CloudFront Origin Access Identity
+# ------------------------------------------------
 resource "aws_cloudfront_origin_access_identity" "this" {
   comment = "${local.project_name}"
 }
