@@ -20,7 +20,7 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
     image_pull_credentials_type = "CODEBUILD"
 
     environment_variable {
-      name  = "PROJECT_NAME"
+      name  = "PROJECT_NAME_UC"
       value = "${local.project_name_uc}"
     }
 
