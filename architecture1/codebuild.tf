@@ -156,5 +156,5 @@ resource "aws_iam_role" "codebuild_automation_role" {
 # -----------------------------------------------
 resource "aws_iam_role_policy" "codebuild_automation_policy" {
   role   = "${aws_iam_role.codebuild_automation_role.name}"
-  policy = "${file("iam/codebuild_policy.json")}"
+  policy = "${file("iam/codebuild_policy_automation.json")}"
 }
