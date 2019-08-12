@@ -11,19 +11,25 @@ locals {
   environment     = "${terraform.workspace}"
   region          = "${data.aws_region.this.name}"
   region_us       = "us-east-1"
-  api_domain_name = "${local.remote_bked.api_domain_name}"
+
+  # -----------------------------------------------
+  # API Gateway
+  # -----------------------------------------------
+  api_domain_name   = "${local.remote_bked.api_domain_name}"
+  api_execution_arn = "${local.remote_bked.api_execution_arn}"
+
   # -----------------------------------------------
   # CloudFront
   # -----------------------------------------------
   origin_id_frontend     = "frontend"
   origin_id_audio        = "audio"
   origin_id_api          = "api"
-  origin_id_path         = "/cards"
+  origin_id_path         = "/api"
   default_root_object    = "index.html"
   viewer_protocol_policy = "redirect-to-https"
   logging_prefix         = "frontend"
   audio_path_pattern     = "${local.origin_id_audio}"
-
+  api_path_pattern       = "${local.origin_id_api}"
   # -----------------------------------------------
   # CloudTrail
   # -----------------------------------------------

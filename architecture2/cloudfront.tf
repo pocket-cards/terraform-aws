@@ -30,18 +30,18 @@ resource "aws_cloudfront_distribution" "this" {
     }
   }
 
-  # origin {
-  #   domain_name = "${var.custom_domain_api}"
-  #   origin_id   = "${local.origin_id_api}"
-  #   origin_path = "${local.origin_id_path}"
+  origin {
+    domain_name = "${local.api_domain_name}"
+    origin_id   = "${local.origin_id_api}"
+    origin_path = "${local.origin_id_path}"
 
-  #   custom_origin_config {
-  #     http_port              = 80
-  #     https_port             = 443
-  #     origin_ssl_protocols   = ["TLSv1"]
-  #     origin_protocol_policy = "https-only"
-  #   }
-  # }
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_ssl_protocols   = ["TLSv1"]
+      origin_protocol_policy = "https-only"
+    }
+  }
 
   custom_error_response {
     error_caching_min_ttl = 3000
@@ -65,6 +65,27 @@ resource "aws_cloudfront_distribution" "this" {
       }
     }
   }
+
+  # ordered_cache_behavior {
+  #   path_pattern     = "/${local.api_path_pattern}/*"
+  #   allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+  #   cached_methods   = ["GET", "HEAD"]
+  #   target_origin_id = "${local.origin_id_api}"
+
+  #   forwarded_values {
+  #     query_string = true
+
+  #     cookies {
+  #       forward = "all"
+  #     }
+  #   }
+
+  #   min_ttl                = 0
+  #   default_ttl            = 0
+  #   max_ttl                = 0
+  #   compress               = true
+  #   viewer_protocol_policy = "https-only"
+  # }
 
   ordered_cache_behavior {
     path_pattern     = "/${local.audio_path_pattern}/*"
