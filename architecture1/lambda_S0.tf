@@ -4,7 +4,7 @@ module "S001" {
   enable_dummy          = true
   enable_xray           = true
   publish               = true
-  function_name         = "${local.lambda.S001.function_name}"
+  function_name         = "${local.project_name_uc}-${local.lambda.S001.function_name}"
   alias_name            = "${local.lambda_alias_name}"
   handler               = "${local.lambda_handler}"
   runtime               = "${local.lambda_runtime}"

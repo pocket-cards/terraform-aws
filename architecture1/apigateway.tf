@@ -9,6 +9,9 @@ resource "aws_api_gateway_rest_api" "this" {
   }
 }
 
+resource "random_id" "deployment" {
+  byte_length = 3
+}
 # -------------------------------------------------------
 # Amazon API Gateway Deployment
 # # -----------------------------------------------------
@@ -17,7 +20,7 @@ resource "aws_api_gateway_deployment" "this" {
     "aws_api_gateway_rest_api.this",
     "aws_api_gateway_integration.this"
   ]
-
+  description = "${random_id.deployment.hex}"
   rest_api_id = "${aws_api_gateway_rest_api.this.id}"
 }
 
@@ -25,8 +28,6 @@ resource "aws_api_gateway_deployment" "this" {
 # Amazon API Gateway Stage
 # # -----------------------------------------------------
 resource "aws_api_gateway_stage" "this" {
-  depends_on = ["aws_api_gateway_rest_api.this", "aws_api_gateway_deployment.this"]
-
   stage_name    = "v1"
   rest_api_id   = "${aws_api_gateway_rest_api.this.id}"
   deployment_id = "${aws_api_gateway_deployment.this.id}"
@@ -142,7 +143,7 @@ module "CORS_ROOT" {
   resource_id = "${aws_api_gateway_rest_api.this.root_resource_id}"
 
   allow_origin = "${var.cors_allow_origin}"
-  allow_method = "'OPTIONS,GET'"
+  allow_method = "'GET,OPTIONS'"
 }
 
 # -------------------------------------------------------

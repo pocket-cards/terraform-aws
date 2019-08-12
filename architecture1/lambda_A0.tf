@@ -40,7 +40,7 @@ module "CORS_A001" {
   resource_id = "${module.A001.resource_id}"
 
   allow_origin = "${var.cors_allow_origin}"
-  allow_method = "'OPTIONS,GET'"
+  allow_method = "'GET,OPTIONS'"
 }
 
 
@@ -84,7 +84,7 @@ module "CORS_A002" {
   resource_id = "${module.A002.resource_id}"
 
   allow_origin = "${var.cors_allow_origin}"
-  allow_method = "'OPTIONS,GET'"
+  allow_method = "'GET,OPTIONS'"
 }
 
 module "A003" {
