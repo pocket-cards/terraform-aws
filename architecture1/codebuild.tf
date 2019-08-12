@@ -127,6 +127,11 @@ resource "aws_codebuild_project" "codebuild_automation" {
     compute_type                = "${local.build_compute_type}"
     image                       = "${local.build_image}"
     image_pull_credentials_type = "CODEBUILD"
+
+    environment_variable {
+      name  = "ENVIRONMENT"
+      value = "${local.environment}"
+    }
   }
 
   source {

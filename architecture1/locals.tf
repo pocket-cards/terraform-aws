@@ -40,7 +40,6 @@ locals {
   # -----------------------------------------------
   # S3 Bucket
   # -----------------------------------------------
-  bucket_frontend_name  = "${local.remote_unmu.bucket_frontend_name}"
   bucket_audios_name    = "${local.remote_unmu.bucket_audios_name}"
   bucket_images_name    = "${local.remote_unmu.bucket_images_name}"
   bucket_logging_name   = "${local.remote_unmu.bucket_logging_name}"
@@ -62,11 +61,6 @@ locals {
 
   status_200       = { statusCode = 200 }
   response_version = { version = "${var.app_ver}" }
-
-  # -----------------------------------------------
-  # API Base Path Mappings
-  # -----------------------------------------------
-  rest_api_base_path = "/"
 
   # -----------------------------------------------
   # Lambda Layers
