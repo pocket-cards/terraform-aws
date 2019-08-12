@@ -8,7 +8,7 @@
     "axios": "cross-env LIBRARY_NAME=axios webpack --config configs/webpack.config.ts",
     "lodash": "cross-env LIBRARY_NAME=lodash webpack --config configs/webpack.config.ts",
     "moment": "cross-env LIBRARY_NAME=moment webpack --config configs/webpack.config.ts",
-    "xray": "cross-env LIBRARY_NAME=xray webpack --config configs/webpack.config.ts"
+    "xray": "cross-env LIBRARY_NAME=aws-xray-sdk webpack --config configs/webpack.config.ts"
   },
   "devDependencies": {
     "@types/node": "latest",

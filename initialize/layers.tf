@@ -4,8 +4,8 @@
 data "archive_file" "xray" {
   type = "zip"
 
-  source_dir  = "build/xray"
-  output_path = "build/xray/nodejs.zip"
+  source_dir  = "build/aws-xray-sdk"
+  output_path = "build/aws-xray-sdk/nodejs.zip"
 }
 
 resource "aws_lambda_layer_version" "xray" {
