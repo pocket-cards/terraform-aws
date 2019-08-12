@@ -15,6 +15,7 @@ module "D001" {
 
   lambda_publish       = true
   lambda_function_name = "D001"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_memory_size   = 1024
   lambda_runtime       = "${local.lambda_runtime}"

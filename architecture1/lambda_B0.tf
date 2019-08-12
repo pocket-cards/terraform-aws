@@ -15,6 +15,7 @@ module "B001" {
   method_path_part     = "groups"
 
   lambda_function_name = "B001"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {
@@ -51,6 +52,7 @@ module "B002" {
   method_path_part     = "{groupId}"
 
   lambda_function_name = "B002"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {
@@ -85,6 +87,7 @@ module "B003" {
   method_authorization = "AWS_IAM"
 
   lambda_function_name = "B003"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {
@@ -109,6 +112,7 @@ module "B004" {
   method_authorization = "AWS_IAM"
 
   lambda_function_name = "B004"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {

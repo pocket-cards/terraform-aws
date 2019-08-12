@@ -20,6 +20,7 @@ module "A001" {
   method_path_part     = "{userId}"
 
   lambda_function_name = "A001"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {
@@ -58,6 +59,7 @@ module "A002" {
   method_path_part     = "history"
 
   lambda_function_name         = "A002"
+  lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
   lambda_memory_size           = 512
@@ -96,6 +98,7 @@ module "A003" {
   method_path_part     = "fixdelay"
 
   lambda_function_name         = "A003"
+  lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_memory_size           = 512
   lambda_runtime               = "${local.lambda_runtime}"

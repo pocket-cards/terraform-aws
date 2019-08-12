@@ -76,9 +76,9 @@ locals {
   # -----------------------------------------------
   # Lambda
   # -----------------------------------------------
-  alias_name         = "${local.environment}"
   lambda_handler     = "index.handler"
   lambda_runtime     = "nodejs10.x"
+  lambda_alias_name  = "${local.environment}"
   audio_path_pattern = "audio"
 
 

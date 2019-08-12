@@ -16,6 +16,7 @@ module "C001" {
   method_path_part     = "words"
 
   lambda_function_name = "C001"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_memory_size   = 1024
@@ -69,6 +70,7 @@ module "C002" {
   method_authorization = "AWS_IAM"
 
   lambda_function_name = "C002"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {
@@ -98,6 +100,7 @@ module "C003" {
   method_path_part     = "{word}"
 
   lambda_function_name = "C003"
+  lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
   lambda_envs = {
@@ -136,6 +139,7 @@ module "C004" {
   method_authorization = "AWS_IAM"
 
   lambda_function_name         = "C004"
+  lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
   lambda_layers                = ["${local.xray}", "${local.moment}"]
@@ -166,6 +170,7 @@ module "C006" {
   method_path_part     = "new"
 
   lambda_function_name         = "C006"
+  lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
   lambda_memory_size           = 512
@@ -209,6 +214,7 @@ module "C007" {
   method_path_part     = "test"
 
   lambda_function_name         = "C007"
+  lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
@@ -248,6 +254,7 @@ module "C008" {
   method_path_part     = "review"
 
   lambda_function_name         = "C008"
+  lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"

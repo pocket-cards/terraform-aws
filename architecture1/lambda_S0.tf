@@ -5,13 +5,13 @@ module "S001" {
   enable_xray           = true
   publish               = true
   function_name         = "${local.project_name_uc}-S001"
+  alias_name            = "${local.lambda_alias_name}"
   handler               = "${local.lambda_handler}"
   runtime               = "${local.lambda_runtime}"
-  role_name             = "${local.project_name_uc}-S001"
+  role_name             = "${local.project_name_uc}_Lambda_S001Role"
   layers                = ["${local.xray}", "${local.moment}"]
   log_retention_in_days = "${var.lambda_log_retention_in_days}"
   timeout               = 5
-  alias_name            = "${local.alias_name}"
   # trigger_principal     = "dynamodb.amazonaws.com"
   # trigger_source_arn    = "${local.dynamodb_group_words_arn}"
 
