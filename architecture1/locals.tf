@@ -34,6 +34,9 @@ locals {
   backend_repo       = "${local.remote_unmu.backend_repo}"
   backend_owner      = "${local.remote_unmu.backend_owner}"
   backend_branch     = "${local.remote_unmu.backend_branch}"
+  automation_repo    = "${local.remote_unmu.automation_repo}"
+  automation_owner   = "${local.remote_unmu.automation_owner}"
+  automation_branch  = "${local.remote_unmu.automation_branch}"
   # -----------------------------------------------
   # S3 Bucket
   # -----------------------------------------------

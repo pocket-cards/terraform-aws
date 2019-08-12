@@ -14,14 +14,9 @@ variable "frontend_branch" {
   default = "master"
 }
 
-variable "devops_repo" {}
-variable "devops_owner" {}
-variable "devops_branch" {
+variable "automation_repo" {}
+variable "automation_owner" {}
+variable "automation_branch" {
   default = "master"
 }
 
-variable "mtn_repo" {}
-variable "mtn_owner" {}
-variable "mtn_branch" {
-  default = "master"
-}
