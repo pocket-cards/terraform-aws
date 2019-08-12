@@ -14,11 +14,12 @@ module "D001" {
   method_path_part     = "image2text"
 
   lambda_publish       = true
-  lambda_function_name = "D001"
+  lambda_function_name = "${local.lambda.D001.function_name}"
   lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
-  lambda_memory_size   = 1024
   lambda_runtime       = "${local.lambda_runtime}"
+  lambda_role_name     = "${local.lambda.D001.role_name}"
+  lambda_memory_size   = 1024
   lambda_envs = {
     EXCLUDE_WORD = "",
     IMAGE_BUCKET = "${local.bucket_images_name}"

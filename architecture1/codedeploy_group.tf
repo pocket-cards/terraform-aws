@@ -18,7 +18,7 @@ resource "aws_codedeploy_deployment_group" "groups" {
 # AWS CodeDeploy IAM Role
 # -----------------------------------------------
 resource "aws_iam_role" "codedeploy_for_lambda" {
-  name               = "${local.project_name}-CodeDeployRoleForLambda"
+  name               = "${local.project_name_uc}_CodeDeployRoleForLambda"
   assume_role_policy = "${file("iam/codedeploy_principals.json")}"
   lifecycle {
     create_before_destroy = false

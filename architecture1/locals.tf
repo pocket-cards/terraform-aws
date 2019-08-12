@@ -83,7 +83,73 @@ locals {
   lambda_runtime     = "nodejs10.x"
   lambda_alias_name  = "${local.environment}"
   audio_path_pattern = "audio"
-
+  lambda_role_prefix = "${local.project_name_uc}_Lambda"
+  lambda = {
+    A001 = {
+      function_name = "A001"
+      role_name     = "${local.lambda_role_prefix}_A001Role"
+    }
+    A002 = {
+      function_name = "A002"
+      role_name     = "${local.lambda_role_prefix}_A002Role"
+    }
+    A003 = {
+      function_name = "A003"
+      role_name     = "${local.lambda_role_prefix}_A003Role"
+    }
+    B001 = {
+      function_name = "B001"
+      role_name     = "${local.lambda_role_prefix}_B001Role"
+    }
+    B002 = {
+      function_name = "B002"
+      role_name     = "${local.lambda_role_prefix}_B002Role"
+    }
+    B003 = {
+      function_name = "B003"
+      role_name     = "${local.lambda_role_prefix}_B003Role"
+    }
+    B004 = {
+      function_name = "B004"
+      role_name     = "${local.lambda_role_prefix}_B004Role"
+    }
+    C001 = {
+      function_name = "C001"
+      role_name     = "${local.lambda_role_prefix}_C001Role"
+    }
+    C002 = {
+      function_name = "C002"
+      role_name     = "${local.lambda_role_prefix}_C002Role"
+    }
+    C003 = {
+      function_name = "C003"
+      role_name     = "${local.lambda_role_prefix}_C003Role"
+    }
+    C004 = {
+      function_name = "C004"
+      role_name     = "${local.lambda_role_prefix}_C004Role"
+    }
+    C006 = {
+      function_name = "C006"
+      role_name     = "${local.lambda_role_prefix}_C006Role"
+    }
+    C007 = {
+      function_name = "C007"
+      role_name     = "${local.lambda_role_prefix}_C007Role"
+    }
+    C008 = {
+      function_name = "C008"
+      role_name     = "${local.lambda_role_prefix}_C008Role"
+    }
+    D001 = {
+      function_name = "D001"
+      role_name     = "${local.lambda_role_prefix}_D001Role"
+    }
+    S001 = {
+      function_name = "S001"
+      role_name     = "${local.lambda_role_prefix}_S001Role"
+    }
+  }
 
   deployment_group_names = [
     "A002", "A003",
@@ -92,7 +158,9 @@ locals {
     "S001", "S002"
   ]
 }
-
+# -----------------------------------------------
+# AWS Region
+# -----------------------------------------------
 data "aws_region" "this" {}
 # -----------------------------------------------
 # AWS Route53

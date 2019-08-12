@@ -19,10 +19,11 @@ module "A001" {
   method_authorization = "AWS_IAM"
   method_path_part     = "{userId}"
 
-  lambda_function_name = "A001"
+  lambda_function_name = "${local.lambda.A001.function_name}"
   lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
+  lambda_role_name     = "${local.lambda.A001.role_name}"
   lambda_envs = {
     TZ = "${local.timezone}"
   }
@@ -58,11 +59,12 @@ module "A002" {
   method_authorization = "AWS_IAM"
   method_path_part     = "history"
 
-  lambda_function_name         = "A002"
+  lambda_function_name         = "${local.lambda.A002.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
   lambda_memory_size           = 512
+  lambda_role_name             = "${local.lambda.A002.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
   lambda_envs = {
@@ -97,12 +99,13 @@ module "A003" {
   method_authorization = "AWS_IAM"
   method_path_part     = "fixdelay"
 
-  lambda_function_name         = "A003"
+  lambda_function_name         = "${local.lambda.A003.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_memory_size           = 512
   lambda_runtime               = "${local.lambda_runtime}"
   lambda_timeout               = 90
+  lambda_role_name             = "${local.lambda.A003.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_layers                = ["${local.xray}", "${local.moment}"]
 

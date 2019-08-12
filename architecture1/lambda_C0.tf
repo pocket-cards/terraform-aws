@@ -15,10 +15,11 @@ module "C001" {
   method_authorization = "AWS_IAM"
   method_path_part     = "words"
 
-  lambda_function_name = "C001"
+  lambda_function_name = "${local.lambda.C001.function_name}"
   lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
+  lambda_role_name     = "${local.lambda.C001.role_name}"
   lambda_memory_size   = 1024
   lambda_envs = {
     TABLE_WORDS         = "${local.dynamodb_words_name}"
@@ -30,7 +31,6 @@ module "C001" {
     TRANSLATION_URL     = "${local.translation_url}"
     TRANSLATION_API_KEY = "${local.translation_api_key}"
     TZ                  = "${local.timezone}"
-
   }
 
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
@@ -69,13 +69,13 @@ module "C002" {
   method_parent_path   = "${module.C001.resource_path}"
   method_authorization = "AWS_IAM"
 
-  lambda_function_name = "C002"
+  lambda_function_name = "${local.lambda.C002.function_name}"
   lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
+  lambda_role_name     = "${local.lambda.C002.role_name}"
   lambda_envs = {
     TZ = "${local.timezone}"
-
   }
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
@@ -99,10 +99,11 @@ module "C003" {
   method_authorization = "AWS_IAM"
   method_path_part     = "{word}"
 
-  lambda_function_name = "C003"
+  lambda_function_name = "${local.lambda.C003.function_name}"
   lambda_alias_name    = "${local.lambda_alias_name}"
   lambda_handler       = "${local.lambda_handler}"
   lambda_runtime       = "${local.lambda_runtime}"
+  lambda_role_name     = "${local.lambda.C003.role_name}"
   lambda_envs = {
     TZ = "${local.timezone}"
   }
@@ -138,10 +139,11 @@ module "C004" {
   method_parent_path   = "${module.C003.resource_path}"
   method_authorization = "AWS_IAM"
 
-  lambda_function_name         = "C004"
+  lambda_function_name         = "${local.lambda.C004.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.C004.role_name}"
   lambda_layers                = ["${local.xray}", "${local.moment}"]
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
@@ -169,10 +171,11 @@ module "C006" {
   method_authorization = "AWS_IAM"
   method_path_part     = "new"
 
-  lambda_function_name         = "C006"
+  lambda_function_name         = "${local.lambda.C006.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.C006.role_name}"
   lambda_memory_size           = 512
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
@@ -213,10 +216,11 @@ module "C007" {
   method_authorization = "AWS_IAM"
   method_path_part     = "test"
 
-  lambda_function_name         = "C007"
+  lambda_function_name         = "${local.lambda.C007.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.C007.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
   lambda_layers                = ["${local.xray}", "${local.moment}"]
@@ -253,10 +257,11 @@ module "C008" {
   method_authorization = "AWS_IAM"
   method_path_part     = "review"
 
-  lambda_function_name         = "C008"
+  lambda_function_name         = "${local.lambda.C008.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
   lambda_handler               = "${local.lambda_handler}"
   lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.C008.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
   lambda_layers                = ["${local.xray}"]

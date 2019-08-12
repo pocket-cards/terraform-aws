@@ -14,13 +14,11 @@ module "B001" {
   method_authorization = "AWS_IAM"
   method_path_part     = "groups"
 
-  lambda_function_name = "B001"
-  lambda_alias_name    = "${local.lambda_alias_name}"
-  lambda_handler       = "${local.lambda_handler}"
-  lambda_runtime       = "${local.lambda_runtime}"
-  lambda_envs = {
-    Name = "B001"
-  }
+  lambda_function_name         = "${local.lambda.B001.function_name}"
+  lambda_alias_name            = "${local.lambda_alias_name}"
+  lambda_handler               = "${local.lambda_handler}"
+  lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.B001.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
 }
@@ -41,25 +39,24 @@ module "CORS_B001" {
 module "B002" {
   source = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
   # source             = "./terraform-modules-api-lambda"
-  project_name       = "${local.project_name_uc}"
-  region             = "${local.region}"
-  rest_api_id        = "${aws_api_gateway_rest_api.this.id}"
-  http_method        = "GET"
-  method_parent_id   = "${module.B001.resource_id}"
-  method_parent_path = "${module.B001.resource_path}"
-
+  project_name         = "${local.project_name_uc}"
+  region               = "${local.region}"
+  rest_api_id          = "${aws_api_gateway_rest_api.this.id}"
+  http_method          = "GET"
+  method_parent_id     = "${module.B001.resource_id}"
+  method_parent_path   = "${module.B001.resource_path}"
   method_authorization = "AWS_IAM"
   method_path_part     = "{groupId}"
 
-  lambda_function_name = "B002"
-  lambda_alias_name    = "${local.lambda_alias_name}"
-  lambda_handler       = "${local.lambda_handler}"
-  lambda_runtime       = "${local.lambda_runtime}"
-  lambda_envs = {
-    Name = "B002"
-  }
+  lambda_function_name         = "${local.lambda.B002.function_name}"
+  lambda_alias_name            = "${local.lambda_alias_name}"
+  lambda_handler               = "${local.lambda_handler}"
+  lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.B002.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
-  lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
+  lambda_role_policy_json = [
+    "${data.aws_iam_policy_document.dynamodb_access_policy.json}"
+  ]
 }
 
 module "CORS_B002" {
@@ -86,13 +83,11 @@ module "B003" {
   method_parent_path   = "${module.B002.resource_path}"
   method_authorization = "AWS_IAM"
 
-  lambda_function_name = "B003"
-  lambda_alias_name    = "${local.lambda_alias_name}"
-  lambda_handler       = "${local.lambda_handler}"
-  lambda_runtime       = "${local.lambda_runtime}"
-  lambda_envs = {
-    Name = "B003"
-  }
+  lambda_function_name         = "${local.lambda.B003.function_name}"
+  lambda_alias_name            = "${local.lambda_alias_name}"
+  lambda_handler               = "${local.lambda_handler}"
+  lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.B003.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
 }
@@ -111,13 +106,11 @@ module "B004" {
   method_parent_path   = "${module.B002.resource_path}"
   method_authorization = "AWS_IAM"
 
-  lambda_function_name = "B004"
-  lambda_alias_name    = "${local.lambda_alias_name}"
-  lambda_handler       = "${local.lambda_handler}"
-  lambda_runtime       = "${local.lambda_runtime}"
-  lambda_envs = {
-    Name = "B004"
-  }
+  lambda_function_name         = "${local.lambda.B004.function_name}"
+  lambda_alias_name            = "${local.lambda_alias_name}"
+  lambda_handler               = "${local.lambda_handler}"
+  lambda_runtime               = "${local.lambda_runtime}"
+  lambda_role_name             = "${local.lambda.B004.role_name}"
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
 }
