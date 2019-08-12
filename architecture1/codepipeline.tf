@@ -52,12 +52,13 @@ resource "aws_codepipeline" "codepipeline_backend" {
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
-      input_artifacts  = ["build_artf"]
+      input_artifacts  = ["source", "build_artf"]
       output_artifacts = ["pub_artf"]
       version          = "1"
 
       configuration = {
-        ProjectName = "${aws_codebuild_project.codebuild_backend_publish.name}"
+        ProjectName   = "${aws_codebuild_project.codebuild_backend_publish.name}"
+        PrimarySource = "source"
       }
     }
   }

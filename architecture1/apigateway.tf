@@ -176,8 +176,8 @@ resource "aws_route53_record" "apigateway" {
 # Amazon API BASE PATH MAPPING
 # -----------------------------------------------------
 resource "aws_api_gateway_base_path_mapping" "cards" {
-  api_id      = "${aws_api_gateway_rest_api.this.id}"
-  base_path   = "${local.rest_api_base_path}"
+  api_id = "${aws_api_gateway_rest_api.this.id}"
+  # base_path   = "${local.rest_api_base_path}"
   stage_name  = "${aws_api_gateway_stage.this.stage_name}"
   domain_name = "${aws_api_gateway_domain_name.this.domain_name}"
 }
