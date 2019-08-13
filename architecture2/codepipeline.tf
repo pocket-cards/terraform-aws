@@ -1,7 +1,7 @@
 # -----------------------------------------------
 # AWS CodePipeline
 # -----------------------------------------------
-resource "aws_codepipeline" "pipeline_frontend" {
+resource "aws_codepipeline" "frontend" {
   name     = "${local.project_name_uc}-Frontend"
   role_arn = "${aws_iam_role.pipeline_frontend_role.arn}"
 

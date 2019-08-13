@@ -12,6 +12,11 @@ resource "aws_codebuild_project" "codebuild_backend_build" {
     type = "CODEPIPELINE"
   }
 
+  cache {
+    location = "${local.bucket_artifacts_name}/cache"
+    type     = "S3"
+  }
+
   environment {
     type                        = "${local.build_type}"
     compute_type                = "${local.build_compute_type}"
@@ -57,6 +62,11 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
 
   artifacts {
     type = "CODEPIPELINE"
+  }
+
+  cache {
+    location = "${local.bucket_artifacts_name}/cache"
+    type     = "S3"
   }
 
   environment {
@@ -120,6 +130,11 @@ resource "aws_codebuild_project" "codebuild_automation" {
 
   artifacts {
     type = "CODEPIPELINE"
+  }
+
+  cache {
+    location = "${local.bucket_artifacts_name}/cache"
+    type     = "S3"
   }
 
   environment {

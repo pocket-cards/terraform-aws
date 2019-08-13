@@ -12,6 +12,11 @@ resource "aws_codebuild_project" "codebuild_frontend" {
     type = "CODEPIPELINE"
   }
 
+  cache {
+    location = "${local.bucket_artifacts_name}/cache"
+    type     = "S3"
+  }
+
   environment {
     type                        = "${local.build_type}"
     compute_type                = "${local.build_compute_type}"
