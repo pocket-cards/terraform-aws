@@ -27,7 +27,7 @@ resource "aws_cognito_identity_pool_roles_attachment" "this" {
 # AWS Cognito Authenticated Role
 # ---------------------------------------------------------------
 resource "aws_iam_role" "cognito_authenticated" {
-  name = "${local.project_name_uc}-CognitoAuthRole"
+  name = "${local.project_name_uc}_Cognito_AuthRole"
 
   assume_role_policy = "${data.aws_iam_policy_document.cognito_authenticated_principals.json}"
 }
@@ -108,7 +108,7 @@ data "aws_iam_policy_document" "cognito_authenticated_policy_json" {
 # AWS Cognito UnAuthenticated Role
 # ---------------------------------------------------------------
 resource "aws_iam_role" "cognito_unauthenticated" {
-  name = "${local.project_name_uc}-CognitoUnauthRole"
+  name = "${local.project_name_uc}_Cognito_UnauthRole"
 
   assume_role_policy = "${data.aws_iam_policy_document.cognito_unauthenticated_principals.json}"
 }
@@ -155,21 +155,5 @@ data "aws_iam_policy_document" "cognito_unauthenticated_principals" {
 resource "aws_iam_role_policy" "cognito_unauthenticated_policy" {
   role = "${aws_iam_role.cognito_unauthenticated.id}"
 
-  policy = "${data.aws_iam_policy_document.cognito_unauthenticated_policy_json.json}"
-}
-
-# ---------------------------------------------------------------
-# AWS Cognito UnAuthenticated Policy JSON
-# ---------------------------------------------------------------
-data "aws_iam_policy_document" "cognito_unauthenticated_policy_json" {
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "mobileanalytics:PutEvents",
-      "cognito-sync:*",
-    ]
-
-    resources = ["*"]
-  }
+  policy = "${file("iam/cognito_unauth_policy.json")}"
 }

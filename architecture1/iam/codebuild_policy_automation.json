@@ -36,7 +36,8 @@
         "iam:GetRolePolicy",
         "iam:List*",
         "iam:PutRolePolicy",
-        "iam:DeleteRolePolicy"
+        "iam:DeleteRolePolicy",
+        "iam:CreateRole"
       ],
       "Resource": "*"
     },

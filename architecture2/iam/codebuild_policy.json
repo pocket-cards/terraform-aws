@@ -1,6 +1,8 @@
 {
+  "Version": "2012-10-17",
   "Statement": [
     {
+      "Effect": "Allow",
       "Action": [
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
@@ -8,9 +10,7 @@
         "cloudfront:CreateInvalidation",
         "s3:*"
       ],
-      "Resource": "*",
-      "Effect": "Allow"
+      "Resource": "*"
     }
-  ],
-  "Version": "2012-10-17"
+  ]
 }
