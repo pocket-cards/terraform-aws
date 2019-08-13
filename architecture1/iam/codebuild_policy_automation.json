@@ -21,11 +21,14 @@
     {
       "Effect": "Allow",
       "Action": [
+        "lambda:CreateFunction",
         "lambda:UpdateFunction*",
         "lambda:List*",
         "lambda:Get*",
         "lambda:PublishVersion",
-        "lambda:UpdateAlias"
+        "lambda:UpdateAlias",
+        "lambda:AddPermission",
+        "lambda:RemovePermission"
       ],
       "Resource": "*"
     },
@@ -37,7 +40,9 @@
         "iam:List*",
         "iam:PutRolePolicy",
         "iam:DeleteRolePolicy",
-        "iam:CreateRole"
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:PassRole"
       ],
       "Resource": "*"
     },
