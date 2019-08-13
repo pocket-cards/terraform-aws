@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "terraform apply -auto-approve=true",
-    "plan": "terraform plan",
+    "plan": "terraform plan --parallelism=30",
     "show": "terraform workspace list",
     "dev": "terraform workspace select dev",
     "prod": "terraform workspace select prod",

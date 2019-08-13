@@ -15,7 +15,7 @@ locals {
   translation_api_key = "${local.remote_init.ssm_param_translation_api_key}"
   ipa_url             = "${local.remote_init.ipa_url}"
   ipa_api_key         = "${local.remote_init.ssm_param_ipa_api_key}"
-
+  parallelism         = "--parallelism=30"
   # -----------------------------------------------
   # API Gateway
   # -----------------------------------------------
