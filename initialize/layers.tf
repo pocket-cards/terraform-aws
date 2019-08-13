@@ -5,7 +5,7 @@ data "archive_file" "xray" {
   type = "zip"
 
   source_dir  = "build/aws-xray-sdk"
-  output_path = "build/aws-xray-sdk/nodejs.zip"
+  output_path = "dist/aws-xray-sdk/nodejs.zip"
 }
 
 resource "aws_lambda_layer_version" "xray" {
@@ -24,7 +24,7 @@ data "archive_file" "moment" {
   type = "zip"
 
   source_dir  = "build/moment"
-  output_path = "build/moment/nodejs.zip"
+  output_path = "dist/moment/nodejs.zip"
 }
 
 resource "aws_lambda_layer_version" "moment" {
@@ -43,7 +43,7 @@ data "archive_file" "lodash" {
   type = "zip"
 
   source_dir  = "build/lodash"
-  output_path = "build/lodash/nodejs.zip"
+  output_path = "dist/lodash/nodejs.zip"
 }
 
 resource "aws_lambda_layer_version" "lodash" {
@@ -63,7 +63,7 @@ data "archive_file" "axios" {
   type = "zip"
 
   source_dir  = "build/axios"
-  output_path = "build/axios/nodejs.zip"
+  output_path = "dist/axios/nodejs.zip"
 }
 
 resource "aws_lambda_layer_version" "axios" {
