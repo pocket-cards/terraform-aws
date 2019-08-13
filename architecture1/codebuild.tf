@@ -134,7 +134,12 @@ resource "aws_codebuild_project" "codebuild_automation" {
     }
 
     environment_variable {
-      name  = "TF_CLI_ARGS"
+      name  = "TF_CLI_ARGS_plan"
+      value = "${local.parallelism}"
+    }
+
+    environment_variable {
+      name  = "TF_CLI_ARGS_apply"
       value = "${local.parallelism}"
     }
   }
