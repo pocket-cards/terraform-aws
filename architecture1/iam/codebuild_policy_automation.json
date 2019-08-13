@@ -21,7 +21,7 @@
     {
       "Effect": "Allow",
       "Action": [
-        "lambda:UpdateFunctionCode",
+        "lambda:UpdateFunction*",
         "lambda:List*",
         "lambda:Get*",
         "lambda:PublishVersion",
