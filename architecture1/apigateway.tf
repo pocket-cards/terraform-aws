@@ -1,6 +1,6 @@
-# --------------------------------------------------------------------------------
+# -------------------------------------------------------
 # Amazon API Gateway
-# --------------------------------------------------------------------------------
+# # -----------------------------------------------------
 resource "aws_api_gateway_rest_api" "this" {
   name = "${local.project_name}"
 
@@ -9,19 +9,18 @@ resource "aws_api_gateway_rest_api" "this" {
   }
 }
 
-resource "random_id" "deployment" {
-  byte_length = 3
-}
 # -------------------------------------------------------
 # Amazon API Gateway Deployment
 # # -----------------------------------------------------
 resource "aws_api_gateway_deployment" "this" {
-  depends_on = [
-    "aws_api_gateway_rest_api.this",
-    "aws_api_gateway_integration.this"
-  ]
-  description = "${random_id.deployment.hex}"
   rest_api_id = "${aws_api_gateway_rest_api.this.id}"
+  variables = {
+    deployment_md5 = "${local.api_gateway_deployment_md5}"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # -------------------------------------------------------

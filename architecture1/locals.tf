@@ -17,9 +17,19 @@ locals {
   ipa_api_key         = "${local.remote_init.ssm_param_ipa_api_key}"
 
   # -----------------------------------------------
-  # API Base Path Mappings
+  # API Gateway
   # -----------------------------------------------
-  api_base_path = "cards"
+  # api_base_path = "cards"
+  api_gateway_files = [
+    "${filemd5("apigateway.tf")}",
+    "${filemd5("lambda_A0.tf")}",
+    "${filemd5("lambda_B0.tf")}",
+    "${filemd5("lambda_C0.tf")}",
+    "${filemd5("lambda_D0.tf")}",
+    "${filemd5("lambda_E0.tf")}",
+    "${filemd5("lambda_S0.tf")}",
+  ]
+  api_gateway_deployment_md5 = "${base64encode(join("", local.api_gateway_files))}"
 
   # -----------------------------------------------
   # Cognito
