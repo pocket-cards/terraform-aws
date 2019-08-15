@@ -29,3 +29,8 @@ phases:
       - terraform workspace select $ENVIRONMENT -no-color
       - terraform plan -out tfplan -no-color
       - terraform apply tfplan -no-color
+      - aws codepipeline start-pipeline-execution --name PocketCards-Backend
+      - aws codepipeline start-pipeline-execution --name PocketCards-Frontend
+      - aws codepipeline start-pipeline-execution --name PocketCards-Automation
+
+      
