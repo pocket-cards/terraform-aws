@@ -49,15 +49,25 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 # AWS Codebuild IAM Role
 # -----------------------------------------------
 resource "aws_iam_role" "codebuild_frontend_role" {
-  name               = "${local.project_name_uc}_CodeBuild_FrontendBuildRole"
+  name               = "${local.project_name_uc}_CodeBuild_FrontendRole"
   assume_role_policy = "${file("iam/codebuild_principals.json")}"
   lifecycle {
     create_before_destroy = false
   }
 }
 
-resource "aws_iam_role_policy" "codebuild_frontend_policy" {
-  depends_on = ["aws_iam_role.codebuild_frontend_role"]
+# -----------------------------------------------
+# AWS Codebuild IAM Policy - Frontend
+# -----------------------------------------------
+resource "aws_iam_policy" "codebuild_frontend_policy" {
+  name   = "${local.project_name_uc}_CodeBuild_FrontendPolicy"
+  policy = "${file("iam/codebuild_policy.json")}"
+}
+
+# -----------------------------------------------
+# AWS Codebuild IAM Role Policy Attachment - Backend Build
+# -----------------------------------------------
+resource "aws_iam_role_policy_attachment" "codebuild_frontend_attach" {
   role       = "${aws_iam_role.codebuild_frontend_role.name}"
-  policy     = "${file("iam/codebuild_policy.json")}"
+  policy_arn = "${aws_iam_policy.codebuild_frontend_policy.arn}"
 }
