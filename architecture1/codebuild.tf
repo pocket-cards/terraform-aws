@@ -45,7 +45,7 @@ resource "aws_iam_role" "codebuild_backend_build_role" {
 # AWS Codebuild IAM Policy - Backend Build
 # -----------------------------------------------
 resource "aws_iam_policy" "codebuild_backend_build_policy" {
-  name   = "${local.project_name_uc}_CodeBuild_AutomationPolicy"
+  name   = "${local.project_name_uc}_CodeBuild_BackendBuildPolicy"
   policy = "${file("iam/codebuild_policy.json")}"
 }
 
