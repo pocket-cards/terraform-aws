@@ -37,6 +37,18 @@ resource "aws_codebuild_project" "codebuild_frontend" {
       name  = "API_URL"
       value = "https://${local.api_domain_name}"
     }
+    environment_variable {
+      name  = "IDENTITY_POOL_ID"
+      value = "${aws_cognito_identity_pool.this.id}"
+    }
+    environment_variable {
+      name  = "USER_POOL_ID"
+      value = "${aws_cognito_user_pool.this.id}"
+    }
+    environment_variable {
+      name  = "USER_POOL_WEB_CLIENT_ID"
+      value = "${aws_cognito_user_pool_client.this.id}"
+    }
   }
 
   source {
