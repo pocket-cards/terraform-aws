@@ -2,7 +2,7 @@
 
 環境構築管理用リポジトリ
 
-## 前提条件
+## Architecture
 
-- terraform-workspaces bucket
--
+![Architecture](./Serverless_Architecture.png)
+
