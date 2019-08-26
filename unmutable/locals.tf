@@ -11,6 +11,7 @@ locals {
   region           = "${data.aws_region.this.name}"
   environment      = "${terraform.workspace}"
   is_test          = "${local.environment == "test" ? 1 : 0}"
+  repo_branch      = "${local.environment == "prod" ? "master" : "dev"}"
 
   # -----------------------------------------------
   # S3 Buckets

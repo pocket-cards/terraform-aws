@@ -51,7 +51,7 @@ output "backend_owner" {
   value = "${var.backend_owner}"
 }
 output "backend_branch" {
-  value = "${var.backend_branch}"
+  value = "${local.repo_branch}"
 }
 output "frontend_repo" {
   value = "${var.frontend_repo}"
@@ -60,7 +60,7 @@ output "frontend_owner" {
   value = "${var.frontend_owner}"
 }
 output "frontend_branch" {
-  value = "${var.frontend_branch}"
+  value = "${local.repo_branch}"
 }
 output "automation_repo" {
   value = "${var.automation_repo}"
@@ -69,5 +69,5 @@ output "automation_owner" {
   value = "${var.automation_owner}"
 }
 output "automation_branch" {
-  value = "${var.automation_branch}"
+  value = "${local.repo_branch}"
 }
