@@ -22,10 +22,11 @@ resource "aws_codepipeline" "initialize" {
       output_artifacts = ["infrastructure"]
 
       configuration = {
-        OAuthToken = "${var.github_token}"
-        Owner      = "${var.github_owner}"
-        Repo       = "${var.github_repo}"
-        Branch     = "${var.github_branch}"
+        OAuthToken           = "${var.github_token}"
+        Owner                = "${var.github_organization}"
+        Repo                 = "${var.github_repo}"
+        Branch               = "${var.github_branch}"
+        PollForSourceChanges = false
       }
     }
   }
@@ -47,27 +48,11 @@ resource "aws_codepipeline" "initialize" {
 }
 
 # -----------------------------------------------
-# AWS CodePipeline Principals
-# -----------------------------------------------
-data "aws_iam_policy_document" "codepipeline_principals" {
-  statement {
-    effect = "Allow"
-
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["codepipeline.amazonaws.com"]
-    }
-  }
-}
-
-# -----------------------------------------------
 # AWS CodePipeline IAM Role
 # -----------------------------------------------
 resource "aws_iam_role" "codepipeline_role" {
   name               = "${local.project_name_uc}_CodePipeline_InitializeRole"
-  assume_role_policy = "${data.aws_iam_policy_document.codepipeline_principals.json}"
+  assume_role_policy = "${file("iam/codepipeline_principals.json")}"
 
   lifecycle {
     create_before_destroy = false
@@ -77,118 +62,48 @@ resource "aws_iam_role" "codepipeline_role" {
 # AWS CodePipeline Policy
 # -----------------------------------------------
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  depends_on = ["aws_iam_role.codepipeline_role"]
-  role       = "${aws_iam_role.codepipeline_role.id}"
-  policy     = "${data.aws_iam_policy_document.codepipeline_policy_data.json}"
+  role   = "${aws_iam_role.codepipeline_role.id}"
+  policy = "${file("iam/codepipeline_policy.json")}"
 }
 
+# -----------------------------------------------
+# AWS CodePipeline Webhook
+# -----------------------------------------------
+resource "aws_codepipeline_webhook" "initialize" {
+  name            = "${local.project_name_uc}-InitialWebhook"
+  authentication  = "GITHUB_HMAC"
+  target_action   = "Source"
+  target_pipeline = "${aws_codepipeline.initialize.name}"
+
+  authentication_configuration {
+    secret_token = "${var.github_token}"
+  }
+
+  filter {
+    json_path    = "$.ref"
+    match_equals = "refs/heads/{Branch}"
+  }
+}
 
 # -----------------------------------------------
-# AWS CodePipeline Policy Data
+# Github Repository
 # -----------------------------------------------
-data "aws_iam_policy_document" "codepipeline_policy_data" {
-  statement {
-    effect = "Allow"
+data "github_repository" "terraform" {
+  full_name = "${var.github_organization}/${var.github_repo}"
+}
 
-    actions = [
-      "codedeploy:CreateDeployment",
-      "codedeploy:GetApplication",
-      "codedeploy:GetApplicationRevision",
-      "codedeploy:GetDeployment",
-      "codedeploy:GetDeploymentConfig",
-      "codedeploy:RegisterApplicationRevision",
-    ]
+# -----------------------------------------------
+# Github Repository Webhook
+# -----------------------------------------------
+resource "github_repository_webhook" "terraform" {
+  repository = "${data.github_repository.terraform.name}"
 
-    resources = ["*"]
+  configuration {
+    url          = "${aws_codepipeline_webhook.initialize.url}"
+    content_type = "json"
+    insecure_ssl = true
+    secret       = "${var.github_token}"
   }
 
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "elasticbeanstalk:*",
-      "ec2:*",
-      "elasticloadbalancing:*",
-      "autoscaling:*",
-      "cloudwatch:*",
-      "s3:*",
-      "sns:*",
-      "cloudformation:*",
-      "rds:*",
-      "sqs:*",
-      "ecs:*",
-    ]
-
-    resources = ["*"]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "lambda:InvokeFunction",
-      "lambda:ListFunctions",
-    ]
-
-    resources = ["*"]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "opsworks:CreateDeployment",
-      "opsworks:DescribeApps",
-      "opsworks:DescribeCommands",
-      "opsworks:DescribeDeployments",
-      "opsworks:DescribeInstances",
-      "opsworks:DescribeStacks",
-      "opsworks:UpdateApp",
-      "opsworks:UpdateStack",
-      "cloudformation:CreateStack",
-      "cloudformation:DeleteStack",
-      "cloudformation:DescribeStacks",
-      "cloudformation:UpdateStack",
-      "cloudformation:CreateChangeSet",
-      "cloudformation:DeleteChangeSet",
-      "cloudformation:DescribeChangeSet",
-      "cloudformation:ExecuteChangeSet",
-      "cloudformation:SetStackPolicy",
-      "cloudformation:ValidateTemplate",
-      "codebuild:BatchGetBuilds",
-      "codebuild:StartBuild",
-      "devicefarm:ListProjects",
-      "devicefarm:ListDevicePools",
-      "devicefarm:GetRun",
-      "devicefarm:GetUpload",
-      "devicefarm:CreateUpload",
-      "devicefarm:ScheduleRun",
-      "servicecatalog:ListProvisioningArtifacts",
-      "servicecatalog:CreateProvisioningArtifact",
-      "servicecatalog:DescribeProvisioningArtifact",
-      "servicecatalog:DeleteProvisioningArtifact",
-      "servicecatalog:UpdateProduct",
-      "ecr:DescribeImages",
-    ]
-
-    resources = ["*"]
-  }
-
-  statement {
-    effect    = "Allow"
-    actions   = ["iam:PassRole"]
-    resources = ["*"]
-
-    condition {
-      test     = "StringEqualsIfExists"
-      variable = "iam:PassedToService"
-
-      values = [
-        "cloudformation.amazonaws.com",
-        "elasticbeanstalk.amazonaws.com",
-        "ec2.amazonaws.com",
-        "ecs-tasks.amazonaws.com",
-      ]
-    }
-  }
+  events = ["push"]
 }

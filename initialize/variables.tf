@@ -13,8 +13,8 @@ variable "translation_api_key" {}
 variable "ipa_api_key" {}
 
 variable "github_token" {}
+variable "github_organization" {}
 variable "github_repo" {}
-variable "github_owner" {}
 variable "github_branch" {}
 
 variable "dns_name_servers" {

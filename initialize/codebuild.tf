@@ -41,29 +41,11 @@ resource "aws_codebuild_project" "initialize" {
 }
 
 # -----------------------------------------------
-# AWS Codebuild Principals
-# -----------------------------------------------
-data "aws_iam_policy_document" "codebuild_principals" {
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "sts:AssumeRole",
-    ]
-
-    principals {
-      type        = "Service"
-      identifiers = ["codebuild.amazonaws.com"]
-    }
-  }
-}
-
-# -----------------------------------------------
 # AWS Codebuild IAM Role
 # -----------------------------------------------
 resource "aws_iam_role" "codebuild_role" {
   name               = "${local.project_name_uc}_CodeBuild_InitializeRole"
-  assume_role_policy = "${data.aws_iam_policy_document.codebuild_principals.json}"
+  assume_role_policy = "${file("iam/codebuild_principals.json")}"
   lifecycle {
     create_before_destroy = false
   }
@@ -76,11 +58,3 @@ resource "aws_iam_role_policy_attachment" "codebuild_policy" {
   role       = "${aws_iam_role.codebuild_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
-
-# resource "aws_iam_role_policy" "codebuild_role_policy" {
-#   name   = "AcrossBucketPolicy"
-#   role   = "${aws_iam_role.codebuild_role.id}"
-#   policy = "${file("iam/codebuild_policy_across_bucket.json")}"
-
-#   count = "${local.is_dev ? 0 : 1}"
-# }
