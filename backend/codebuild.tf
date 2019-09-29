@@ -13,7 +13,7 @@ resource "aws_codebuild_project" "codebuild_backend_build" {
   }
 
   cache {
-    location = "${local.bucket_artifacts_name}/cache"
+    location = "${local.bucket_name_artifacts}/cache"
     type     = "S3"
   }
 
@@ -72,7 +72,7 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
   }
 
   cache {
-    location = "${local.bucket_artifacts_name}/cache"
+    location = "${local.bucket_name_artifacts}/cache"
     type     = "S3"
   }
 
@@ -99,7 +99,7 @@ resource "aws_codebuild_project" "codebuild_backend_publish" {
 
     environment_variable {
       name  = "ARTIFACTS_BUCKET"
-      value = "${local.bucket_artifacts_name}"
+      value = "${local.bucket_name_artifacts}"
     }
   }
 
@@ -149,7 +149,7 @@ resource "aws_codebuild_project" "codebuild_automation" {
   }
 
   cache {
-    location = "${local.bucket_artifacts_name}/cache"
+    location = "${local.bucket_name_artifacts}/cache"
     type     = "S3"
   }
 

@@ -128,7 +128,7 @@ resource "aws_cognito_identity_pool" "this" {
 #   trigger_source_arn    = "${aws_cognito_identity_pool.this.arn}"
 
 #   variables = {
-#     TABLE_USERS        = "${local.dynamodb_users_name}"
+#     TABLE_USERS        = "${local.dynamodb_name_users}"
 #     TZ                 = "${local.timezone}"
 #     FUNCTION_NAME      = "${local.project_name_uc}-S003"
 #     FUNCTION_QUALIFIER = "${local.alias_name}"

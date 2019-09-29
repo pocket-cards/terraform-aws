@@ -68,9 +68,9 @@ module "A002" {
   lambda_log_retention_in_days = "${var.lambda_log_retention_in_days}"
   lambda_role_policy_json      = ["${data.aws_iam_policy_document.dynamodb_access_policy.json}"]
   lambda_envs = {
-    TABLE_HISTORY     = "${local.dynamodb_history_name}"
-    TABLE_USER_GROUPS = "${local.dynamodb_user_groups_name}"
-    TABLE_GROUP_WORDS = "${local.dynamodb_group_words_name}"
+    TABLE_HISTORY     = "${local.dynamodb_name_history}"
+    TABLE_USER_GROUPS = "${local.dynamodb_name_user_groups}"
+    TABLE_GROUP_WORDS = "${local.dynamodb_name_group_words}"
     TZ                = "${local.timezone}"
   }
 
@@ -110,9 +110,9 @@ module "A003" {
   lambda_layers                = ["${local.xray}", "${local.moment}"]
 
   lambda_envs = {
-    TABLE_USERS       = "${local.dynamodb_users_name}"
-    TABLE_USER_GROUPS = "${local.dynamodb_user_groups_name}"
-    TABLE_GROUP_WORDS = "${local.dynamodb_group_words_name}"
+    TABLE_USERS       = "${local.dynamodb_name_users}"
+    TABLE_USER_GROUPS = "${local.dynamodb_name_user_groups}"
+    TABLE_GROUP_WORDS = "${local.dynamodb_name_group_words}"
     TZ                = "${local.timezone}"
   }
   lambda_role_policy_json = [

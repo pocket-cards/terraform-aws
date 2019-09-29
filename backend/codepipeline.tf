@@ -1,12 +1,12 @@
 # -----------------------------------------------
 # AWS CodePipeline - Backend
 # -----------------------------------------------
-resource "aws_codepipeline" "codepipeline_backend" {
+resource "aws_codepipeline" "backend" {
   name     = "${local.project_name_uc}-Backend"
-  role_arn = "${aws_iam_role.codepipeline_backend_role.arn}"
+  role_arn = "${aws_iam_role.codepipeline_role_backend.arn}"
 
   artifact_store {
-    location = "${local.bucket_artifacts_name}"
+    location = "${local.bucket_name_artifacts}"
     type     = "S3"
   }
 
@@ -20,10 +20,11 @@ resource "aws_codepipeline" "codepipeline_backend" {
       version          = "1"
       output_artifacts = ["source"]
       configuration = {
-        Owner      = "${local.backend_owner}"
-        Repo       = "${local.backend_repo}"
-        Branch     = "${local.backend_branch}"
-        OAuthToken = "${data.aws_ssm_parameter.github_token.value}"
+        Owner                = "${local.github_organization}"
+        Repo                 = "${local.github_repo_backend}"
+        Branch               = "${local.github_repo_branch}"
+        OAuthToken           = "${local.github_token}"
+        PollForSourceChanges = false
       }
     }
   }
@@ -67,7 +68,7 @@ resource "aws_codepipeline" "codepipeline_backend" {
 # -----------------------------------------------
 # AWS CodePipeline IAM Role - Backend
 # -----------------------------------------------
-resource "aws_iam_role" "codepipeline_backend_role" {
+resource "aws_iam_role" "codepipeline_role_backend" {
   name               = "${local.project_name_uc}_CodePipeline_BackendRole"
   assume_role_policy = "${file("iam/codepipeline_principals.json")}"
   lifecycle {
@@ -78,20 +79,63 @@ resource "aws_iam_role" "codepipeline_backend_role" {
 # -----------------------------------------------
 # AWS CodePipeline IAM Role Policy - Backend
 # -----------------------------------------------
-resource "aws_iam_role_policy" "codepipeline_backend_policy" {
-  role   = "${aws_iam_role.codepipeline_backend_role.id}"
+resource "aws_iam_role_policy" "codepipeline_policy_backend" {
+  role   = "${aws_iam_role.codepipeline_role_backend.id}"
   policy = "${file("iam/codepipeline_policy.json")}"
+}
+
+
+# -----------------------------------------------
+# AWS CodePipeline Webhook
+# -----------------------------------------------
+resource "aws_codepipeline_webhook" "backend" {
+  name            = "${local.project_name_uc}-BackendWebhook"
+  authentication  = "GITHUB_HMAC"
+  target_action   = "Source"
+  target_pipeline = "${aws_codepipeline.backend.name}"
+
+  authentication_configuration {
+    secret_token = "${local.github_token}"
+  }
+
+  filter {
+    json_path    = "$.ref"
+    match_equals = "refs/heads/${local.github_repo_branch}"
+  }
+}
+
+# -----------------------------------------------
+# Github Repository
+# -----------------------------------------------
+data "github_repository" "backend" {
+  full_name = "${local.github_organization}/${local.github_repo_backend}"
+}
+
+# -----------------------------------------------
+# Github Repository Webhook
+# -----------------------------------------------
+resource "github_repository_webhook" "backend" {
+  repository = "${data.github_repository.backend.name}"
+
+  configuration {
+    url          = "${aws_codepipeline_webhook.backend.url}"
+    content_type = "json"
+    insecure_ssl = true
+    secret       = "${local.github_token}"
+  }
+
+  events = ["push"]
 }
 
 # -----------------------------------------------
 # AWS CodePipeline - Automation
 # -----------------------------------------------
-resource "aws_codepipeline" "codepipeline_automation" {
+resource "aws_codepipeline" "automation" {
   name     = "${local.project_name_uc}-Automation"
-  role_arn = "${aws_iam_role.codepipeline_automation_role.arn}"
+  role_arn = "${aws_iam_role.codepipeline_role_automation.arn}"
 
   artifact_store {
-    location = "${local.bucket_artifacts_name}"
+    location = "${local.bucket_name_artifacts}"
     type     = "S3"
   }
 
@@ -105,10 +149,11 @@ resource "aws_codepipeline" "codepipeline_automation" {
       version          = "1"
       output_artifacts = ["source"]
       configuration = {
-        Owner      = "${local.automation_owner}"
-        Repo       = "${local.automation_repo}"
-        Branch     = "${local.automation_branch}"
-        OAuthToken = "${data.aws_ssm_parameter.github_token.value}"
+        Owner                = "${local.github_organization}"
+        Repo                 = "${local.github_repo_automation}"
+        Branch               = "${local.github_repo_branch}"
+        OAuthToken           = "${local.github_token}"
+        PollForSourceChanges = false
       }
     }
   }
@@ -133,7 +178,7 @@ resource "aws_codepipeline" "codepipeline_automation" {
 # -----------------------------------------------
 # AWS CodePipeline IAM Role - Automation
 # -----------------------------------------------
-resource "aws_iam_role" "codepipeline_automation_role" {
+resource "aws_iam_role" "codepipeline_role_automation" {
   name               = "${local.project_name_uc}_CodePipeline_AutomationRole"
   assume_role_policy = "${file("iam/codepipeline_principals.json")}"
   lifecycle {
@@ -145,6 +190,49 @@ resource "aws_iam_role" "codepipeline_automation_role" {
 # AWS CodePipeline IAM Role Policy - Automation
 # -----------------------------------------------
 resource "aws_iam_role_policy" "codepipeline_automation_policy" {
-  role   = "${aws_iam_role.codepipeline_automation_role.id}"
+  role   = "${aws_iam_role.codepipeline_role_automation.id}"
   policy = "${file("iam/codepipeline_policy.json")}"
+}
+
+
+# -----------------------------------------------
+# AWS CodePipeline Webhook - Automation
+# -----------------------------------------------
+resource "aws_codepipeline_webhook" "automation" {
+  name            = "${local.project_name_uc}-AutomationWebhook"
+  authentication  = "GITHUB_HMAC"
+  target_action   = "Source"
+  target_pipeline = "${aws_codepipeline.automation.name}"
+
+  authentication_configuration {
+    secret_token = "${local.github_token}"
+  }
+
+  filter {
+    json_path    = "$.ref"
+    match_equals = "refs/heads/${local.github_repo_branch}"
+  }
+}
+
+# -----------------------------------------------
+# Github Repository - Automation
+# -----------------------------------------------
+data "github_repository" "automation" {
+  full_name = "${local.github_organization}/${local.github_repo_automation}"
+}
+
+# -----------------------------------------------
+# Github Repository Webhook - Automation
+# -----------------------------------------------
+resource "github_repository_webhook" "automation" {
+  repository = "${data.github_repository.automation.name}"
+
+  configuration {
+    url          = "${aws_codepipeline_webhook.automation.url}"
+    content_type = "json"
+    insecure_ssl = true
+    secret       = "${local.github_token}"
+  }
+
+  events = ["push"]
 }

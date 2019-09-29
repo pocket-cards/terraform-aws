@@ -36,32 +36,34 @@ locals {
   # -----------------------------------------------
   # identity_pool_arn = "${local.remote_main.identity_pool_arn}"
   # -----------------------------------------------
+  # CodePipeline
+  # -----------------------------------------------
+  github_token = "${data.aws_ssm_parameter.github_token.value}"
+  # -----------------------------------------------
   # CodeBuild
   # -----------------------------------------------
-  build_type         = "LINUX_CONTAINER"
-  build_compute_type = "BUILD_GENERAL1_SMALL"
-  build_image        = "aws/codebuild/standard:2.0"
-  backend_repo       = "${local.remote_unmu.backend_repo}"
-  backend_owner      = "${local.remote_unmu.backend_owner}"
-  backend_branch     = "${local.remote_unmu.backend_branch}"
-  automation_repo    = "${local.remote_unmu.automation_repo}"
-  automation_owner   = "${local.remote_unmu.automation_owner}"
-  automation_branch  = "${local.remote_unmu.automation_branch}"
+  build_type             = "LINUX_CONTAINER"
+  build_compute_type     = "BUILD_GENERAL1_SMALL"
+  build_image            = "aws/codebuild/standard:2.0"
+  github_repo_branch     = "${local.environment == "prod" ? "master" : "dev"}"
+  github_organization    = "${local.remote_unmu.github_organization}"
+  github_repo_backend    = "${local.remote_unmu.github_repo_backend}"
+  github_repo_automation = "${local.remote_unmu.github_repo_automation}"
   # -----------------------------------------------
   # S3 Bucket
   # -----------------------------------------------
-  bucket_audios_name    = "${local.remote_unmu.bucket_audios_name}"
-  bucket_images_name    = "${local.remote_unmu.bucket_images_name}"
-  bucket_logging_name   = "${local.remote_unmu.bucket_logging_name}"
-  bucket_artifacts_name = "${local.remote_init.bucket_artifacts_name}"
+  bucket_name_audios    = "${local.remote_unmu.bucket_name_audios}"
+  bucket_name_images    = "${local.remote_unmu.bucket_name_images}"
+  bucket_name_logging   = "${local.remote_unmu.bucket_name_logging}"
+  bucket_name_artifacts = "${local.remote_init.bucket_name_artifacts}"
   # -----------------------------------------------
   # DynamoDB
   # -----------------------------------------------
-  dynamodb_users_name       = "${local.remote_unmu.dynamodb_users_name}"
-  dynamodb_user_groups_name = "${local.remote_unmu.dynamodb_user_groups_name}"
-  dynamodb_group_words_name = "${local.remote_unmu.dynamodb_group_words_name}"
-  dynamodb_words_name       = "${local.remote_unmu.dynamodb_words_name}"
-  dynamodb_history_name     = "${local.remote_unmu.dynamodb_history_name}"
+  dynamodb_name_users       = "${local.remote_unmu.dynamodb_name_users}"
+  dynamodb_name_user_groups = "${local.remote_unmu.dynamodb_name_user_groups}"
+  dynamodb_name_group_words = "${local.remote_unmu.dynamodb_name_group_words}"
+  dynamodb_name_words       = "${local.remote_unmu.dynamodb_name_words}"
+  dynamodb_name_history     = "${local.remote_unmu.dynamodb_name_history}"
 
   # -----------------------------------------------
   # API Gateway
@@ -83,74 +85,75 @@ locals {
   # -----------------------------------------------
   # Lambda
   # -----------------------------------------------
-  lambda_handler     = "index.handler"
-  lambda_runtime     = "nodejs10.x"
-  lambda_alias_name  = "${local.environment}"
-  audio_path_pattern = "audio"
-  lambda_role_prefix = "${local.project_name_uc}_Lambda"
+  lambda_handler              = "index.handler"
+  lambda_runtime              = "nodejs10.x"
+  lambda_alias_name           = "${local.environment}"
+  audio_path_pattern          = "audio"
+  lambda_role_prefix          = "${local.project_name_uc}_Lambda"
+  lambda_function_name_prefix = "${local.project_name_uc}"
   lambda = {
     A001 = {
-      function_name = "A001"
+      function_name = "${local.lambda_function_name_prefix}_A001"
       role_name     = "${local.lambda_role_prefix}_A001Role"
     }
     A002 = {
-      function_name = "A002"
+      function_name = "${local.lambda_function_name_prefix}_A002"
       role_name     = "${local.lambda_role_prefix}_A002Role"
     }
     A003 = {
-      function_name = "A003"
+      function_name = "${local.lambda_function_name_prefix}_A003"
       role_name     = "${local.lambda_role_prefix}_A003Role"
     }
     B001 = {
-      function_name = "B001"
+      function_name = "${local.lambda_function_name_prefix}_B001"
       role_name     = "${local.lambda_role_prefix}_B001Role"
     }
     B002 = {
-      function_name = "B002"
+      function_name = "${local.lambda_function_name_prefix}_B002"
       role_name     = "${local.lambda_role_prefix}_B002Role"
     }
     B003 = {
-      function_name = "B003"
+      function_name = "${local.lambda_function_name_prefix}_B003"
       role_name     = "${local.lambda_role_prefix}_B003Role"
     }
     B004 = {
-      function_name = "B004"
+      function_name = "${local.lambda_function_name_prefix}_B004"
       role_name     = "${local.lambda_role_prefix}_B004Role"
     }
     C001 = {
-      function_name = "C001"
+      function_name = "${local.lambda_function_name_prefix}_C001"
       role_name     = "${local.lambda_role_prefix}_C001Role"
     }
     C002 = {
-      function_name = "C002"
+      function_name = "${local.lambda_function_name_prefix}_C002"
       role_name     = "${local.lambda_role_prefix}_C002Role"
     }
     C003 = {
-      function_name = "C003"
+      function_name = "${local.lambda_function_name_prefix}_C003"
       role_name     = "${local.lambda_role_prefix}_C003Role"
     }
     C004 = {
-      function_name = "C004"
+      function_name = "${local.lambda_function_name_prefix}_C004"
       role_name     = "${local.lambda_role_prefix}_C004Role"
     }
     C006 = {
-      function_name = "C006"
+      function_name = "${local.lambda_function_name_prefix}_C006"
       role_name     = "${local.lambda_role_prefix}_C006Role"
     }
     C007 = {
-      function_name = "C007"
+      function_name = "${local.lambda_function_name_prefix}_C007"
       role_name     = "${local.lambda_role_prefix}_C007Role"
     }
     C008 = {
-      function_name = "C008"
+      function_name = "${local.lambda_function_name_prefix}_C008"
       role_name     = "${local.lambda_role_prefix}_C008Role"
     }
     D001 = {
-      function_name = "D001"
+      function_name = "${local.lambda_function_name_prefix}_D001"
       role_name     = "${local.lambda_role_prefix}_D001Role"
     }
     S001 = {
-      function_name = "S001"
+      function_name = "${local.lambda_function_name_prefix}_S001"
       role_name     = "${local.lambda_role_prefix}_S001Role"
     }
   }

@@ -22,7 +22,7 @@ module "D001" {
   lambda_memory_size   = 1024
   lambda_envs = {
     EXCLUDE_WORD = "",
-    IMAGE_BUCKET = "${local.bucket_images_name}"
+    IMAGE_BUCKET = "${local.bucket_name_images}"
     TZ           = "${local.timezone}"
   }
 

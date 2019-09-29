@@ -1,34 +1,34 @@
 # -----------------------------------------------
 # S3 Bucket
 # -----------------------------------------------
-output "bucket_frontend_name" {
+output "bucket_name_frontend" {
   value = "${aws_s3_bucket.frontend.id}"
 }
-output "bucket_images_name" {
+output "bucket_name_images" {
   value = "${aws_s3_bucket.images.id}"
 }
-output "bucket_audios_name" {
+output "bucket_name_audios" {
   value = "${aws_s3_bucket.audios.id}"
 }
-output "bucket_logging_name" {
+output "bucket_name_logging" {
   value = "${aws_s3_bucket.logging.id}"
 }
 # -----------------------------------------------
 # DynamoDB
 # -----------------------------------------------
-output "dynamodb_users_name" {
+output "dynamodb_name_users" {
   value = "${aws_dynamodb_table.users.name}"
 }
-output "dynamodb_user_groups_name" {
+output "dynamodb_name_user_groups" {
   value = "${aws_dynamodb_table.user_groups.name}"
 }
-output "dynamodb_group_words_name" {
+output "dynamodb_name_group_words" {
   value = "${aws_dynamodb_table.group_words.name}"
 }
-output "dynamodb_words_name" {
+output "dynamodb_name_words" {
   value = "${aws_dynamodb_table.words.name}"
 }
-output "dynamodb_history_name" {
+output "dynamodb_name_history" {
   value = "${aws_dynamodb_table.history.name}"
 }
 output "dynamodb_tables" {
@@ -44,30 +44,15 @@ output "dynamodb_tables" {
 # -----------------------------------------------
 # Source Configs
 # -----------------------------------------------
-output "backend_repo" {
-  value = "${var.backend_repo}"
+output "github_organization" {
+  value = "${var.github_organization}"
 }
-output "backend_owner" {
-  value = "${var.backend_owner}"
+output "github_repo_frontend" {
+  value = "${var.github_repo_frontend}"
 }
-output "backend_branch" {
-  value = "${local.repo_branch}"
+output "github_repo_backend" {
+  value = "${var.github_repo_backend}"
 }
-output "frontend_repo" {
-  value = "${var.frontend_repo}"
-}
-output "frontend_owner" {
-  value = "${var.frontend_owner}"
-}
-output "frontend_branch" {
-  value = "${local.repo_branch}"
-}
-output "automation_repo" {
-  value = "${var.automation_repo}"
-}
-output "automation_owner" {
-  value = "${var.automation_owner}"
-}
-output "automation_branch" {
-  value = "${local.repo_branch}"
+output "github_repo_automation" {
+  value = "${var.github_repo_automation}"
 }

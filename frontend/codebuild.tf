@@ -13,7 +13,7 @@ resource "aws_codebuild_project" "codebuild_frontend" {
   }
 
   cache {
-    location = "${local.bucket_artifacts_name}/cache"
+    location = "${local.bucket_name_artifacts}/cache"
     type     = "S3"
   }
 
@@ -25,7 +25,7 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 
     environment_variable {
       name  = "BUCKET_WEB"
-      value = "${local.bucket_frontend_name}"
+      value = "${local.bucket_name_frontend}"
     }
 
     environment_variable {

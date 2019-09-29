@@ -4,6 +4,14 @@
 provider "aws" {}
 
 # -----------------------------------------------
+# GitHub Provider
+# -----------------------------------------------
+provider "github" {
+  token        = "${local.github_token}"
+  organization = "${local.github_organization}"
+}
+
+# -----------------------------------------------
 # AWS Provider - US
 # -----------------------------------------------
 provider "aws" {

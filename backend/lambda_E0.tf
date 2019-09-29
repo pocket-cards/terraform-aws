@@ -16,8 +16,8 @@
 #   trigger_source_arn    = "${aws_cognito_user_pool.this.arn}"
 
 #   variables = {
-#     USERS_TABLE       = "${local.dynamodb_users_name}"
-#     USER_GROUPS_TABLE = "${local.dynamodb_user_groups_name}"
+#     USERS_TABLE       = "${local.dynamodb_name_users}"
+#     USER_GROUPS_TABLE = "${local.dynamodb_name_user_groups}"
 #     TZ                = "${local.timezone}"
 #   }
 

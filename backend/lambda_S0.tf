@@ -16,8 +16,8 @@ module "S001" {
   # trigger_source_arn    = "${local.dynamodb_group_words_arn}"
 
   variables = {
-    TABLE_HISTORY     = "${local.dynamodb_history_name}"
-    TABLE_USER_GROUPS = "${local.dynamodb_user_groups_name}"
+    TABLE_HISTORY     = "${local.dynamodb_name_history}"
+    TABLE_USER_GROUPS = "${local.dynamodb_name_user_groups}"
     TZ                = "${local.timezone}"
   }
 

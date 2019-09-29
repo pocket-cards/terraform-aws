@@ -2,10 +2,8 @@
 # ----------------------------------------
 # Source Configs
 # ----------------------------------------
-variable "backend_repo" {}
-variable "backend_owner" {}
-variable "frontend_repo" {}
-variable "frontend_owner" {}
-variable "automation_repo" {}
-variable "automation_owner" {}
+variable "github_organization" {}
+variable "github_repo_backend" {}
+variable "github_repo_frontend" {}
+variable "github_repo_automation" {}
 

@@ -141,7 +141,7 @@ resource "aws_cloudfront_origin_access_identity" "this" {
 resource "aws_s3_bucket_policy" "web" {
   depends_on = ["aws_cloudfront_origin_access_identity.this"]
 
-  bucket = "${local.bucket_frontend_name}"
+  bucket = "${local.bucket_name_frontend}"
   policy = "${data.aws_iam_policy_document.web_acl.json}"
 }
 
@@ -170,7 +170,7 @@ data "aws_iam_policy_document" "web_acl" {
 resource "aws_s3_bucket_policy" "audios" {
   depends_on = ["aws_cloudfront_origin_access_identity.this"]
 
-  bucket = "${local.bucket_audios_name}"
+  bucket = "${local.bucket_name_audios}"
   policy = "${data.aws_iam_policy_document.audio_acl.json}"
 }
 
