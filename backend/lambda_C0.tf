@@ -12,7 +12,7 @@ module "C001" {
   http_method          = "POST"
   method_parent_id     = "${module.B002.resource_id}"
   method_parent_path   = "${module.B002.resource_path}"
-  method_authorization = "AWS_IAM"
+  method_authorization = "CUSTOM"
   method_path_part     = "words"
 
   lambda_function_name = "${local.lambda.C001.function_name}"
@@ -67,7 +67,7 @@ module "C002" {
   http_method          = "GET"
   method_parent_id     = "${module.C001.resource_id}"
   method_parent_path   = "${module.C001.resource_path}"
-  method_authorization = "AWS_IAM"
+  method_authorization = "CUSTOM"
 
   lambda_function_name = "${local.lambda.C002.function_name}"
   lambda_alias_name    = "${local.lambda_alias_name}"
@@ -96,7 +96,7 @@ module "C003" {
   http_method          = "GET"
   method_parent_id     = "${module.C001.resource_id}"
   method_parent_path   = "${module.C001.resource_path}"
-  method_authorization = "AWS_IAM"
+  method_authorization = "CUSTOM"
   method_path_part     = "{word}"
 
   lambda_function_name = "${local.lambda.C003.function_name}"
@@ -137,7 +137,7 @@ module "C004" {
   http_method          = "PUT"
   method_parent_id     = "${module.C003.resource_id}"
   method_parent_path   = "${module.C003.resource_path}"
-  method_authorization = "AWS_IAM"
+  method_authorization = "CUSTOM"
 
   lambda_function_name         = "${local.lambda.C004.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
@@ -168,7 +168,7 @@ module "C006" {
   http_method          = "GET"
   method_parent_id     = "${module.B002.resource_id}"
   method_parent_path   = "${module.B002.resource_path}"
-  method_authorization = "AWS_IAM"
+  method_authorization = "CUSTOM"
   method_path_part     = "new"
 
   lambda_function_name         = "${local.lambda.C006.function_name}"
@@ -213,7 +213,7 @@ module "C007" {
   http_method          = "GET"
   method_parent_id     = "${module.B002.resource_id}"
   method_parent_path   = "${module.B002.resource_path}"
-  method_authorization = "AWS_IAM"
+  method_authorization = "CUSTOM"
   method_path_part     = "test"
 
   lambda_function_name         = "${local.lambda.C007.function_name}"
@@ -254,7 +254,7 @@ module "C008" {
   http_method          = "GET"
   method_parent_id     = "${module.B002.resource_id}"
   method_parent_path   = "${module.B002.resource_path}"
-  method_authorization = "AWS_IAM"
+  method_authorization = "CUSTOM"
   method_path_part     = "review"
 
   lambda_function_name         = "${local.lambda.C008.function_name}"
