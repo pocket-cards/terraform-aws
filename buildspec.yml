@@ -17,14 +17,14 @@ phases:
       - terraform plan -out tfplan -no-color
       - terraform apply tfplan -no-color
       - cd $CODEBUILD_SRC_DIR
-      - cd architecture1
+      - cd backend
       - terraform init -no-color
       - terraform workspace select $ENVIRONMENT -no-color
       - terraform init -no-color
       - terraform plan -out tfplan -no-color
       - terraform apply tfplan -no-color
       - cd $CODEBUILD_SRC_DIR
-      - cd architecture2
+      - cd frontend
       - terraform init -no-color
       - terraform workspace select $ENVIRONMENT -no-color
       - terraform plan -out tfplan -no-color
@@ -32,5 +32,3 @@ phases:
       - aws codepipeline start-pipeline-execution --name PocketCards-Backend
       - aws codepipeline start-pipeline-execution --name PocketCards-Frontend
       - aws codepipeline start-pipeline-execution --name PocketCards-Automation
-
-      
