@@ -174,10 +174,43 @@ resource "aws_route53_record" "apigateway" {
 
 # -------------------------------------------------------
 # Amazon API BASE PATH MAPPING
-# -----------------------------------------------------
+# -------------------------------------------------------
 resource "aws_api_gateway_base_path_mapping" "cards" {
   api_id = "${aws_api_gateway_rest_api.this.id}"
   # base_path   = "${local.rest_api_base_path}"
   stage_name  = "${aws_api_gateway_stage.this.stage_name}"
   domain_name = "${aws_api_gateway_domain_name.this.domain_name}"
+}
+
+# -------------------------------------------------------
+# Amazon API Gateway Authorizer
+# -------------------------------------------------------
+resource "aws_api_gateway_authorizer" "this" {
+  name                             = "LambdaAuthorizer"
+  rest_api_id                      = "${aws_api_gateway_rest_api.this.id}"
+  authorizer_uri                   = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/${module.S001.arn}/invocations"
+  authorizer_credentials           = "${aws_iam_role.api_authorizer.arn}"
+  type                             = "REQUEST"
+  identity_source                  = "method.request.header.Authorization"
+  authorizer_result_ttl_in_seconds = 300
+}
+
+# -------------------------------------------------------
+# Amazon API Gateway Authorizer Role
+# -------------------------------------------------------
+resource "aws_iam_role" "api_authorizer" {
+  name = "${local.project_name_uc}_APIGateway_AuthorizerRole"
+  path = "/"
+
+  assume_role_policy = "${file("iam/apigateway_principals.json")}"
+}
+
+# -------------------------------------------------------
+# Amazon API Gateway Authorizer Policy
+# -------------------------------------------------------
+resource "aws_iam_role_policy" "api_authorizer" {
+  name = "api_authorizer"
+  role = "${aws_iam_role.api_authorizer.id}"
+
+  policy = "${file("iam/apigateway_policy_authorizer.json")}"
 }
