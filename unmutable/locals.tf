@@ -30,3 +30,7 @@ locals {
   dynamodb_name_words      = "${local.project_name_uc}_Words${local.dyanmodb_random_id}"
   dynamodb_name_history    = "${local.project_name_uc}_History${local.dyanmodb_random_id}"
 }
+
+data "aws_cognito_user_pools" "this" {
+  name = "${aws_cognito_user_pool.this.name}"
+}

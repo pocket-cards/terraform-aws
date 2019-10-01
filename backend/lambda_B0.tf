@@ -11,7 +11,8 @@ module "B001" {
   http_method          = "POST"
   method_parent_id     = "${aws_api_gateway_rest_api.this.root_resource_id}"
   method_parent_path   = "/"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
   method_path_part     = "groups"
 
   lambda_function_name         = "${local.lambda.B001.function_name}"
@@ -45,7 +46,8 @@ module "B002" {
   http_method          = "GET"
   method_parent_id     = "${module.B001.resource_id}"
   method_parent_path   = "${module.B001.resource_path}"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
   method_path_part     = "{groupId}"
 
   lambda_function_name         = "${local.lambda.B002.function_name}"
@@ -81,7 +83,8 @@ module "B003" {
   http_method          = "PUT"
   method_parent_id     = "${module.B002.resource_id}"
   method_parent_path   = "${module.B002.resource_path}"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
 
   lambda_function_name         = "${local.lambda.B003.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"
@@ -104,7 +107,8 @@ module "B004" {
   http_method          = "DELETE"
   method_parent_id     = "${module.B002.resource_id}"
   method_parent_path   = "${module.B002.resource_path}"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
 
   lambda_function_name         = "${local.lambda.B004.function_name}"
   lambda_alias_name            = "${local.lambda_alias_name}"

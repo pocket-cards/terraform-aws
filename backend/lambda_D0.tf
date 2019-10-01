@@ -10,7 +10,8 @@ module "D001" {
   http_method          = "POST"
   method_parent_id     = "${aws_api_gateway_rest_api.this.root_resource_id}"
   method_parent_path   = "/"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
   method_path_part     = "image2text"
 
   lambda_publish       = true

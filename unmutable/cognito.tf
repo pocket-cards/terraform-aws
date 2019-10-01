@@ -110,32 +110,3 @@ resource "aws_cognito_identity_pool" "this" {
   ]
 }
 
-# module "S002" {
-#   source = "github.com/wwalpha/terraform-module-registry/aws/lambda"
-
-#   enable_dummy          = true
-#   enable_xray           = true
-#   publish               = true
-#   function_name         = "${local.project_name_uc}-S002"
-#   handler               = "${local.lambda_handler}"
-#   runtime               = "${local.lambda_runtime}"
-#   role_name             = "${local.project_name_uc}-S002"
-#   layers                = ["${local.xray}", "${local.moment}"]
-#   log_retention_in_days = "${var.lambda_log_retention_in_days}"
-#   timeout               = 5
-#   alias_name            = "${local.alias_name}"
-#   trigger_principal     = "cognito-sync.amazonaws.com"
-#   trigger_source_arn    = "${aws_cognito_identity_pool.this.arn}"
-
-#   variables = {
-#     TABLE_USERS        = "${local.dynamodb_name_users}"
-#     TZ                 = "${local.timezone}"
-#     FUNCTION_NAME      = "${local.project_name_uc}-S003"
-#     FUNCTION_QUALIFIER = "${local.alias_name}"
-#   }
-
-#   role_policy_json = [
-#     "${data.aws_iam_policy_document.dynamodb_access_policy.json}",
-#     "${data.aws_iam_policy_document.lambda_access_policy.json}",
-#   ]
-# }

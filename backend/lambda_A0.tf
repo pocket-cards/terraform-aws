@@ -16,7 +16,8 @@ module "A001" {
   http_method          = "GET"
   method_parent_id     = "${aws_api_gateway_resource.users.id}"
   method_parent_path   = "${aws_api_gateway_resource.users.path}"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
   method_path_part     = "{userId}"
 
   lambda_function_name = "${local.lambda.A001.function_name}"
@@ -56,7 +57,8 @@ module "A002" {
   http_method          = "GET"
   method_parent_id     = "${module.A001.resource_id}"
   method_parent_path   = "${module.A001.resource_path}"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
   method_path_part     = "history"
 
   lambda_function_name         = "${local.lambda.A002.function_name}"
@@ -96,7 +98,8 @@ module "A003" {
   http_method          = "POST"
   method_parent_id     = "${module.A001.resource_id}"
   method_parent_path   = "${module.A001.resource_path}"
-  method_authorization = "CUSTOM"
+  method_authorization = "COGNITO_USER_POOLS"
+  method_authorizer_id = "${aws_api_gateway_authorizer.this.id}"
   method_path_part     = "fixdelay"
 
   lambda_function_name         = "${local.lambda.A003.function_name}"

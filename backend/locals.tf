@@ -75,6 +75,12 @@ locals {
   response_version = { version = "${var.app_ver}" }
 
   # -----------------------------------------------
+  # Cognito
+  # -----------------------------------------------
+  cognito_identity_pool_id = "${local.remote_unmu.cognito_identity_pool_id}"
+  cognito_user_pool_id     = "${data.aws_cognito_user_pools.this.id}"
+
+  # -----------------------------------------------
   # Lambda Layers
   # -----------------------------------------------
   xray   = "${local.remote_init.layers.xray}"
@@ -180,4 +186,8 @@ data "aws_route53_zone" "this" {
 # -----------------------------------------------
 data "aws_ssm_parameter" "github_token" {
   name = "${local.remote_init.ssm_param_github_token}"
+}
+
+data "aws_cognito_user_pools" "this" {
+  name = "${local.remote_unmu.cognito_user_pool_name}"
 }
