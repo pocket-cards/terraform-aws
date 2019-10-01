@@ -3,8 +3,7 @@
 # グループ登録: /groups
 # -----------------------------------------------
 module "B001" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
-  # source               = "./terraform-modules-api-lambda"
+  source               = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
   project_name         = "${local.project_name_uc}"
   region               = "${local.region}"
   rest_api_id          = "${aws_api_gateway_rest_api.this.id}"
@@ -38,8 +37,7 @@ module "CORS_B001" {
 # グループ情報取得: /groups/{groupId}
 # -----------------------------------------------
 module "B002" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
-  # source             = "./terraform-modules-api-lambda"
+  source               = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
   project_name         = "${local.project_name_uc}"
   region               = "${local.region}"
   rest_api_id          = "${aws_api_gateway_rest_api.this.id}"
@@ -75,8 +73,7 @@ module "CORS_B002" {
 # グループ情報変更: /groups/{groupId}
 # -----------------------------------------------
 module "B003" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
-  # source               = "./terraform-modules-api-lambda"
+  source               = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
   project_name         = "${local.project_name_uc}"
   region               = "${local.region}"
   rest_api_id          = "${aws_api_gateway_rest_api.this.id}"
@@ -99,8 +96,7 @@ module "B003" {
 # グループ情報削除: /groups/{groupId}
 # -----------------------------------------------
 module "B004" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
-  # source               = "./terraform-modules-api-lambda"
+  source               = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
   project_name         = "${local.project_name_uc}"
   region               = "${local.region}"
   rest_api_id          = "${aws_api_gateway_rest_api.this.id}"

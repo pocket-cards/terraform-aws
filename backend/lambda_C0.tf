@@ -252,8 +252,7 @@ module "CORS_C007" {
 # 新規学習モード単語一覧: /groups/{groupId}/review
 # -----------------------------------------------
 module "C008" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
-  # source               = "./terraform-modules-api-lambda"
+  source               = "github.com/wwalpha/terraform-module-registry/aws/api-lambda"
   project_name         = "${local.project_name_uc}"
   region               = "${local.region}"
   rest_api_id          = "${aws_api_gateway_rest_api.this.id}"
