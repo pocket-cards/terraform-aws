@@ -9,8 +9,9 @@ module "api" {
   cognito_user_pool_name     = "${local.remote_unmu.cognito_user_pool_name}"
   authorizer_name            = "CognitoAuthorizer"
   authorizer_type            = "COGNITO_USER_POOLS"
-  authorizer_role_name       = "${local.project_name_uc}_APIGateway_AuthorizerRole"
-  authorizer_policy          = "${file("iam/apigateway_policy_authorizer.json")}"
+  # authorizer_role_name             = "${local.project_name_uc}_APIGateway_AuthorizerRole"
+  # authorizer_policy                = "${file("iam/apigateway_policy_authorizer.json")}"
+  authorizer_result_ttl_in_seconds = 0
 }
 
 # -------------------------------------------------------

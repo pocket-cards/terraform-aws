@@ -36,6 +36,8 @@ locals {
     delete = "DELETE"
     put    = "PUT"
   }
+
+  authorization_type_cognito = "COGNITO_USER_POOLS"
   # -----------------------------------------------
   # Cognito
   # -----------------------------------------------
