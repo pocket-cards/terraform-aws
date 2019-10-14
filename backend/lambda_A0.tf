@@ -3,7 +3,7 @@
 # ユーザ履歴集計取得: GET /history
 # --------------------------------------------------------------------------------
 module "a002" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source = "github.com/wwalpha/terraform-module-lambda"
 
   dummy_enabled         = true
   function_name         = "${local.lambda.a002.function_name}"

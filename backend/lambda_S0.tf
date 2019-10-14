@@ -1,5 +1,5 @@
 module "s001" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   publish               = true
   function_name         = "${local.lambda.s001.function_name}"

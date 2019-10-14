@@ -8,7 +8,6 @@ variable "cors_allow_origin" {}
 # --------------------------------------------------------------------------------
 variable "lambda_log_retention_in_days" {}
 variable "app_ver" {}
-variable "custom_domain_api" {}
 
 # --------------------------------------------------------------------------------
 # Certificate Manager
