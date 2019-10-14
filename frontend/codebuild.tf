@@ -39,15 +39,15 @@ resource "aws_codebuild_project" "codebuild_frontend" {
     }
     environment_variable {
       name  = "IDENTITY_POOL_ID"
-      value = "${aws_cognito_identity_pool.this.id}"
+      value = "${local.cognito_identity_pool_id}"
     }
     environment_variable {
       name  = "USER_POOL_ID"
-      value = "${aws_cognito_user_pool.this.id}"
+      value = "${data.aws_cognito_user_pools.this.id}"
     }
     environment_variable {
       name  = "USER_POOL_WEB_CLIENT_ID"
-      value = "${aws_cognito_user_pool_client.this.id}"
+      value = "${local.cognito_web_client_id}"
     }
   }
 

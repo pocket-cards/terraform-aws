@@ -81,7 +81,7 @@ resource "aws_codepipeline_webhook" "initialize" {
 
   filter {
     json_path    = "$.ref"
-    match_equals = "refs/heads/master"
+    match_equals = "refs/heads/${var.github_branch}"
   }
 }
 

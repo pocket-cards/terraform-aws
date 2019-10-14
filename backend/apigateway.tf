@@ -1,37 +1,48 @@
 # -------------------------------------------------------
-# Amazon API Gateway
-# # -----------------------------------------------------
-resource "aws_api_gateway_rest_api" "this" {
-  name = "${local.project_name}"
+# Amazon API REST API
+# -------------------------------------------------------
+module "api" {
+  source = "github.com/wwalpha/terraform-module-apigateway/api"
 
-  endpoint_configuration {
-    types = ["${local.api_endpoint_configuration}"]
-  }
+  api_name                   = "${local.project_name}"
+  api_endpoint_configuration = "${local.api_endpoint_configuration}"
+  cognito_user_pool_name     = "${local.remote_unmu.cognito_user_pool_name}"
+  authorizer_name            = "CognitoAuthorizer"
+  authorizer_type            = "COGNITO_USER_POOLS"
+  # authorizer_role_name             = "${local.project_name_uc}_APIGateway_AuthorizerRole"
+  # authorizer_policy                = "${file("iam/apigateway_policy_authorizer.json")}"
+  authorizer_result_ttl_in_seconds = 0
 }
 
 # -------------------------------------------------------
-# Amazon API Gateway Deployment
-# # -----------------------------------------------------
-resource "aws_api_gateway_deployment" "this" {
-  rest_api_id = "${aws_api_gateway_rest_api.this.id}"
-  variables = {
-    deployment_md5 = "${local.api_gateway_deployment_md5}"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
+# Amazon API Deployment
 # -------------------------------------------------------
-# Amazon API Gateway Stage
-# # -----------------------------------------------------
-resource "aws_api_gateway_stage" "this" {
-  stage_name    = "v1"
-  rest_api_id   = "${aws_api_gateway_rest_api.this.id}"
-  deployment_id = "${aws_api_gateway_deployment.this.id}"
+module "deployment" {
+  source = "github.com/wwalpha/terraform-module-apigateway/deployment"
 
-  xray_tracing_enabled = true
+  rest_api_id                            = "${module.api.id}"
+  stage_name                             = "v1"
+  custom_domain_name                     = "${aws_acm_certificate.api.domain_name}"
+  custom_domain_regional_certificate_arn = "${aws_acm_certificate_validation.api.certificate_arn}"
+  custom_domain_endpoint_configuration   = "${local.api_endpoint_configuration}"
+
+  integration_ids = [
+    "${module.m001.integration_id}",
+    "${module.m002.integration_id}",
+    "${module.m003.integration_id}",
+    "${module.m004.integration_id}",
+    "${module.m005.integration_id}",
+    "${module.m006.integration_id}",
+    "${module.m007.integration_id}",
+    "${module.m008.integration_id}",
+    "${module.m009.integration_id}",
+    "${module.m010.integration_id}",
+    "${module.m011.integration_id}",
+    "${module.m012.integration_id}",
+    "${module.m013.integration_id}",
+  ]
+
+  deployment_md5 = "${base64encode(join("", local.deployment_files))}"
 }
 
 # --------------------------------------------------------------------------------
@@ -76,138 +87,28 @@ resource "aws_api_gateway_stage" "this" {
 #   }
 # }
 
+# -------------------------------------------------------
+# Amazon API Method
+# -------------------------------------------------------
+module "version" {
+  source = "github.com/wwalpha/terraform-module-apigateway/method"
 
-resource "aws_api_gateway_method" "version" {
-  depends_on = ["aws_api_gateway_rest_api.this"]
-
-  rest_api_id   = "${aws_api_gateway_rest_api.this.id}"
-  resource_id   = "${aws_api_gateway_rest_api.this.root_resource_id}"
-  http_method   = "GET"
-  authorization = "NONE"
-
-  lifecycle {
-    create_before_destroy = false
-  }
-}
-
-resource "aws_api_gateway_integration" "this" {
-  depends_on = ["aws_api_gateway_method.version"]
-
-  rest_api_id = "${aws_api_gateway_rest_api.this.id}"
-  resource_id = "${aws_api_gateway_rest_api.this.root_resource_id}"
-  http_method = "${aws_api_gateway_method.version.http_method}"
-  type        = "MOCK"
-
-  request_templates = {
-    "application/json" = "${jsonencode(local.status_200)}"
-  }
-}
-
-resource "aws_api_gateway_method_response" "version" {
-  depends_on = ["aws_api_gateway_method.version"]
-
-  rest_api_id = "${aws_api_gateway_rest_api.this.id}"
-  resource_id = "${aws_api_gateway_rest_api.this.root_resource_id}"
-  http_method = "${aws_api_gateway_method.version.http_method}"
-  status_code = "200"
-
-  response_models = {
-    "application/json" = "Empty"
-  }
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = false
-  }
-}
-
-resource "aws_api_gateway_integration_response" "version" {
-  depends_on = ["aws_api_gateway_method.version", "aws_api_gateway_method_response.version"]
-
-  rest_api_id = "${aws_api_gateway_rest_api.this.id}"
-  resource_id = "${aws_api_gateway_rest_api.this.root_resource_id}"
-  http_method = "${aws_api_gateway_method.version.http_method}"
-  status_code = "${aws_api_gateway_method_response.version.status_code}"
-
-  response_templates = {
-    "application/json" = "${jsonencode(local.response_version)}"
-  }
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "${var.cors_allow_origin}"
-  }
-}
-
-module "CORS_ROOT" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/api-cors"
-
-  rest_api_id = "${aws_api_gateway_rest_api.this.id}"
-  resource_id = "${aws_api_gateway_rest_api.this.root_resource_id}"
-
-  allow_origin = "${var.cors_allow_origin}"
-  allow_method = "'GET,OPTIONS'"
+  rest_api_id        = "${module.api.id}"
+  resource_id        = "${module.api.root_resource_id}"
+  http_method        = "GET"
+  integration_type   = "MOCK"
+  response_templates = "${jsonencode(local.response_version)}"
 }
 
 # -------------------------------------------------------
-# Amazon API Gateway Domain Name
-# # -----------------------------------------------------
-resource "aws_api_gateway_domain_name" "this" {
-  domain_name              = "${aws_acm_certificate.api.domain_name}"
-  regional_certificate_arn = "${aws_acm_certificate_validation.api.certificate_arn}"
-
-  endpoint_configuration {
-    types = ["${local.api_endpoint_configuration}"]
-  }
-}
-
+# Amazon API CORS
 # -------------------------------------------------------
-# AWS Route53 - API Gateway Record
-# # -----------------------------------------------------
-resource "aws_route53_record" "apigateway" {
-  name    = "${aws_api_gateway_domain_name.this.domain_name}"
-  type    = "A"
-  zone_id = "${data.aws_route53_zone.this.id}"
+# module "CORS_ROOT" {
+#   source = "github.com/wwalpha/terraform-module-registry/aws/api-cors"
 
-  alias {
-    evaluate_target_health = true
-    name                   = "${aws_api_gateway_domain_name.this.regional_domain_name}"
-    zone_id                = "${aws_api_gateway_domain_name.this.regional_zone_id}"
-  }
-}
+#   rest_api_id = "${aws_api_gateway_rest_api.this.id}"
+#   resource_id = "${aws_api_gateway_rest_api.this.root_resource_id}"
 
-# -------------------------------------------------------
-# Amazon API BASE PATH MAPPING
-# -------------------------------------------------------
-resource "aws_api_gateway_base_path_mapping" "cards" {
-  api_id = "${aws_api_gateway_rest_api.this.id}"
-  # base_path   = "${local.rest_api_base_path}"
-  stage_name  = "${aws_api_gateway_stage.this.stage_name}"
-  domain_name = "${aws_api_gateway_domain_name.this.domain_name}"
-}
-
-# -------------------------------------------------------
-# Amazon API Gateway Authorizer
-# -------------------------------------------------------
-resource "aws_api_gateway_authorizer" "this" {
-  name          = "CognitoAuthorizer"
-  type          = "COGNITO_USER_POOLS"
-  rest_api_id   = "${aws_api_gateway_rest_api.this.id}"
-  provider_arns = "${data.aws_cognito_user_pools.this.arns}"
-}
-
-# -------------------------------------------------------
-# Amazon API Gateway Authorizer Role
-# -------------------------------------------------------
-resource "aws_iam_role" "api_authorizer" {
-  name = "${local.project_name_uc}_APIGateway_AuthorizerRole"
-  path = "/"
-
-  assume_role_policy = "${file("iam/apigateway_principals.json")}"
-}
-
-# -------------------------------------------------------
-# Amazon API Gateway Authorizer Policy
-# -------------------------------------------------------
-resource "aws_iam_role_policy" "api_authorizer" {
-  name = "api_authorizer"
-  role = "${aws_iam_role.api_authorizer.id}"
-
-  policy = "${file("iam/apigateway_policy_authorizer.json")}"
-}
+#   allow_origin = "${var.cors_allow_origin}"
+#   allow_method = "'GET,OPTIONS'"
+# }

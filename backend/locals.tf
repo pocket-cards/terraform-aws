@@ -30,7 +30,14 @@ locals {
     "${filemd5("lambda_S0.tf")}",
   ]
   api_gateway_deployment_md5 = "${base64encode(join("", local.api_gateway_files))}"
+  http_method = {
+    get    = "GET"
+    post   = "POST"
+    delete = "DELETE"
+    put    = "PUT"
+  }
 
+  authorization_type_cognito = "COGNITO_USER_POOLS"
   # -----------------------------------------------
   # Cognito
   # -----------------------------------------------
@@ -68,17 +75,21 @@ locals {
   # -----------------------------------------------
   # API Gateway
   # -----------------------------------------------
-  api_gateway_domain         = "${aws_api_gateway_rest_api.this.id}.execute-api.${local.region}.amazonaws.com"
+  api_gateway_domain         = "${module.api.id}.execute-api.${local.region}.amazonaws.com"
   api_endpoint_configuration = "REGIONAL"
 
   status_200       = { statusCode = 200 }
   response_version = { version = "${var.app_ver}" }
 
+  deployment_files = [
+    "${file("api_methods.tf")}",
+    "${file("api_resources.tf")}",
+  ]
+
   # -----------------------------------------------
   # Cognito
   # -----------------------------------------------
   cognito_identity_pool_id = "${local.remote_unmu.cognito_identity_pool_id}"
-  cognito_user_pool_id     = "${data.aws_cognito_user_pools.this.id}"
 
   # -----------------------------------------------
   # Lambda Layers
@@ -98,67 +109,67 @@ locals {
   lambda_role_prefix          = "${local.project_name_uc}_Lambda"
   lambda_function_name_prefix = "${local.project_name_uc}"
   lambda = {
-    A001 = {
+    a001 = {
       function_name = "${local.lambda_function_name_prefix}_A001"
       role_name     = "${local.lambda_role_prefix}_A001Role"
     }
-    A002 = {
+    a002 = {
       function_name = "${local.lambda_function_name_prefix}_A002"
       role_name     = "${local.lambda_role_prefix}_A002Role"
     }
-    A003 = {
+    a003 = {
       function_name = "${local.lambda_function_name_prefix}_A003"
       role_name     = "${local.lambda_role_prefix}_A003Role"
     }
-    B001 = {
+    b001 = {
       function_name = "${local.lambda_function_name_prefix}_B001"
       role_name     = "${local.lambda_role_prefix}_B001Role"
     }
-    B002 = {
+    b002 = {
       function_name = "${local.lambda_function_name_prefix}_B002"
       role_name     = "${local.lambda_role_prefix}_B002Role"
     }
-    B003 = {
+    b003 = {
       function_name = "${local.lambda_function_name_prefix}_B003"
       role_name     = "${local.lambda_role_prefix}_B003Role"
     }
-    B004 = {
+    b004 = {
       function_name = "${local.lambda_function_name_prefix}_B004"
       role_name     = "${local.lambda_role_prefix}_B004Role"
     }
-    C001 = {
+    c001 = {
       function_name = "${local.lambda_function_name_prefix}_C001"
       role_name     = "${local.lambda_role_prefix}_C001Role"
     }
-    C002 = {
+    c002 = {
       function_name = "${local.lambda_function_name_prefix}_C002"
       role_name     = "${local.lambda_role_prefix}_C002Role"
     }
-    C003 = {
+    c003 = {
       function_name = "${local.lambda_function_name_prefix}_C003"
       role_name     = "${local.lambda_role_prefix}_C003Role"
     }
-    C004 = {
+    c004 = {
       function_name = "${local.lambda_function_name_prefix}_C004"
       role_name     = "${local.lambda_role_prefix}_C004Role"
     }
-    C006 = {
+    c006 = {
       function_name = "${local.lambda_function_name_prefix}_C006"
       role_name     = "${local.lambda_role_prefix}_C006Role"
     }
-    C007 = {
+    c007 = {
       function_name = "${local.lambda_function_name_prefix}_C007"
       role_name     = "${local.lambda_role_prefix}_C007Role"
     }
-    C008 = {
+    c008 = {
       function_name = "${local.lambda_function_name_prefix}_C008"
       role_name     = "${local.lambda_role_prefix}_C008Role"
     }
-    D001 = {
+    d001 = {
       function_name = "${local.lambda_function_name_prefix}_D001"
       role_name     = "${local.lambda_role_prefix}_D001Role"
     }
-    S001 = {
+    s001 = {
       function_name = "${local.lambda_function_name_prefix}_S001"
       role_name     = "${local.lambda_role_prefix}_S001Role"
     }
@@ -186,8 +197,4 @@ data "aws_route53_zone" "this" {
 # -----------------------------------------------
 data "aws_ssm_parameter" "github_token" {
   name = "${local.remote_init.ssm_param_github_token}"
-}
-
-data "aws_cognito_user_pools" "this" {
-  name = "${local.remote_unmu.cognito_user_pool_name}"
 }

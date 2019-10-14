@@ -54,6 +54,11 @@ locals {
   github_organization  = "${local.remote_unmu.github_organization}"
   github_repo_frontend = "${local.remote_unmu.github_repo_frontend}"
   github_token         = "${data.aws_ssm_parameter.github_token.value}"
+  # -----------------------------------------------
+  # CodeBuild
+  # -----------------------------------------------
+  cognito_web_client_id    = "${local.remote_unmu.cognito_user_pool_web_client_id}"
+  cognito_identity_pool_id = "${local.remote_unmu.cognito_identity_pool_id}"
 }
 
 data "aws_caller_identity" "this" {
@@ -85,4 +90,10 @@ data "aws_s3_bucket" "audios" {
 # -----------------------------------------------
 data "aws_ssm_parameter" "github_token" {
   name = "${local.remote_init.ssm_param_github_token}"
+}
+# -----------------------------------------------
+# Cognito User Pool
+# -----------------------------------------------
+data "aws_cognito_user_pools" "this" {
+  name = "${local.remote_unmu.cognito_user_pool_name}"
 }
