@@ -1,5 +1,5 @@
 # module "edge" {
-#   source = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+#   source = "github.com/wwalpha/terraform-module-lambda"
 
 #   providers = {
 #     aws = "aws.global"

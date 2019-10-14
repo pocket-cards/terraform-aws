@@ -4,7 +4,7 @@
 # 単語一括登録: /groups/{groupId}/words
 # -----------------------------------------------
 module "c001" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.c001.function_name}"
   alias_name            = "${local.lambda_alias_name}"
@@ -40,7 +40,7 @@ module "c001" {
 # 単語一覧取得: /groups/{groupId}/words
 # -----------------------------------------------
 module "c002" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.c002.function_name}"
   alias_name            = "${local.lambda_alias_name}"
@@ -65,7 +65,7 @@ module "c002" {
 # 単語情報取得: /groups/{groupId}/words/{word} 
 # -----------------------------------------------
 module "c003" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.c003.function_name}"
   alias_name            = "${local.lambda_alias_name}"
@@ -89,7 +89,7 @@ module "c003" {
 # 単語情報更新: /groups/{groupId}/words/{word} 
 # -----------------------------------------------
 module "c004" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.c004.function_name}"
   alias_name            = "${local.lambda_alias_name}"
@@ -117,7 +117,7 @@ module "c004" {
 # 新規学習モード単語一覧: /groups/{groupId}/new
 # -----------------------------------------------
 module "c006" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.c006.function_name}"
   alias_name            = "${local.lambda_alias_name}"
@@ -146,7 +146,7 @@ module "c006" {
 # 新規学習モード単語一覧: /groups/{groupId}/test
 # -----------------------------------------------
 module "c007" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.c007.function_name}"
   alias_name            = "${local.lambda_alias_name}"
@@ -174,7 +174,7 @@ module "c007" {
 # 新規学習モード単語一覧: /groups/{groupId}/review
 # -----------------------------------------------
 module "c008" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.c008.function_name}"
   alias_name            = "${local.lambda_alias_name}"

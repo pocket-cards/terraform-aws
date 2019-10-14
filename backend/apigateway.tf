@@ -95,6 +95,7 @@ module "version" {
 
   rest_api_id        = "${module.api.id}"
   resource_id        = "${module.api.root_resource_id}"
+  resource_path      = "/"
   http_method        = "GET"
   integration_type   = "MOCK"
   response_templates = "${jsonencode(local.response_version)}"

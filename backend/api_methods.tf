@@ -6,6 +6,7 @@ module "m001" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r001.id}"
+  resource_path       = "${module.r001.path}"
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -20,6 +21,7 @@ module "m002" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r002.id}"
+  resource_path       = "${module.r002.path}"
   http_method         = "${local.http_method.post}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -34,6 +36,7 @@ module "m003" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r003.id}"
+  resource_path       = "${module.r003.path}"
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -48,6 +51,7 @@ module "m004" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r003.id}"
+  resource_path       = "${module.r003.path}"
   http_method         = "${local.http_method.put}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -62,6 +66,7 @@ module "m005" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r003.id}"
+  resource_path       = "${module.r003.path}"
   http_method         = "${local.http_method.delete}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -76,6 +81,7 @@ module "m006" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r004.id}"
+  resource_path       = "${module.r004.path}"
   http_method         = "${local.http_method.post}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -90,6 +96,7 @@ module "m007" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r004.id}"
+  resource_path       = "${module.r004.path}"
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -104,6 +111,7 @@ module "m008" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r005.id}"
+  resource_path       = "${module.r005.path}"
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -118,6 +126,7 @@ module "m009" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r005.id}"
+  resource_path       = "${module.r005.path}"
   http_method         = "${local.http_method.put}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -132,6 +141,7 @@ module "m010" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r006.id}"
+  resource_path       = "${module.r006.path}"
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -146,6 +156,7 @@ module "m011" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r007.id}"
+  resource_path       = "${module.r007.path}"
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -161,6 +172,7 @@ module "m012" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r008.id}"
+  resource_path       = "${module.r008.path}"
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
@@ -175,6 +187,7 @@ module "m013" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.r009.id}"
+  resource_path       = "${module.r009.path}"
   http_method         = "${local.http_method.post}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"

@@ -2,7 +2,7 @@
 # 画像から単語に変換する: /image2text
 # -----------------------------------------------
 module "d001" {
-  source                = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+  source                = "github.com/wwalpha/terraform-module-lambda"
   dummy_enabled         = true
   function_name         = "${local.lambda.d001.function_name}"
   alias_name            = "${local.lambda_alias_name}"

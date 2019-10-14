@@ -1,5 +1,5 @@
 # module "E001" {
-#   source = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+#   source = "github.com/wwalpha/terraform-module-lambda"
 
 #   enable_dummy          = true
 #   enable_xray           = true
