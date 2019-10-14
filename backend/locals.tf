@@ -84,6 +84,7 @@ locals {
   deployment_files = [
     "${file("api_methods.tf")}",
     "${file("api_resources.tf")}",
+    "${file("apigateway.tf")}",
   ]
 
   # -----------------------------------------------
