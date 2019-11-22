@@ -53,7 +53,7 @@ locals {
   build_type                 = "LINUX_CONTAINER"
   build_compute_type         = "BUILD_GENERAL1_SMALL"
   build_image                = "aws/codebuild/standard:2.0"
-  github_repo_branch         = "${local.environment == "prod" ? "master" : "dev"}"
+  github_repo_branch         = "master"
   github_organization        = "${local.remote_unmu.github_organization}"
   github_repo_backend        = "${local.remote_unmu.github_repo_backend}"
   github_repo_automation     = "${local.remote_unmu.github_repo_automation}"

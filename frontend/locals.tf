@@ -52,7 +52,7 @@ locals {
   build_image                = "aws/codebuild/standard:2.0"
   is_dev                     = "${local.environment == "dev"}"
   is_prod                    = "${local.environment == "prod"}"
-  github_repo_branch         = "${local.environment == "prod" ? "master" : "dev"}"
+  github_repo_branch         = "master"
   github_organization        = "${local.remote_unmu.github_organization}"
   github_repo_frontend       = "${local.remote_unmu.github_repo_frontend}"
   github_token               = "${data.aws_ssm_parameter.github_token.value}"
