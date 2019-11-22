@@ -87,8 +87,6 @@ resource "aws_iam_role_policy" "pipeline_frontend" {
   }
 }
 
-
-
 # -----------------------------------------------
 # AWS CodePipeline Webhook - Frontend
 # -----------------------------------------------
@@ -103,8 +101,8 @@ resource "aws_codepipeline_webhook" "frontend" {
   }
 
   filter {
-    json_path    = "$.ref"
-    match_equals = "refs/heads/${local.github_repo_branch}"
+    json_path    = "${local.github_filter_json_path}"
+    match_equals = "${local.github_filter_match_equals}"
   }
 }
 
@@ -128,5 +126,5 @@ resource "github_repository_webhook" "frontend" {
     secret       = "${local.github_token}"
   }
 
-  events = ["push"]
+  events = ["${local.github_events}"]
 }

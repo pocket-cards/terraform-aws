@@ -47,13 +47,18 @@ locals {
   # -----------------------------------------------
   # CodeBuild
   # -----------------------------------------------
-  build_type           = "LINUX_CONTAINER"
-  build_compute_type   = "BUILD_GENERAL1_SMALL"
-  build_image          = "aws/codebuild/standard:2.0"
-  github_repo_branch   = "${local.environment == "prod" ? "master" : "dev"}"
-  github_organization  = "${local.remote_unmu.github_organization}"
-  github_repo_frontend = "${local.remote_unmu.github_repo_frontend}"
-  github_token         = "${data.aws_ssm_parameter.github_token.value}"
+  build_type                 = "LINUX_CONTAINER"
+  build_compute_type         = "BUILD_GENERAL1_SMALL"
+  build_image                = "aws/codebuild/standard:2.0"
+  is_dev                     = "${local.environment == "dev"}"
+  is_prod                    = "${local.environment == "prod"}"
+  github_repo_branch         = "${local.environment == "prod" ? "master" : "dev"}"
+  github_organization        = "${local.remote_unmu.github_organization}"
+  github_repo_frontend       = "${local.remote_unmu.github_repo_frontend}"
+  github_token               = "${data.aws_ssm_parameter.github_token.value}"
+  github_events              = "${local.is_dev ? "push" : "release"}"
+  github_filter_json_path    = "${local.is_dev ? "$.ref" : "$.action"}"
+  github_filter_match_equals = "${local.is_dev ? "refs/heads/master" : "published"}"
   # -----------------------------------------------
   # CodeBuild
   # -----------------------------------------------
