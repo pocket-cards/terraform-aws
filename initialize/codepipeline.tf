@@ -80,8 +80,8 @@ resource "aws_codepipeline_webhook" "initialize" {
   }
 
   filter {
-    json_path    = "$.ref"
-    match_equals = "refs/heads/${var.github_branch}"
+    json_path    = "${local.github_filter_json_path}"
+    match_equals = "${local.github_filter_match_equals}"
   }
 }
 
@@ -105,5 +105,5 @@ resource "github_repository_webhook" "terraform" {
     secret       = "${var.github_token}"
   }
 
-  events = ["push"]
+  events = ["${local.github_events}"]
 }
