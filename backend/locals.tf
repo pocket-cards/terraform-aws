@@ -9,6 +9,7 @@ locals {
   project_name_uc     = "${local.remote_init.project_name_uc}"
   region              = "${data.aws_region.this.name}"
   environment         = "${terraform.workspace}"
+  is_dev              = "${local.environment == "dev"}"
   region_us           = "us-east-1"
   timezone            = "Asia/Tokyo"
   translation_url     = "${local.remote_init.translation_url}"
@@ -49,13 +50,16 @@ locals {
   # -----------------------------------------------
   # CodeBuild
   # -----------------------------------------------
-  build_type             = "LINUX_CONTAINER"
-  build_compute_type     = "BUILD_GENERAL1_SMALL"
-  build_image            = "aws/codebuild/standard:2.0"
-  github_repo_branch     = "${local.environment == "prod" ? "master" : "dev"}"
-  github_organization    = "${local.remote_unmu.github_organization}"
-  github_repo_backend    = "${local.remote_unmu.github_repo_backend}"
-  github_repo_automation = "${local.remote_unmu.github_repo_automation}"
+  build_type                 = "LINUX_CONTAINER"
+  build_compute_type         = "BUILD_GENERAL1_SMALL"
+  build_image                = "aws/codebuild/standard:2.0"
+  github_repo_branch         = "${local.environment == "prod" ? "master" : "dev"}"
+  github_organization        = "${local.remote_unmu.github_organization}"
+  github_repo_backend        = "${local.remote_unmu.github_repo_backend}"
+  github_repo_automation     = "${local.remote_unmu.github_repo_automation}"
+  github_events              = "${local.is_dev ? "push" : "release"}"
+  github_filter_json_path    = "${local.is_dev ? "$.ref" : "$.action"}"
+  github_filter_match_equals = "${local.is_dev ? "refs/heads/master" : "published"}"
   # -----------------------------------------------
   # S3 Bucket
   # -----------------------------------------------
@@ -84,6 +88,7 @@ locals {
   deployment_files = [
     "${file("api_methods.tf")}",
     "${file("api_resources.tf")}",
+    "${file("apigateway.tf")}",
   ]
 
   # -----------------------------------------------

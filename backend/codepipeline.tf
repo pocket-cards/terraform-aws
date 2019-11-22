@@ -84,7 +84,6 @@ resource "aws_iam_role_policy" "codepipeline_policy_backend" {
   policy = "${file("iam/codepipeline_policy.json")}"
 }
 
-
 # -----------------------------------------------
 # AWS CodePipeline Webhook
 # -----------------------------------------------
@@ -99,8 +98,8 @@ resource "aws_codepipeline_webhook" "backend" {
   }
 
   filter {
-    json_path    = "$.ref"
-    match_equals = "refs/heads/${local.github_repo_branch}"
+    json_path    = "${local.github_filter_json_path}"
+    match_equals = "${local.github_filter_match_equals}"
   }
 }
 
@@ -124,7 +123,7 @@ resource "github_repository_webhook" "backend" {
     secret       = "${local.github_token}"
   }
 
-  events = ["push"]
+  events = ["${local.github_events}"]
 }
 
 # -----------------------------------------------
@@ -194,7 +193,6 @@ resource "aws_iam_role_policy" "codepipeline_automation_policy" {
   policy = "${file("iam/codepipeline_policy.json")}"
 }
 
-
 # -----------------------------------------------
 # AWS CodePipeline Webhook - Automation
 # -----------------------------------------------
@@ -209,8 +207,8 @@ resource "aws_codepipeline_webhook" "automation" {
   }
 
   filter {
-    json_path    = "$.ref"
-    match_equals = "refs/heads/${local.github_repo_branch}"
+    json_path    = "${local.github_filter_json_path}"
+    match_equals = "${local.github_filter_match_equals}"
   }
 }
 
@@ -234,5 +232,5 @@ resource "github_repository_webhook" "automation" {
     secret       = "${local.github_token}"
   }
 
-  events = ["push"]
+  events = ["${local.github_events}"]
 }
