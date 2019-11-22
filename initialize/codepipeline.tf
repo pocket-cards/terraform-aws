@@ -25,7 +25,7 @@ resource "aws_codepipeline" "initialize" {
         OAuthToken           = "${var.github_token}"
         Owner                = "${var.github_organization}"
         Repo                 = "${var.github_repo}"
-        Branch               = "${var.github_branch}"
+        Branch               = "master"
         PollForSourceChanges = false
       }
     }
