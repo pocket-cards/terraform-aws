@@ -90,21 +90,21 @@ resource "aws_iam_role_policy" "pipeline_frontend" {
 # -----------------------------------------------
 # AWS CodePipeline Webhook - Frontend
 # -----------------------------------------------
-# resource "aws_codepipeline_webhook" "frontend" {
-#   name            = "${local.project_name_uc}-FrontendWebhook"
-#   authentication  = "GITHUB_HMAC"
-#   target_action   = "Source"
-#   target_pipeline = "${aws_codepipeline.frontend.name}"
+resource "aws_codepipeline_webhook" "frontend" {
+  name            = "${local.project_name_uc}-FrontendWebhook"
+  authentication  = "GITHUB_HMAC"
+  target_action   = "Source"
+  target_pipeline = "${aws_codepipeline.frontend.name}"
 
-#   authentication_configuration {
-#     secret_token = "${local.github_token}"
-#   }
+  authentication_configuration {
+    secret_token = "${local.github_token}"
+  }
 
-#   filter {
-#     json_path    = "${local.github_filter_json_path}"
-#     match_equals = "${local.github_filter_match_equals}"
-#   }
-# }
+  filter {
+    json_path    = "${local.github_filter_json_path}"
+    match_equals = "${local.github_filter_match_equals}"
+  }
+}
 
 # -----------------------------------------------
 # Github Repository - Frontend
@@ -116,15 +116,15 @@ data "github_repository" "frontend" {
 # -----------------------------------------------
 # Github Repository Webhook - Frontend
 # -----------------------------------------------
-# resource "github_repository_webhook" "frontend" {
-#   repository = "${data.github_repository.frontend.name}"
+resource "github_repository_webhook" "frontend" {
+  repository = "${data.github_repository.frontend.name}"
 
-#   configuration {
-#     url          = "${aws_codepipeline_webhook.frontend.url}"
-#     content_type = "json"
-#     insecure_ssl = true
-#     secret       = "${local.github_token}"
-#   }
+  configuration {
+    url          = "${aws_codepipeline_webhook.frontend.url}"
+    content_type = "json"
+    insecure_ssl = true
+    secret       = "${local.github_token}"
+  }
 
-#   events = ["${local.github_events}"]
-# }
+  events = ["${local.github_events}"]
+}
