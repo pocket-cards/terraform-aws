@@ -87,21 +87,21 @@ resource "aws_iam_role_policy" "codepipeline_policy_backend" {
 # -----------------------------------------------
 # AWS CodePipeline Webhook
 # -----------------------------------------------
-resource "aws_codepipeline_webhook" "backend" {
-  name            = "${local.project_name_uc}-BackendWebhook"
-  authentication  = "GITHUB_HMAC"
-  target_action   = "Source"
-  target_pipeline = "${aws_codepipeline.backend.name}"
+# resource "aws_codepipeline_webhook" "backend" {
+#   name            = "${local.project_name_uc}-BackendWebhook"
+#   authentication  = "GITHUB_HMAC"
+#   target_action   = "Source"
+#   target_pipeline = "${aws_codepipeline.backend.name}"
 
-  authentication_configuration {
-    secret_token = "${local.github_token}"
-  }
+#   authentication_configuration {
+#     secret_token = "${local.github_token}"
+#   }
 
-  filter {
-    json_path    = "${local.github_filter_json_path}"
-    match_equals = "${local.github_filter_match_equals}"
-  }
-}
+#   filter {
+#     json_path    = "${local.github_filter_json_path}"
+#     match_equals = "${local.github_filter_match_equals}"
+#   }
+# }
 
 # -----------------------------------------------
 # Github Repository
@@ -113,18 +113,18 @@ data "github_repository" "backend" {
 # -----------------------------------------------
 # Github Repository Webhook
 # -----------------------------------------------
-resource "github_repository_webhook" "backend" {
-  repository = "${data.github_repository.backend.name}"
+# resource "github_repository_webhook" "backend" {
+#   repository = "${data.github_repository.backend.name}"
 
-  configuration {
-    url          = "${aws_codepipeline_webhook.backend.url}"
-    content_type = "json"
-    insecure_ssl = true
-    secret       = "${local.github_token}"
-  }
+#   configuration {
+#     url          = "${aws_codepipeline_webhook.backend.url}"
+#     content_type = "json"
+#     insecure_ssl = true
+#     secret       = "${local.github_token}"
+#   }
 
-  events = ["${local.github_events}"]
-}
+#   events = ["${local.github_events}"]
+# }
 
 # -----------------------------------------------
 # AWS CodePipeline - Automation
@@ -196,21 +196,21 @@ resource "aws_iam_role_policy" "codepipeline_automation_policy" {
 # -----------------------------------------------
 # AWS CodePipeline Webhook - Automation
 # -----------------------------------------------
-resource "aws_codepipeline_webhook" "automation" {
-  name            = "${local.project_name_uc}-AutomationWebhook"
-  authentication  = "GITHUB_HMAC"
-  target_action   = "Source"
-  target_pipeline = "${aws_codepipeline.automation.name}"
+# resource "aws_codepipeline_webhook" "automation" {
+#   name            = "${local.project_name_uc}-AutomationWebhook"
+#   authentication  = "GITHUB_HMAC"
+#   target_action   = "Source"
+#   target_pipeline = "${aws_codepipeline.automation.name}"
 
-  authentication_configuration {
-    secret_token = "${local.github_token}"
-  }
+#   authentication_configuration {
+#     secret_token = "${local.github_token}"
+#   }
 
-  filter {
-    json_path    = "${local.github_filter_json_path}"
-    match_equals = "${local.github_filter_match_equals}"
-  }
-}
+#   filter {
+#     json_path    = "${local.github_filter_json_path}"
+#     match_equals = "${local.github_filter_match_equals}"
+#   }
+# }
 
 # -----------------------------------------------
 # Github Repository - Automation
@@ -222,15 +222,15 @@ data "github_repository" "automation" {
 # -----------------------------------------------
 # Github Repository Webhook - Automation
 # -----------------------------------------------
-resource "github_repository_webhook" "automation" {
-  repository = "${data.github_repository.automation.name}"
+# resource "github_repository_webhook" "automation" {
+#   repository = "${data.github_repository.automation.name}"
 
-  configuration {
-    url          = "${aws_codepipeline_webhook.automation.url}"
-    content_type = "json"
-    insecure_ssl = true
-    secret       = "${local.github_token}"
-  }
+#   configuration {
+#     url          = "${aws_codepipeline_webhook.automation.url}"
+#     content_type = "json"
+#     insecure_ssl = true
+#     secret       = "${local.github_token}"
+#   }
 
-  events = ["${local.github_events}"]
-}
+#   events = ["${local.github_events}"]
+# }
