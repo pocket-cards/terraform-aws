@@ -5,8 +5,8 @@ phases:
     runtime-versions:
       nodejs: 10
     commands:
-      - wget -q https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip
-      - unzip terraform_0.12.9_linux_amd64.zip
+      - wget -q https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip
+      - unzip terraform_0.12.17_linux_amd64.zip
       - mv terraform /bin
       - npm i -g yarn
   build:

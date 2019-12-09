@@ -10,7 +10,7 @@ module "m001" {
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.a002.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.a002}/invocations"
 }
 
 # -------------------------------------------------------
@@ -25,7 +25,7 @@ module "m002" {
   http_method         = "${local.http_method.post}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.b001.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.b001}/invocations"
 }
 
 # -------------------------------------------------------
@@ -40,7 +40,7 @@ module "m003" {
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.b002.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.b002}/invocations"
 }
 
 # -------------------------------------------------------
@@ -55,7 +55,7 @@ module "m004" {
   http_method         = "${local.http_method.put}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.b003.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.b003}/invocations"
 }
 
 # -------------------------------------------------------
@@ -70,7 +70,7 @@ module "m005" {
   http_method         = "${local.http_method.delete}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.b004.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.b004}/invocations"
 }
 
 # -------------------------------------------------------
@@ -85,7 +85,7 @@ module "m006" {
   http_method         = "${local.http_method.post}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.c001.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.c001}/invocations"
 }
 
 # -------------------------------------------------------
@@ -100,7 +100,7 @@ module "m007" {
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.c002.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.c002}/invocations"
 }
 
 # -------------------------------------------------------
@@ -115,7 +115,7 @@ module "m008" {
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.c003.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.c003}/invocations"
 }
 
 # -------------------------------------------------------
@@ -130,7 +130,7 @@ module "m009" {
   http_method         = "${local.http_method.put}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.c004.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.c004}/invocations"
 }
 
 # -------------------------------------------------------
@@ -145,7 +145,7 @@ module "m010" {
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.c006.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.c006}/invocations"
 }
 
 # -------------------------------------------------------
@@ -160,7 +160,7 @@ module "m011" {
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.c007.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.c007}/invocations"
 }
 
 
@@ -176,7 +176,7 @@ module "m012" {
   http_method         = "${local.http_method.get}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.c008.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.c008}/invocations"
 }
 
 # -------------------------------------------------------
@@ -191,5 +191,5 @@ module "m013" {
   http_method         = "${local.http_method.post}"
   authorization       = "${local.authorization_type_cognito}"
   authorizer_id       = "${module.api.authorizer_id}"
-  lambda_function_uri = "${module.d001.invoke_arn}"
+  lambda_function_uri = "${local.lambda_arn_prefix}:${local.lambda_function_name.d001}/invocations"
 }
