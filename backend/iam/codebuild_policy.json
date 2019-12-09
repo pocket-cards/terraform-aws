@@ -60,6 +60,14 @@
       ],
       "Resource": "arn:aws:codedeploy:*:*:application:*",
       "Effect": "Allow"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:GetRolePolicy"
+      ],
+      "Resource": "*"
     }
   ],
   "Version": "2012-10-17"
