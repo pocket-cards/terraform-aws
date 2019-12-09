@@ -4,11 +4,12 @@
 module "api" {
   source = "github.com/wwalpha/terraform-module-apigateway/api"
 
-  api_name                   = "${local.project_name}"
-  api_endpoint_configuration = "${local.api_endpoint_configuration}"
-  cognito_user_pool_name     = "${local.remote_unmu.cognito_user_pool_name}"
+  api_name                   = local.project_name
+  api_endpoint_configuration = local.api_endpoint_configuration
+  cognito_user_pool_name     = local.remote_unmu.cognito_user_pool_name
   authorizer_name            = "CognitoAuthorizer"
   authorizer_type            = "COGNITO_USER_POOLS"
+
   # authorizer_role_name             = "${local.project_name_uc}_APIGateway_AuthorizerRole"
   # authorizer_policy                = "${file("iam/apigateway_policy_authorizer.json")}"
   authorizer_result_ttl_in_seconds = 0
@@ -20,29 +21,29 @@ module "api" {
 module "deployment" {
   source = "github.com/wwalpha/terraform-module-apigateway/deployment"
 
-  rest_api_id                            = "${module.api.id}"
+  rest_api_id                            = module.api.id
   stage_name                             = "v1"
-  custom_domain_name                     = "${aws_acm_certificate.api.domain_name}"
-  custom_domain_regional_certificate_arn = "${aws_acm_certificate_validation.api.certificate_arn}"
-  custom_domain_endpoint_configuration   = "${local.api_endpoint_configuration}"
+  custom_domain_name                     = aws_acm_certificate.api.domain_name
+  custom_domain_regional_certificate_arn = aws_acm_certificate_validation.api.certificate_arn
+  custom_domain_endpoint_configuration   = local.api_endpoint_configuration
 
   integration_ids = [
-    "${module.m001.integration_id}",
-    "${module.m002.integration_id}",
-    "${module.m003.integration_id}",
-    "${module.m004.integration_id}",
-    "${module.m005.integration_id}",
-    "${module.m006.integration_id}",
-    "${module.m007.integration_id}",
-    "${module.m008.integration_id}",
-    "${module.m009.integration_id}",
-    "${module.m010.integration_id}",
-    "${module.m011.integration_id}",
-    "${module.m012.integration_id}",
-    "${module.m013.integration_id}",
+    module.m001.integration_id,
+    module.m002.integration_id,
+    module.m003.integration_id,
+    module.m004.integration_id,
+    module.m005.integration_id,
+    module.m006.integration_id,
+    module.m007.integration_id,
+    module.m008.integration_id,
+    module.m009.integration_id,
+    module.m010.integration_id,
+    module.m011.integration_id,
+    module.m012.integration_id,
+    module.m013.integration_id,
   ]
 
-  deployment_md5 = "${base64encode(join("", local.deployment_files))}"
+  deployment_md5 = base64encode(join("", local.deployment_files))
 }
 
 # --------------------------------------------------------------------------------
@@ -93,12 +94,12 @@ module "deployment" {
 module "version" {
   source = "github.com/wwalpha/terraform-module-apigateway/method"
 
-  rest_api_id        = "${module.api.id}"
-  resource_id        = "${module.api.root_resource_id}"
+  rest_api_id        = module.api.id
+  resource_id        = module.api.root_resource_id
   resource_path      = "/"
   http_method        = "GET"
   integration_type   = "MOCK"
-  response_templates = "${jsonencode(local.response_version)}"
+  response_templates = jsonencode(local.response_version)
 }
 
 # -------------------------------------------------------
@@ -106,10 +107,8 @@ module "version" {
 # -------------------------------------------------------
 # module "CORS_ROOT" {
 #   source = "github.com/wwalpha/terraform-module-registry/aws/api-cors"
-
 #   rest_api_id = "${aws_api_gateway_rest_api.this.id}"
 #   resource_id = "${aws_api_gateway_rest_api.this.root_resource_id}"
-
 #   allow_origin = "${var.cors_allow_origin}"
 #   allow_method = "'GET,OPTIONS'"
 # }

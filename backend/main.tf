@@ -5,15 +5,15 @@ provider "aws" {
 }
 
 provider "github" {
-  token        = "${local.github_token}"
-  organization = "${local.github_organization}"
+  token        = local.github_token
+  organization = local.github_organization
 }
 
 # -----------------------------------------------
 # AWS Provider - US
 # -----------------------------------------------
 provider "aws" {
-  region = "${local.region_us}"
+  region = local.region_us
   alias  = "global"
 }
 
@@ -35,7 +35,7 @@ terraform {
 # -----------------------------------------------
 data "terraform_remote_state" "initialize" {
   backend   = "s3"
-  workspace = "${terraform.workspace}"
+  workspace = terraform.workspace
 
   config = {
     bucket = "terraform-workspaces"
@@ -49,7 +49,7 @@ data "terraform_remote_state" "initialize" {
 # -----------------------------------------------
 data "terraform_remote_state" "unmutable" {
   backend   = "s3"
-  workspace = "${terraform.workspace}"
+  workspace = terraform.workspace
 
   config = {
     bucket = "terraform-workspaces"
