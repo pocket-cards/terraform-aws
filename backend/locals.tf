@@ -22,15 +22,7 @@ locals {
   # API Gateway
   # -----------------------------------------------
   # api_base_path = "cards"
-  api_gateway_files = [
-    "${filemd5("apigateway.tf")}",
-    "${filemd5("lambda_A0.tf")}",
-    "${filemd5("lambda_B0.tf")}",
-    "${filemd5("lambda_C0.tf")}",
-    "${filemd5("lambda_D0.tf")}",
-    "${filemd5("lambda_E0.tf")}",
-    "${filemd5("lambda_S0.tf")}",
-  ]
+  api_gateway_files          = ["${filemd5("apigateway.tf")}"]
   api_gateway_deployment_md5 = "${base64encode(join("", local.api_gateway_files))}"
   http_method = {
     get    = "GET"
@@ -68,14 +60,6 @@ locals {
   bucket_name_images    = "${local.remote_unmu.bucket_name_images}"
   bucket_name_logging   = "${local.remote_unmu.bucket_name_logging}"
   bucket_name_artifacts = "${local.remote_init.bucket_name_artifacts}"
-  # -----------------------------------------------
-  # DynamoDB
-  # -----------------------------------------------
-  dynamodb_name_users       = "${local.remote_unmu.dynamodb_name_users}"
-  dynamodb_name_user_groups = "${local.remote_unmu.dynamodb_name_user_groups}"
-  dynamodb_name_group_words = "${local.remote_unmu.dynamodb_name_group_words}"
-  dynamodb_name_words       = "${local.remote_unmu.dynamodb_name_words}"
-  dynamodb_name_history     = "${local.remote_unmu.dynamodb_name_history}"
 
   # -----------------------------------------------
   # API Gateway
@@ -111,14 +95,14 @@ locals {
   lambda_api_prefix = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions"
   lambda_arn_prefix = "${local.lambda_api_prefix}/arn:aws:lambda:${local.region}:${local.account_id}:function"
 
-# 
+  # 
   # lambda_handler              = "index.handler"
   # lambda_runtime              = "nodejs10.x"
   # lambda_alias_name           = "${local.environment}"
   # audio_path_pattern          = "audio"
   # lambda_role_prefix          = "${local.project_name_uc}_Lambda"
   lambda_function_name_prefix = "${local.project_name_uc}"
-  lambda_function_alias_v1 = "v1" 
+  lambda_function_alias_v1    = "v1"
 
   lambda_function_name = {
     a001 = "${local.lambda_function_name_prefix}_A001:${local.lambda_function_alias_v1}"
