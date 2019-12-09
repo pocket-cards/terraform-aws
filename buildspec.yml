@@ -31,4 +31,4 @@ phases:
       - terraform apply tfplan -no-color
       - aws codepipeline start-pipeline-execution --name PocketCards-Backend
       - aws codepipeline start-pipeline-execution --name PocketCards-Frontend
-      - aws codepipeline start-pipeline-execution --name PocketCards-Automation
+      # - aws codepipeline start-pipeline-execution --name PocketCards-Automation
