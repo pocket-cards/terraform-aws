@@ -83,6 +83,11 @@ resource "aws_codebuild_project" "backend_publish" {
     image_pull_credentials_type = "CODEBUILD"
 
     environment_variable {
+      name  = "ENVIRONMENT"
+      value = local.environment
+    }
+
+    environment_variable {
       name  = "PROJECT_NAME_UC"
       value = local.project_name_uc
     }
@@ -94,7 +99,7 @@ resource "aws_codebuild_project" "backend_publish" {
 
     environment_variable {
       name  = "FUNCTION_ALIAS"
-      value = local.environment
+      value = local.lambda_function_alias_v1
     }
 
     environment_variable {
