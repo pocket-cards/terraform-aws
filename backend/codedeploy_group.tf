@@ -5,7 +5,7 @@ resource "aws_codedeploy_deployment_group" "groups" {
   ]
 
   app_name               = aws_codedeploy_app.backend.name
-  deployment_group_name  = "BlueGreenGroup"
+  deployment_group_name  = element(local.deployment_group_names, count.index)
   service_role_arn       = aws_iam_role.codedeploy_for_lambda.arn
   deployment_config_name = "CodeDeployDefault.LambdaAllAtOnce"
 
@@ -13,6 +13,8 @@ resource "aws_codedeploy_deployment_group" "groups" {
     deployment_option = "WITH_TRAFFIC_CONTROL"
     deployment_type   = "BLUE_GREEN"
   }
+
+  count = length(local.deployment_group_names)
 }
 
 # -----------------------------------------------

@@ -99,12 +99,7 @@ resource "aws_codebuild_project" "backend_publish" {
 
     environment_variable {
       name  = "FUNCTION_ALIAS"
-      value = local.lambda_function_alias_v1
-    }
-
-    environment_variable {
-      name  = "DEPLOYMENT_GROUPNAME"
-      value = local.backend_deployment_group
+      value = local.lambda_alias_v1
     }
 
     environment_variable {

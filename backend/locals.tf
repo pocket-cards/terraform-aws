@@ -105,102 +105,96 @@ locals {
   # -----------------------------------------------
   # Lambda
   # -----------------------------------------------
-  lambda_api_prefix = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions"
-  lambda_arn_prefix = "${local.lambda_api_prefix}/arn:aws:lambda:${local.region}:${local.account_id}:function"
+  lambda_api_prefix      = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions"
+  lambda_arn_prefix      = "${local.lambda_api_prefix}/arn:aws:lambda:${local.region}:${local.account_id}:function"
+  lambda_function_prefix = local.project_name_uc
+  lambda_alias_v1        = "v1"
 
-  # 
-  # lambda_handler              = "index.handler"
-  # lambda_runtime              = "nodejs10.x"
-  # lambda_alias_name           = "${local.environment}"
-  # audio_path_pattern          = "audio"
-  # lambda_role_prefix          = "${local.project_name_uc}_Lambda"
-  lambda_function_name_prefix = local.project_name_uc
-  lambda_function_alias_v1    = "v1"
-
-  lambda_function_name = {
-    a001 = "${local.lambda_function_name_prefix}_A001:${local.lambda_function_alias_v1}"
-    a002 = "${local.lambda_function_name_prefix}_A002:${local.lambda_function_alias_v1}"
-    a003 = "${local.lambda_function_name_prefix}_A003:${local.lambda_function_alias_v1}"
-    b001 = "${local.lambda_function_name_prefix}_B001:${local.lambda_function_alias_v1}"
-    b002 = "${local.lambda_function_name_prefix}_B002:${local.lambda_function_alias_v1}"
-    b003 = "${local.lambda_function_name_prefix}_B003:${local.lambda_function_alias_v1}"
-    b004 = "${local.lambda_function_name_prefix}_B004:${local.lambda_function_alias_v1}"
-    c001 = "${local.lambda_function_name_prefix}_C001:${local.lambda_function_alias_v1}"
-    c002 = "${local.lambda_function_name_prefix}_C002:${local.lambda_function_alias_v1}"
-    c003 = "${local.lambda_function_name_prefix}_C003:${local.lambda_function_alias_v1}"
-    c004 = "${local.lambda_function_name_prefix}_C004:${local.lambda_function_alias_v1}"
-    c006 = "${local.lambda_function_name_prefix}_C006:${local.lambda_function_alias_v1}"
-    c007 = "${local.lambda_function_name_prefix}_C007:${local.lambda_function_alias_v1}"
-    c008 = "${local.lambda_function_name_prefix}_C008:${local.lambda_function_alias_v1}"
-    d001 = "${local.lambda_function_name_prefix}_D001:${local.lambda_function_alias_v1}"
-    s001 = "${local.lambda_function_name_prefix}_S001:${local.lambda_function_alias_v1}"
+  lambda = {
+    a001 = {
+      function_name = "${local.lambda_function_prefix}_A001"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_A001:${local.lambda_alias_v1}/invocations"
+    }
+    a002 = {
+      function_name = "${local.lambda_function_prefix}_A002"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_A002:${local.lambda_alias_v1}/invocations"
+    }
+    a003 = {
+      function_name = "${local.lambda_function_prefix}_A003"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_A003:${local.lambda_alias_v1}/invocations"
+    }
+    b001 = {
+      function_name = "${local.lambda_function_prefix}_B001"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B001:${local.lambda_alias_v1}/invocations"
+    }
+    b002 = {
+      function_name = "${local.lambda_function_prefix}_B002"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B002:${local.lambda_alias_v1}/invocations"
+    }
+    b003 = {
+      function_name = "${local.lambda_function_prefix}_B003"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B003:${local.lambda_alias_v1}/invocations"
+    }
+    b004 = {
+      function_name = "${local.lambda_function_prefix}_B004"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B004:${local.lambda_alias_v1}/invocations"
+    }
+    c001 = {
+      function_name = "${local.lambda_function_prefix}_C001"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C001:${local.lambda_alias_v1}/invocations"
+    }
+    c002 = {
+      function_name = "${local.lambda_function_prefix}_C002"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C002:${local.lambda_alias_v1}/invocations"
+    }
+    c003 = {
+      function_name = "${local.lambda_function_prefix}_C003"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C003:${local.lambda_alias_v1}/invocations"
+    }
+    c004 = {
+      function_name = "${local.lambda_function_prefix}_C004"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C004:${local.lambda_alias_v1}/invocations"
+    }
+    c006 = {
+      function_name = "${local.lambda_function_prefix}_C006"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C006:${local.lambda_alias_v1}/invocations"
+    }
+    c007 = {
+      function_name = "${local.lambda_function_prefix}_C007"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C007:${local.lambda_alias_v1}/invocations"
+    }
+    c008 = {
+      function_name = "${local.lambda_function_prefix}_C008"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C008:${local.lambda_alias_v1}/invocations"
+    }
+    d001 = {
+      function_name = "${local.lambda_function_prefix}_d001"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_D001:${local.lambda_alias_v1}/invocations"
+    }
+    s001 = {
+      function_name = "${local.lambda_function_prefix}_S001"
+      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_S001}:${local.lambda_alias_v1}/invocations"
+    }
   }
-  # lambda = {
-  #   a001 = {
-  #     function_name = "${local.lambda_function_name_prefix}_A001"
-  #     role_name     = "${local.lambda_role_prefix}_A001Role"
-  #   }
-  #   a002 = {
-  #     function_name = "${local.lambda_function_name_prefix}_A002"
-  #     role_name     = "${local.lambda_role_prefix}_A002Role"
-  #   }
-  #   a003 = {
-  #     function_name = "${local.lambda_function_name_prefix}_A003"
-  #     role_name     = "${local.lambda_role_prefix}_A003Role"
-  #   }
-  #   b001 = {
-  #     function_name = "${local.lambda_function_name_prefix}_B001"
-  #     role_name     = "${local.lambda_role_prefix}_B001Role"
-  #   }
-  #   b002 = {
-  #     function_name = "${local.lambda_function_name_prefix}_B002"
-  #     role_name     = "${local.lambda_role_prefix}_B002Role"
-  #   }
-  #   b003 = {
-  #     function_name = "${local.lambda_function_name_prefix}_B003"
-  #     role_name     = "${local.lambda_role_prefix}_B003Role"
-  #   }
-  #   b004 = {
-  #     function_name = "${local.lambda_function_name_prefix}_B004"
-  #     role_name     = "${local.lambda_role_prefix}_B004Role"
-  #   }
-  #   c001 = {
-  #     function_name = "${local.lambda_function_name_prefix}_C001"
-  #     role_name     = "${local.lambda_role_prefix}_C001Role"
-  #   }
-  #   c002 = {
-  #     function_name = "${local.lambda_function_name_prefix}_C002"
-  #     role_name     = "${local.lambda_role_prefix}_C002Role"
-  #   }
-  #   c003 = {
-  #     function_name = "${local.lambda_function_name_prefix}_C003"
-  #     role_name     = "${local.lambda_role_prefix}_C003Role"
-  #   }
-  #   c004 = {
-  #     function_name = "${local.lambda_function_name_prefix}_C004"
-  #     role_name     = "${local.lambda_role_prefix}_C004Role"
-  #   }
-  #   c006 = {
-  #     function_name = "${local.lambda_function_name_prefix}_C006"
-  #     role_name     = "${local.lambda_role_prefix}_C006Role"
-  #   }
-  #   c007 = {
-  #     function_name = "${local.lambda_function_name_prefix}_C007"
-  #     role_name     = "${local.lambda_role_prefix}_C007Role"
-  #   }
-  #   c008 = {
-  #     function_name = "${local.lambda_function_name_prefix}_C008"
-  #     role_name     = "${local.lambda_role_prefix}_C008Role"
-  #   }
-  #   d001 = {
-  #     function_name = "${local.lambda_function_name_prefix}_D001"
-  #     role_name     = "${local.lambda_role_prefix}_D001Role"
-  #   }
-  #   s001 = {
-  #     function_name = "${local.lambda_function_name_prefix}_S001"
-  #     role_name     = "${local.lambda_role_prefix}_S001Role"
-  #   }
-  # }
+
+  deployment_group_names = [
+    local.lambda.a001.function_name,
+    local.lambda.a002.function_name,
+    local.lambda.a003.function_name,
+    local.lambda.b001.function_name,
+    local.lambda.b002.function_name,
+    local.lambda.b003.function_name,
+    local.lambda.b004.function_name,
+    local.lambda.c001.function_name,
+    local.lambda.c002.function_name,
+    local.lambda.c003.function_name,
+    local.lambda.c004.function_name,
+    local.lambda.c006.function_name,
+    local.lambda.c007.function_name,
+    local.lambda.c008.function_name,
+    local.lambda.d001.function_name,
+    local.lambda.s001.function_name,
+  ]
 }
 
 # -----------------------------------------------
