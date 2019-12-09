@@ -35,7 +35,8 @@
         "lambda:List*",
         "lambda:Get*",
         "lambda:PublishVersion",
-        "lambda:UpdateAlias"
+        "lambda:UpdateAlias",
+        "lambda:DeleteAlias"
       ],
       "Resource": "*",
       "Effect": "Allow"
@@ -65,7 +66,8 @@
       "Effect": "Allow",
       "Action": [
         "iam:GetRole",
-        "iam:GetRolePolicy"
+        "iam:GetRolePolicy",
+        "iam:DeleteRolePolicy"
       ],
       "Resource": "*"
     },
@@ -73,7 +75,8 @@
       "Effect": "Allow",
       "Action": [
         "logs:ListTagsLogGroup",
-        "logs:DescribeLogGroups"
+        "logs:DescribeLogGroups",
+        "logs:DeleteLogGroup"
       ],
       "Resource": "*"
     }
