@@ -179,13 +179,6 @@ locals {
       role_name     = "${local.lambda_role_prefix}_S001Role"
     }
   }
-
-  deployment_group_names = [
-    "A002", "A003",
-    "C001", "C002", "C003", "C004", "C005", "C006", "C007", "C008",
-    "D001", "E001",
-    "S001", "S002"
-  ]
 }
 # -----------------------------------------------
 # AWS Region
