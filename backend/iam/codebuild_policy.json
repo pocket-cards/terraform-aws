@@ -67,7 +67,9 @@
       "Action": [
         "iam:GetRole",
         "iam:GetRolePolicy",
-        "iam:DeleteRolePolicy"
+        "iam:DeleteRole",
+        "iam:DeleteRolePolicy",
+        "iam:ListInstanceProfilesForRole"
       ],
       "Resource": "*"
     },
