@@ -68,6 +68,14 @@
         "iam:GetRolePolicy"
       ],
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:ListTagsLogGroup",
+        "logs:DescribeLogGroups"
+      ],
+      "Resource": "*"
     }
   ],
   "Version": "2012-10-17"
