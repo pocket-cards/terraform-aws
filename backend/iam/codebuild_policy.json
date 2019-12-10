@@ -1,87 +1,35 @@
 {
+  "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "ec2:CreateNetworkInterface",
-        "ec2:DescribeDhcpOptions",
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeVpcs"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "lambda:UpdateFunctionCode",
-        "lambda:List*",
-        "lambda:Get*",
-        "lambda:PublishVersion",
-        "lambda:UpdateAlias",
-        "lambda:DeleteAlias"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "codedeploy:CreateDeployment"
-      ],
-      "Resource": "arn:aws:codedeploy:*:*:deploymentgroup:*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "codedeploy:GetDeploymentConfig"
-      ],
-      "Resource": "arn:aws:codedeploy:*:*:deploymentconfig:*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "codedeploy:RegisterApplicationRevision"
-      ],
-      "Resource": "arn:aws:codedeploy:*:*:application:*",
-      "Effect": "Allow"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iam:GetRole",
-        "iam:GetRolePolicy",
-        "iam:DeleteRole",
-        "iam:DeleteRolePolicy",
-        "iam:ListInstanceProfilesForRole"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "logs:ListTagsLogGroup",
-        "logs:DescribeLogGroups",
-        "logs:DeleteLogGroup"
-      ],
-      "Resource": "*"
-    }
-  ],
-  "Version": "2012-10-17"
+      {
+          "Effect": "Allow",
+          "Action": [
+              "logs:ListTagsLogGroup",
+              "logs:CreateLogStream",
+              "logs:DescribeLogGroups",
+              "logs:DeleteLogGroup",
+              "logs:CreateLogGroup",
+              "logs:PutLogEvents",
+              "logs:PutRetentionPolicy",
+              "codedeploy:CreateDeployment",
+              "codedeploy:GetDeploymentConfig",
+              "codedeploy:RegisterApplicationRevision",
+              "ec2:DeleteNetworkInterface",
+              "ec2:CreateNetworkInterface",
+              "ec2:Describe*",
+              "iam:CreateRole",
+              "iam:PutRolePolicy",
+              "iam:List*",
+              "iam:PassRole",
+              "iam:GetRole",
+              "iam:DeleteRole",
+              "iam:DeleteRolePolicy",
+              "iam:CreatePolicy",
+              "iam:GetRolePolicy",
+              "lambda:*",
+              "s3:*"
+          ],
+          "Resource": "*"
+      }
+  ]
 }

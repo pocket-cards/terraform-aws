@@ -168,7 +168,7 @@ locals {
       uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C008:${local.lambda_alias_v1}/invocations"
     }
     d001 = {
-      function_name = "${local.lambda_function_prefix}_d001"
+      function_name = "${local.lambda_function_prefix}_D001"
       uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_D001:${local.lambda_alias_v1}/invocations"
     }
     s001 = {
