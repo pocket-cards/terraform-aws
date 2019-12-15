@@ -31,4 +31,3 @@ resource "aws_cloudwatch_event_target" "codepipeline" {
   rule = aws_cloudwatch_event_rule.codepipeline.name
   arn = "${local.lambda_arn}:${local.lambda_function}_M003"
 }
-

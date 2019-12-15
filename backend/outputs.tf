@@ -13,3 +13,9 @@ output "api_invoke_url" {
 output "api_stage_id" {
   value = module.deployment.stage_id
 }
+output "rule_target_arn" {
+  value = {
+    m002: aws_cloudwatch_event_target.codebuild.arn
+    m003: aws_cloudwatch_event_target.codepipeline.arn
+  }
+}
