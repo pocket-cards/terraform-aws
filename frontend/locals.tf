@@ -17,7 +17,7 @@ locals {
   # -----------------------------------------------
   api_domain_name   = "${local.remote_bked.api_domain_name}"
   api_execution_arn = "${local.remote_bked.api_execution_arn}"
-  rest_api_id       = "${local.remote_bked.rest_api_id}"
+  rest_api_id       = "${local.remote_bked.api_id}"
 
   # -----------------------------------------------
   # CloudFront
