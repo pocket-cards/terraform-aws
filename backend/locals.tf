@@ -105,75 +105,76 @@ locals {
   # -----------------------------------------------
   # Lambda
   # -----------------------------------------------
-  lambda_api_prefix      = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions"
-  lambda_arn_prefix      = "${local.lambda_api_prefix}/arn:aws:lambda:${local.region}:${local.account_id}:function"
-  lambda_function_prefix = local.project_name_uc
-  lambda_alias_v1        = "v1"
+  lambda_api      = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions"
+  lambda_arn      = "arn:aws:lambda:${local.region}:${local.account_id}:function"
+  lambda_api_arn  = "${local.lambda_api}/${local.lambda_arn}"
+  lambda_function = local.project_name_uc
+  lambda_alias_v1 = "v1"
 
   lambda = {
     a001 = {
-      function_name = "${local.lambda_function_prefix}_A001"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_A001:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_A001"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_A001:${local.lambda_alias_v1}/invocations"
     }
     a002 = {
-      function_name = "${local.lambda_function_prefix}_A002"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_A002:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_A002"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_A002:${local.lambda_alias_v1}/invocations"
     }
     a003 = {
-      function_name = "${local.lambda_function_prefix}_A003"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_A003:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_A003"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_A003:${local.lambda_alias_v1}/invocations"
     }
     b001 = {
-      function_name = "${local.lambda_function_prefix}_B001"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B001:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_B001"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_B001:${local.lambda_alias_v1}/invocations"
     }
     b002 = {
-      function_name = "${local.lambda_function_prefix}_B002"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B002:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_B002"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_B002:${local.lambda_alias_v1}/invocations"
     }
     b003 = {
-      function_name = "${local.lambda_function_prefix}_B003"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B003:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_B003"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_B003:${local.lambda_alias_v1}/invocations"
     }
     b004 = {
-      function_name = "${local.lambda_function_prefix}_B004"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_B004:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_B004"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_B004:${local.lambda_alias_v1}/invocations"
     }
     c001 = {
-      function_name = "${local.lambda_function_prefix}_C001"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C001:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_C001"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_C001:${local.lambda_alias_v1}/invocations"
     }
     c002 = {
-      function_name = "${local.lambda_function_prefix}_C002"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C002:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_C002"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_C002:${local.lambda_alias_v1}/invocations"
     }
     c003 = {
-      function_name = "${local.lambda_function_prefix}_C003"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C003:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_C003"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_C003:${local.lambda_alias_v1}/invocations"
     }
     c004 = {
-      function_name = "${local.lambda_function_prefix}_C004"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C004:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_C004"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_C004:${local.lambda_alias_v1}/invocations"
     }
     c006 = {
-      function_name = "${local.lambda_function_prefix}_C006"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C006:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_C006"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_C006:${local.lambda_alias_v1}/invocations"
     }
     c007 = {
-      function_name = "${local.lambda_function_prefix}_C007"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C007:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_C007"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_C007:${local.lambda_alias_v1}/invocations"
     }
     c008 = {
-      function_name = "${local.lambda_function_prefix}_C008"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_C008:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_C008"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_C008:${local.lambda_alias_v1}/invocations"
     }
     d001 = {
-      function_name = "${local.lambda_function_prefix}_D001"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_D001:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_D001"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_D001:${local.lambda_alias_v1}/invocations"
     }
     s001 = {
-      function_name = "${local.lambda_function_prefix}_S001"
-      uri           = "${local.lambda_arn_prefix}:${local.lambda_function_prefix}_S001}:${local.lambda_alias_v1}/invocations"
+      function_name = "${local.lambda_function}_S001"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_S001}:${local.lambda_alias_v1}/invocations"
     }
   }
 
