@@ -1,21 +1,15 @@
-output "rest_api_id" {
-  value = module.api
+output "api_id" {
+  value = module.api.id
 }
-
 output "api_domain_name" {
   value = aws_acm_certificate.api.domain_name
 }
-
 output "api_execution_arn" {
-  value = module.deployment.execution_arn
+  value = module.api.execution_arn
 }
-
-# output "rest_api_stage_name" {
-#   value = "${aws_api_gateway_stage.this.stage_name}"
-# }
-# output "name" {
-#   value = "${aws_route53_record.api.name}"
-# }
-# output "fqdn" {
-#   value = "${aws_route53_record.api.fqdn}"
-# }
+output "api_invoke_url" {
+  value = module.deployment.invoke_url
+}
+output "api_stage_id" {
+  value = module.deployment.stage_id
+}
