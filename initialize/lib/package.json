@@ -4,11 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn axios && yarn lodash && yarn moment && yarn xray",
+    "build": "yarn axios && yarn lodash && yarn moment && yarn xray && yarn dbhelper",
     "axios": "cross-env LIBRARY_NAME=axios webpack --config configs/webpack.config.ts",
     "lodash": "cross-env LIBRARY_NAME=lodash webpack --config configs/webpack.config.ts",
     "moment": "cross-env LIBRARY_NAME=moment webpack --config configs/webpack.config.ts",
-    "xray": "cross-env LIBRARY_NAME=aws-xray-sdk webpack --config configs/webpack.config.ts"
+    "xray": "cross-env LIBRARY_NAME=aws-xray-sdk webpack --config configs/webpack.config.ts",
+    "dbhelper": "cross-env LIBRARY_NAME=dynamodb-helper webpack --config configs/webpack.dbhelper.ts"
   },
   "devDependencies": {
     "@types/node": "latest",
@@ -27,6 +28,7 @@
     "aws-xray-sdk": "^2.3.4",
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "dynamodb-helper": "https://github.com/wwalpha/dynamodb-helper.git"
   }
 }
