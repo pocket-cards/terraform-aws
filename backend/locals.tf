@@ -168,6 +168,11 @@ locals {
       function_name = "${local.lambda_function}_C008"
       uri           = "${local.lambda_api_arn}:${local.lambda_function}_C008:${local.lambda_alias_v1}/invocations"
     }
+    m002 = {
+      function_name = "${local.lambda_function}_M002"
+      uri           = "${local.lambda_api_arn}:${local.lambda_function}_M002:${local.lambda_alias_v1}/invocations"
+      arn           = "${local.lambda_arn}:${local.lambda_function}_M002:${local.lambda_alias_v1}"
+    }
     d001 = {
       function_name = "${local.lambda_function}_D001"
       uri           = "${local.lambda_api_arn}:${local.lambda_function}_D001:${local.lambda_alias_v1}/invocations"
