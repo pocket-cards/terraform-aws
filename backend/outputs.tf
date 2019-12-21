@@ -22,3 +22,6 @@ output "rule_target_arn" {
 output "codedeploy_app_backend_name" {
   value = aws_codedeploy_app.backend.name
 }
+output "sns_topic_notify_arn" {
+  value = aws_sns_topic.notify.arn
+}
