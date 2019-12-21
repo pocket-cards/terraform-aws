@@ -74,3 +74,22 @@ resource "aws_lambda_layer_version" "axios" {
 
   compatible_runtimes = ["nodejs8.10", "nodejs10.x"]
 }
+
+// -----------------------------------------
+// dynamodb-helper
+// -----------------------------------------
+data "archive_file" "dbhelper" {
+  type = "zip"
+
+  source_dir  = "build/dynamodb-helper"
+  output_path = "dist/dynamodb-helper/nodejs.zip"
+}
+
+resource "aws_lambda_layer_version" "dbhelper" {
+  layer_name = "dbhelper"
+
+  filename         = "${data.archive_file.dbhelper.output_path}"
+  source_code_hash = "${filebase64sha256("${data.archive_file.dbhelper.output_path}")}"
+
+  compatible_runtimes = ["nodejs8.10", "nodejs10.x"]
+}
