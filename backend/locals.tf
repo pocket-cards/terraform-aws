@@ -177,25 +177,6 @@ locals {
       uri           = "${local.lambda_api_arn}:${local.lambda_function}_S001}:${local.lambda_alias_v1}/invocations"
     }
   }
-
-  deployment_group_names = [
-    local.lambda.a001.function_name,
-    local.lambda.a002.function_name,
-    local.lambda.a003.function_name,
-    local.lambda.b001.function_name,
-    local.lambda.b002.function_name,
-    local.lambda.b003.function_name,
-    local.lambda.b004.function_name,
-    local.lambda.c001.function_name,
-    local.lambda.c002.function_name,
-    local.lambda.c003.function_name,
-    local.lambda.c004.function_name,
-    local.lambda.c006.function_name,
-    local.lambda.c007.function_name,
-    local.lambda.c008.function_name,
-    local.lambda.d001.function_name,
-    local.lambda.s001.function_name,
-  ]
 }
 
 # -----------------------------------------------

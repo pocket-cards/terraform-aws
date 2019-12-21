@@ -15,7 +15,10 @@ output "api_stage_id" {
 }
 output "rule_target_arn" {
   value = {
-    m002: aws_cloudwatch_event_target.codebuild.arn
-    m003: aws_cloudwatch_event_target.codepipeline.arn
+    m002 : aws_cloudwatch_event_target.codebuild.arn
+    m003 : aws_cloudwatch_event_target.codepipeline.arn
   }
+}
+output "codedeploy_app_backend_name" {
+  value = aws_codedeploy_app.backend.name
 }
