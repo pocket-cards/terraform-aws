@@ -86,7 +86,7 @@ data "archive_file" "dbhelper" {
 }
 
 resource "aws_lambda_layer_version" "dbhelper" {
-  layer_name = "dbhelper"
+  layer_name = "dynamodb-helper"
 
   filename         = "${data.archive_file.dbhelper.output_path}"
   source_code_hash = "${filebase64sha256("${data.archive_file.dbhelper.output_path}")}"
