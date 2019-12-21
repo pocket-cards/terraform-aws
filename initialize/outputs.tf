@@ -43,10 +43,11 @@ output "bucket_name_artifacts" {
 # --------------------------------------------------------------------------------
 output "layers" {
   value = {
-    xray   = "${aws_lambda_layer_version.xray.arn}"
-    moment = "${aws_lambda_layer_version.moment.arn}"
-    lodash = "${aws_lambda_layer_version.lodash.arn}"
-    axios  = "${aws_lambda_layer_version.axios.arn}"
+    xray     = "${aws_lambda_layer_version.xray.arn}"
+    moment   = "${aws_lambda_layer_version.moment.arn}"
+    lodash   = "${aws_lambda_layer_version.lodash.arn}"
+    axios    = "${aws_lambda_layer_version.axios.arn}"
+    dbhelper = "${aws_lambda_layer_version.dbhelper.arn}"
   }
 }
 # output "host_zone_id" {
