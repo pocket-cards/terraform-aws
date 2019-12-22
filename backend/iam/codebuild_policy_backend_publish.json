@@ -4,20 +4,10 @@
     {
       "Effect": "Allow",
       "Action": [
-        "logs:CreateLogGroup",
-        "logs:ListTagsLogGroup",
-        "logs:CreateLogStream",
-        "logs:DescribeLogGroups",
-        "logs:DeleteLogGroup",
-        "logs:PutLogEvents",
-        "logs:PutRetentionPolicy",
         "codedeploy:CreateDeployment",
         "codedeploy:CreateDeploymentGroup",
         "codedeploy:Get*",
         "codedeploy:RegisterApplicationRevision",
-        "ec2:DeleteNetworkInterface",
-        "ec2:CreateNetworkInterface",
-        "ec2:Describe*",
         "iam:CreateRole",
         "iam:PutRolePolicy",
         "iam:List*",
@@ -27,8 +17,8 @@
         "iam:DeleteRolePolicy",
         "iam:CreatePolicy",
         "iam:GetRolePolicy",
-        "lambda:*",
-        "s3:*"
+        "iam:AttachRolePolicy",
+        "lambda:*"
       ],
       "Resource": "*"
     }

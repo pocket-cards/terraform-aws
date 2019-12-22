@@ -1,5 +1,13 @@
 # -----------------------------------------------
-# AWS Codebuild - Backend Build
+# AWS CodeBuild IAM Policy - CodeBuild Basic Policy
+# -----------------------------------------------
+resource "aws_iam_policy" "codebuild_basic" {
+  name   = "${local.project_name_uc}_CodeBuild_BasicPolicy"
+  policy = file("iam/codebuild_policy_basic.json")
+}
+
+# -----------------------------------------------
+# AWS CodeBuild - Backend Build
 # -----------------------------------------------
 resource "aws_codebuild_project" "backend_build" {
   depends_on = [aws_iam_role.codebuild_backend_build_role]
@@ -46,26 +54,34 @@ resource "aws_iam_role" "codebuild_backend_build_role" {
 # -----------------------------------------------
 resource "aws_iam_policy" "codebuild_backend_build_policy" {
   name   = "${local.project_name_uc}_CodeBuild_BackendBuildPolicy"
-  policy = file("iam/codebuild_policy.json")
+  policy = file("iam/codebuild_policy_backend_build.json")
 }
 
 # -----------------------------------------------
 # AWS Codebuild IAM Role Policy Attachment - Backend Build
 # -----------------------------------------------
-resource "aws_iam_role_policy_attachment" "codebuild_backend_build_attach" {
+resource "aws_iam_role_policy_attachment" "codebuild_backend_build_attach1" {
   role       = aws_iam_role.codebuild_backend_build_role.name
   policy_arn = aws_iam_policy.codebuild_backend_build_policy.arn
+}
+
+# -----------------------------------------------
+# AWS Codebuild IAM Role Policy Attachment - Backend Build
+# -----------------------------------------------
+resource "aws_iam_role_policy_attachment" "codebuild_backend_build_attach2" {
+  role       = aws_iam_role.codebuild_backend_build_role.name
+  policy_arn = aws_iam_policy.codebuild_basic.arn
 }
 
 # -----------------------------------------------
 # AWS Codebuild - Backend publish
 # -----------------------------------------------
 resource "aws_codebuild_project" "backend_publish" {
-  depends_on = [aws_iam_role.codebuild_backend_publish_role]
+  depends_on = [aws_iam_role.codebuild_backend_publish]
 
   name          = "${local.project_name_uc}-BackendPublish"
   build_timeout = "5"
-  service_role  = aws_iam_role.codebuild_backend_publish_role.arn
+  service_role  = aws_iam_role.codebuild_backend_publish.arn
 
   artifacts {
     type = "CODEPIPELINE"
@@ -117,9 +133,10 @@ resource "aws_codebuild_project" "backend_publish" {
 # -----------------------------------------------
 # AWS Codebuild IAM Role - Backend publish
 # -----------------------------------------------
-resource "aws_iam_role" "codebuild_backend_publish_role" {
+resource "aws_iam_role" "codebuild_backend_publish" {
   name               = "${local.project_name_uc}_CodeBuild_BackendPublishRole"
   assume_role_policy = file("iam/codebuild_principals.json")
+
   lifecycle {
     create_before_destroy = false
   }
@@ -128,17 +145,25 @@ resource "aws_iam_role" "codebuild_backend_publish_role" {
 # -----------------------------------------------
 # AWS Codebuild IAM Policy - Backend publish
 # -----------------------------------------------
-resource "aws_iam_policy" "codebuild_backend_publish_policy" {
+resource "aws_iam_policy" "codebuild_backend_publish" {
   name   = "${local.project_name_uc}_CodeBuild_BackendPublishPolicy"
-  policy = file("iam/codebuild_policy.json")
+  policy = file("iam/codebuild_policy_backend_publish.json")
 }
 
 # -----------------------------------------------
 # AWS Codebuild IAM Role Policy Attachment - Backend publish
 # -----------------------------------------------
-resource "aws_iam_role_policy_attachment" "codebuild_backend_publish_attach" {
-  role       = aws_iam_role.codebuild_backend_publish_role.name
-  policy_arn = aws_iam_policy.codebuild_backend_publish_policy.arn
+resource "aws_iam_role_policy_attachment" "codebuild_backend_publish_attach1" {
+  role       = aws_iam_role.codebuild_backend_publish.name
+  policy_arn = aws_iam_policy.codebuild_backend_publish.arn
+}
+
+# -----------------------------------------------
+# AWS Codebuild IAM Role Policy Attachment - Backend Build
+# -----------------------------------------------
+resource "aws_iam_role_policy_attachment" "codebuild_backend_publish_attach2" {
+  role       = aws_iam_role.codebuild_backend_publish.name
+  policy_arn = aws_iam_policy.codebuild_basic.arn
 }
 
 # -----------------------------------------------
@@ -189,27 +214,27 @@ resource "aws_iam_role_policy_attachment" "codebuild_backend_publish_attach" {
 # -----------------------------------------------
 # AWS Codebuild IAM Role - Automation
 # -----------------------------------------------
-resource "aws_iam_role" "codebuild_automation_role" {
-  name               = "${local.project_name_uc}_CodeBuild_AutomationRole"
-  assume_role_policy = file("iam/codebuild_principals.json")
-  lifecycle {
-    create_before_destroy = false
-  }
-}
+# resource "aws_iam_role" "codebuild_automation_role" {
+#   name               = "${local.project_name_uc}_CodeBuild_AutomationRole"
+#   assume_role_policy = file("iam/codebuild_principals.json")
+#   lifecycle {
+#     create_before_destroy = false
+#   }
+# }
 
 # -----------------------------------------------
 # AWS Codebuild IAM Policy - Automation
 # -----------------------------------------------
-resource "aws_iam_policy" "codebuild_automation_policy" {
-  name   = "${local.project_name_uc}_CodeBuild_AutomationPolicy"
-  policy = file("iam/codebuild_policy_automation.json")
-}
+# resource "aws_iam_policy" "codebuild_automation_policy" {
+#   name   = "${local.project_name_uc}_CodeBuild_AutomationPolicy"
+#   policy = file("iam/codebuild_policy_automation.json")
+# }
 
 # -----------------------------------------------
 # AWS Codebuild IAM Role Policy Attachment - Automation
 # -----------------------------------------------
-resource "aws_iam_role_policy_attachment" "codebuild_automation_attach" {
-  role       = aws_iam_role.codebuild_automation_role.name
-  policy_arn = aws_iam_policy.codebuild_automation_policy.arn
-}
+# resource "aws_iam_role_policy_attachment" "codebuild_automation_attach" {
+#   role       = aws_iam_role.codebuild_automation_role.name
+#   policy_arn = aws_iam_policy.codebuild_automation_policy.arn
+# }
 
